@@ -6,7 +6,7 @@ info:
     url: https://cashful.africa
   description: Developer documentation for the Cashful platform.
   title: Cashful API
-  version: 0.6.1
+  version: 0.6.2
 servers:
 - description: Live
   url: https://api.cashful.africa
@@ -2842,18 +2842,19 @@ paths:
         "200":
           content:
             application/json:
+              example:
+                id: customer_789
+                merchantId: merchant_456
+                phoneNumber: "+27821234567"
+                email: john.doe@example.com
+                name: John Doe
+                metadata:
+                  source: web
+                  referralCode: FRIEND123
+                createdAt: 2025-01-15T10:30:00.000Z
+                updatedAt: 2025-01-15T10:30:00.000Z
               schema:
-                example:
-                  id: customer_789
-                  merchantId: merchant_456
-                  phoneNumber: "+27821234567"
-                  email: john.doe@example.com
-                  name: John Doe
-                  metadata:
-                    source: web
-                    referralCode: FRIEND123
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T10:30:00.000Z
+                $ref: "#/components/schemas/CustomerResponseDto"
           description: Successfully retrieved customer details
         "401":
           content:
@@ -2901,18 +2902,19 @@ paths:
         "200":
           content:
             application/json:
+              example:
+                id: customer_789
+                merchantId: merchant_456
+                phoneNumber: "+27821234567"
+                email: john.doe@example.com
+                name: John Doe
+                metadata:
+                  source: web
+                  referralCode: FRIEND123
+                createdAt: 2025-01-15T10:30:00.000Z
+                updatedAt: 2025-01-15T10:30:00.000Z
               schema:
-                example:
-                  id: customer_789
-                  merchantId: merchant_456
-                  phoneNumber: "+27821234567"
-                  email: john.doe@example.com
-                  name: John Doe
-                  metadata:
-                    source: web
-                    referralCode: FRIEND123
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T10:30:00.000Z
+                $ref: "#/components/schemas/CustomerResponseDto"
           description: Customer updated successfully
         "400":
           content:
@@ -2963,16 +2965,17 @@ paths:
         "200":
           content:
             application/json:
+              example:
+                id: balance_001
+                customerId: customer_789
+                amount: 5000
+                currency: ZAR
+                available: 5000
+                pending: 0
+                createdAt: 2025-01-15T10:30:00.000Z
+                updatedAt: 2025-01-15T10:30:00.000Z
               schema:
-                example:
-                  id: balance_001
-                  customerId: customer_789
-                  amount: 5000
-                  currency: ZAR
-                  available: 5000
-                  pending: 0
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T10:30:00.000Z
+                $ref: "#/components/schemas/CustomerBalanceDto"
           description: Successfully retrieved customer's cash balance
         "401":
           content:
@@ -3119,24 +3122,25 @@ paths:
         "200":
           content:
             application/json:
+              example:
+                data:
+                - id: pm_001
+                  customerId: customer_789
+                  type: card
+                  brand: visa
+                  last4: "4242"
+                  expiryMonth: 12
+                  expiryYear: 2025
+                  isDefault: true
+                  createdAt: 2025-01-15T10:30:00.000Z
+                  updatedAt: 2025-01-15T10:30:00.000Z
+                pagination:
+                  limit: 50
+                  offset: 0
+                  total: 1
+                  hasMore: false
               schema:
-                example:
-                  data:
-                  - id: pm_001
-                    customerId: customer_789
-                    type: card
-                    brand: visa
-                    last4: "4242"
-                    expiryMonth: 12
-                    expiryYear: 2025
-                    isDefault: true
-                    createdAt: 2025-01-15T10:30:00.000Z
-                    updatedAt: 2025-01-15T10:30:00.000Z
-                  pagination:
-                    limit: 50
-                    offset: 0
-                    total: 1
-                    hasMore: false
+                $ref: "#/components/schemas/ListCustomerPaymentMethodsResponseDto"
           description: Successfully retrieved customer's payment methods
         "401":
           content:
@@ -4367,20 +4371,21 @@ paths:
         "200":
           content:
             application/json:
+              example:
+                id: product_001
+                merchantId: merchant_456
+                name: Airtime
+                description: Mobile phone airtime
+                amount: 5000
+                currency: ZAR
+                active: true
+                metadata:
+                  category: telecom
+                  provider: vodacom
+                createdAt: 2025-01-15T10:30:00.000Z
+                updatedAt: 2025-01-15T10:30:00.000Z
               schema:
-                example:
-                  id: product_001
-                  merchantId: merchant_456
-                  name: Airtime
-                  description: Mobile phone airtime
-                  amount: 5000
-                  currency: ZAR
-                  active: true
-                  metadata:
-                    category: telecom
-                    provider: vodacom
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T10:30:00.000Z
+                $ref: "#/components/schemas/ProductResponseDto"
           description: Product updated successfully
         "400":
           content:
@@ -8313,6 +8318,53 @@ components:
       required:
       - metadata
       type: object
+    CustomerBalanceDto:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        deletedAt: 2000-01-23T04:56:07.000+00:00
+        amount: 0.8008281904610115
+        merchantId: merchantId
+        pending: 1.4658129805029452
+        customerId: customerId
+        available: 6.027456183070403
+        currency: currency
+        id: id
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Unique identifier
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        deletedAt:
+          format: date-time
+          type: string
+        customerId:
+          type: string
+        merchantId:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        available:
+          type: number
+        pending:
+          type: number
+      required:
+      - amount
+      - available
+      - createdAt
+      - currency
+      - customerId
+      - id
+      - pending
+      - updatedAt
+      type: object
     CustomerTransactionDto:
       example:
         amount: 0.8008281904610115
@@ -8405,6 +8457,94 @@ components:
         data:
           items:
             $ref: "#/components/schemas/CustomerTransactionDto"
+          type: array
+        pagination:
+          $ref: "#/components/schemas/PaginationResponseDto"
+      required:
+      - data
+      - pagination
+      type: object
+    CustomerPaymentMethodDto:
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        last4: last4
+        deletedAt: 2000-01-23T04:56:07.000+00:00
+        isDefault: true
+        customerId: customerId
+        expiryMonth: 0.8008281904610115
+        id: id
+        expiryYear: 6.027456183070403
+        type: type
+        brand: brand
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Unique identifier
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        deletedAt:
+          format: date-time
+          type: string
+        customerId:
+          type: string
+        type:
+          type: string
+        brand:
+          type: string
+        last4:
+          type: string
+        expiryMonth:
+          type: number
+        expiryYear:
+          type: number
+        isDefault:
+          type: boolean
+      required:
+      - createdAt
+      - customerId
+      - id
+      - type
+      - updatedAt
+      type: object
+    ListCustomerPaymentMethodsResponseDto:
+      example:
+        pagination:
+          total: 150
+          offset: 0
+          limit: 50
+          hasMore: true
+        data:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          last4: last4
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          isDefault: true
+          customerId: customerId
+          expiryMonth: 0.8008281904610115
+          id: id
+          expiryYear: 6.027456183070403
+          type: type
+          brand: brand
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          last4: last4
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          isDefault: true
+          customerId: customerId
+          expiryMonth: 0.8008281904610115
+          id: id
+          expiryYear: 6.027456183070403
+          type: type
+          brand: brand
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/CustomerPaymentMethodDto"
           type: array
         pagination:
           $ref: "#/components/schemas/PaginationResponseDto"

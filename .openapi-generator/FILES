@@ -61,6 +61,8 @@ docs/CreateProductDto.md
 docs/CreatePurchaseDto.md
 docs/CreateTransferDto.md
 docs/CreateWebhookEndpointDto.md
+docs/CustomerBalanceDto.md
+docs/CustomerPaymentMethodDto.md
 docs/CustomerResponseDto.md
 docs/CustomerStatsDto.md
 docs/CustomerTransactionDto.md
@@ -110,6 +112,7 @@ docs/LinkSocialResponseDto.md
 docs/ListAccountsResponseDto.md
 docs/ListApiKeysResponseDto.md
 docs/ListCheckoutSessionsResponseDto.md
+docs/ListCustomerPaymentMethodsResponseDto.md
 docs/ListCustomerTransactionsResponseDto.md
 docs/ListCustomersResponseDto.md
 docs/ListEventsResponseDto.md
@@ -290,6 +293,8 @@ src/Cashful.Sdk.Test/Model/CreateProductDtoTests.cs
 src/Cashful.Sdk.Test/Model/CreatePurchaseDtoTests.cs
 src/Cashful.Sdk.Test/Model/CreateTransferDtoTests.cs
 src/Cashful.Sdk.Test/Model/CreateWebhookEndpointDtoTests.cs
+src/Cashful.Sdk.Test/Model/CustomerBalanceDtoTests.cs
+src/Cashful.Sdk.Test/Model/CustomerPaymentMethodDtoTests.cs
 src/Cashful.Sdk.Test/Model/CustomerResponseDtoTests.cs
 src/Cashful.Sdk.Test/Model/CustomerStatsDtoTests.cs
 src/Cashful.Sdk.Test/Model/CustomerTransactionDtoTests.cs
@@ -336,6 +341,7 @@ src/Cashful.Sdk.Test/Model/LinkSocialResponseDtoTests.cs
 src/Cashful.Sdk.Test/Model/ListAccountsResponseDtoTests.cs
 src/Cashful.Sdk.Test/Model/ListApiKeysResponseDtoTests.cs
 src/Cashful.Sdk.Test/Model/ListCheckoutSessionsResponseDtoTests.cs
+src/Cashful.Sdk.Test/Model/ListCustomerPaymentMethodsResponseDtoTests.cs
 src/Cashful.Sdk.Test/Model/ListCustomerTransactionsResponseDtoTests.cs
 src/Cashful.Sdk.Test/Model/ListCustomersResponseDtoTests.cs
 src/Cashful.Sdk.Test/Model/ListEventsResponseDtoTests.cs
@@ -523,6 +529,8 @@ src/Cashful.Sdk/Model/CreateProductDto.cs
 src/Cashful.Sdk/Model/CreatePurchaseDto.cs
 src/Cashful.Sdk/Model/CreateTransferDto.cs
 src/Cashful.Sdk/Model/CreateWebhookEndpointDto.cs
+src/Cashful.Sdk/Model/CustomerBalanceDto.cs
+src/Cashful.Sdk/Model/CustomerPaymentMethodDto.cs
 src/Cashful.Sdk/Model/CustomerResponseDto.cs
 src/Cashful.Sdk/Model/CustomerStatsDto.cs
 src/Cashful.Sdk/Model/CustomerTransactionDto.cs
@@ -569,6 +577,7 @@ src/Cashful.Sdk/Model/LinkSocialResponseDto.cs
 src/Cashful.Sdk/Model/ListAccountsResponseDto.cs
 src/Cashful.Sdk/Model/ListApiKeysResponseDto.cs
 src/Cashful.Sdk/Model/ListCheckoutSessionsResponseDto.cs
+src/Cashful.Sdk/Model/ListCustomerPaymentMethodsResponseDto.cs
 src/Cashful.Sdk/Model/ListCustomerTransactionsResponseDto.cs
 src/Cashful.Sdk/Model/ListCustomersResponseDto.cs
 src/Cashful.Sdk/Model/ListEventsResponseDto.cs

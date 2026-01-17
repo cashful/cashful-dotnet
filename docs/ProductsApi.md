@@ -321,7 +321,7 @@ catch (ApiException e)
 
 <a id="updateproduct"></a>
 # **UpdateProduct**
-> Object UpdateProduct (string id, UpdateProductDto updateProductDto)
+> ProductResponseDto UpdateProduct (string id, UpdateProductDto updateProductDto)
 
 Update Product
 
@@ -357,7 +357,7 @@ namespace Example
             try
             {
                 // Update Product
-                Object result = apiInstance.UpdateProduct(id, updateProductDto);
+                ProductResponseDto result = apiInstance.UpdateProduct(id, updateProductDto);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -378,7 +378,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Update Product
-    ApiResponse<Object> response = apiInstance.UpdateProductWithHttpInfo(id, updateProductDto);
+    ApiResponse<ProductResponseDto> response = apiInstance.UpdateProductWithHttpInfo(id, updateProductDto);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -400,7 +400,7 @@ catch (ApiException e)
 
 ### Return type
 
-**Object**
+[**ProductResponseDto**](ProductResponseDto.md)
 
 ### Authorization
 

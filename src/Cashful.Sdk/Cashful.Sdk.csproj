@@ -12,7 +12,7 @@
     <Description>Cashful .NET SDK for payment integrations</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>Cashful.Sdk</RootNamespace>
-    <Version>0.6.1</Version>
+    <Version>0.6.2</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cashful.Sdk.xml</DocumentationFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Cashful-Co/cashful-dotnet.git</RepositoryUrl>

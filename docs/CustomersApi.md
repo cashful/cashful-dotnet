@@ -116,7 +116,7 @@ catch (ApiException e)
 
 <a id="getcustomerbalance"></a>
 # **GetCustomerBalance**
-> Object GetCustomerBalance (string id)
+> CustomerBalanceDto GetCustomerBalance (string id)
 
 Get Customer's Cash Balance
 
@@ -151,7 +151,7 @@ namespace Example
             try
             {
                 // Get Customer's Cash Balance
-                Object result = apiInstance.GetCustomerBalance(id);
+                CustomerBalanceDto result = apiInstance.GetCustomerBalance(id);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -172,7 +172,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Get Customer's Cash Balance
-    ApiResponse<Object> response = apiInstance.GetCustomerBalanceWithHttpInfo(id);
+    ApiResponse<CustomerBalanceDto> response = apiInstance.GetCustomerBalanceWithHttpInfo(id);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -193,7 +193,7 @@ catch (ApiException e)
 
 ### Return type
 
-**Object**
+[**CustomerBalanceDto**](CustomerBalanceDto.md)
 
 ### Authorization
 
@@ -217,7 +217,7 @@ catch (ApiException e)
 
 <a id="listcustomerpaymentmethods"></a>
 # **ListCustomerPaymentMethods**
-> Object ListCustomerPaymentMethods (string id, decimal? limit = null, decimal? offset = null)
+> ListCustomerPaymentMethodsResponseDto ListCustomerPaymentMethods (string id, decimal? limit = null, decimal? offset = null)
 
 List Customer's Payment Methods
 
@@ -254,7 +254,7 @@ namespace Example
             try
             {
                 // List Customer's Payment Methods
-                Object result = apiInstance.ListCustomerPaymentMethods(id, limit, offset);
+                ListCustomerPaymentMethodsResponseDto result = apiInstance.ListCustomerPaymentMethods(id, limit, offset);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -275,7 +275,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Customer's Payment Methods
-    ApiResponse<Object> response = apiInstance.ListCustomerPaymentMethodsWithHttpInfo(id, limit, offset);
+    ApiResponse<ListCustomerPaymentMethodsResponseDto> response = apiInstance.ListCustomerPaymentMethodsWithHttpInfo(id, limit, offset);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -298,7 +298,7 @@ catch (ApiException e)
 
 ### Return type
 
-**Object**
+[**ListCustomerPaymentMethodsResponseDto**](ListCustomerPaymentMethodsResponseDto.md)
 
 ### Authorization
 
@@ -537,7 +537,7 @@ catch (ApiException e)
 
 <a id="retrievecustomer"></a>
 # **RetrieveCustomer**
-> Object RetrieveCustomer (string id)
+> CustomerResponseDto RetrieveCustomer (string id)
 
 Retrieve Customer
 
@@ -572,7 +572,7 @@ namespace Example
             try
             {
                 // Retrieve Customer
-                Object result = apiInstance.RetrieveCustomer(id);
+                CustomerResponseDto result = apiInstance.RetrieveCustomer(id);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -593,7 +593,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Retrieve Customer
-    ApiResponse<Object> response = apiInstance.RetrieveCustomerWithHttpInfo(id);
+    ApiResponse<CustomerResponseDto> response = apiInstance.RetrieveCustomerWithHttpInfo(id);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -614,7 +614,7 @@ catch (ApiException e)
 
 ### Return type
 
-**Object**
+[**CustomerResponseDto**](CustomerResponseDto.md)
 
 ### Authorization
 
@@ -638,7 +638,7 @@ catch (ApiException e)
 
 <a id="updatecustomer"></a>
 # **UpdateCustomer**
-> Object UpdateCustomer (string id, UpdateCustomerDto updateCustomerDto)
+> CustomerResponseDto UpdateCustomer (string id, UpdateCustomerDto updateCustomerDto)
 
 Update Customer
 
@@ -674,7 +674,7 @@ namespace Example
             try
             {
                 // Update Customer
-                Object result = apiInstance.UpdateCustomer(id, updateCustomerDto);
+                CustomerResponseDto result = apiInstance.UpdateCustomer(id, updateCustomerDto);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -695,7 +695,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Update Customer
-    ApiResponse<Object> response = apiInstance.UpdateCustomerWithHttpInfo(id, updateCustomerDto);
+    ApiResponse<CustomerResponseDto> response = apiInstance.UpdateCustomerWithHttpInfo(id, updateCustomerDto);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -717,7 +717,7 @@ catch (ApiException e)
 
 ### Return type
 
-**Object**
+[**CustomerResponseDto**](CustomerResponseDto.md)
 
 ### Authorization
 
