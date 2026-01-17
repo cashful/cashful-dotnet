@@ -1,0 +1,10 @@
+# Cashful.Sdk.Model.SendVerificationEmailResponseDto
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Status** | **bool** | Indicates if email was sent successfully | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+

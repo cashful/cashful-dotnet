@@ -1,0 +1,10 @@
+# Cashful.Sdk.Model.DeleteApiKeyResponseDto
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Success** | **bool** | API key deleted successfully | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+

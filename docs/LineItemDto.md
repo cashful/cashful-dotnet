@@ -1,0 +1,13 @@
+# Cashful.Sdk.Model.LineItemDto
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**ProductId** | **string** | The unique identifier of the product | [optional] 
+**Quantity** | **decimal** | The quantity of the product | [optional] 
+**Amount** | **decimal** | The amount for this line item in the smallest currency unit | 
+**Currency** | **string** | The three-letter ISO 4217 currency code | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
