@@ -6,12 +6,14 @@ info:
     url: https://cashful.africa
   description: Developer documentation for the Cashful platform.
   title: Cashful API
-  version: 0.6.0
+  version: 0.6.1
 servers:
+- description: Live
+  url: https://api.cashful.africa
+- description: Testing
+  url: https://sandbox.api.cashful.africa
 - description: Development
   url: http://localhost:9000
-- description: Production
-  url: https://api.cashful.africa
 paths:
   /api/canary/health:
     get:
