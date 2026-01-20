@@ -15,7 +15,7 @@
     <Version>0.6.2</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Cashful.Sdk.xml</DocumentationFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/Cashful-Co/cashful-dotnet.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/cashful/cashful-dotnet.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>Minor update</PackageReleaseNotes>
     <PackageTags>cashful payments africa sdk</PackageTags>
