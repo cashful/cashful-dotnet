@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.MerchantBalanceResponseDto
+# Cashful.Model.MerchantBalanceResponseDto
 
 ## Properties
 

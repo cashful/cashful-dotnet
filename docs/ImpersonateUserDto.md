@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ImpersonateUserDto
+# Cashful.Model.ImpersonateUserDto
 
 ## Properties
 

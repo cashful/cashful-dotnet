@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.AdminSetUserPasswordResponseDto
+# Cashful.Model.AdminSetUserPasswordResponseDto
 
 ## Properties
 

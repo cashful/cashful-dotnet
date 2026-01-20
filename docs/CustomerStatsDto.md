@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.CustomerStatsDto
+# Cashful.Model.CustomerStatsDto
 
 ## Properties
 

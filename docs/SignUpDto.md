@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SignUpDto
+# Cashful.Model.SignUpDto
 
 ## Properties
 

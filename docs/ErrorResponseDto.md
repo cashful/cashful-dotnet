@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ErrorResponseDto
+# Cashful.Model.ErrorResponseDto
 
 ## Properties
 

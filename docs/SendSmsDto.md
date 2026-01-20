@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SendSmsDto
+# Cashful.Model.SendSmsDto
 
 ## Properties
 

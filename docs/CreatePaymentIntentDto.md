@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.CreatePaymentIntentDto
+# Cashful.Model.CreatePaymentIntentDto
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.MetricStatsDto
+# Cashful.Model.MetricStatsDto
 
 ## Properties
 

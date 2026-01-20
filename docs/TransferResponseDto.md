@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.TransferResponseDto
+# Cashful.Model.TransferResponseDto
 
 ## Properties
 

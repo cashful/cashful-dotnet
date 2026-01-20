@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ChangePasswordResponseDto
+# Cashful.Model.ChangePasswordResponseDto
 
 ## Properties
 

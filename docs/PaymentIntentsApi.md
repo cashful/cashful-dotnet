@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.PaymentIntentsApi
+# Cashful.Api.PaymentIntentsApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -23,9 +23,9 @@ Cancels a payment intent that has not yet succeeded or failed.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -125,9 +125,9 @@ Confirms a payment intent that requires confirmation. This initiates the actual 
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -227,9 +227,9 @@ Creates a payment intent for off-session charges. Used for subscriptions, recurr
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -330,9 +330,9 @@ Lists payment intents for a specific merchant with pagination and filtering.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -432,9 +432,9 @@ Retrieves the current state of a specific payment intent.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.BalanceHistoryResponseDto
+# Cashful.Model.BalanceHistoryResponseDto
 
 ## Properties
 

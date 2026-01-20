@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.IveriParamsDto
+# Cashful.Model.IveriParamsDto
 
 ## Properties
 

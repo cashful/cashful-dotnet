@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.PresignedUploadResponseDto
+# Cashful.Model.PresignedUploadResponseDto
 
 ## Properties
 

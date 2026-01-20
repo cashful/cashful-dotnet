@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.IsUsernameAvailableResponseDto
+# Cashful.Model.IsUsernameAvailableResponseDto
 
 ## Properties
 

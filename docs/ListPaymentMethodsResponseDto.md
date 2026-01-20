@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ListPaymentMethodsResponseDto
+# Cashful.Model.ListPaymentMethodsResponseDto
 
 ## Properties
 

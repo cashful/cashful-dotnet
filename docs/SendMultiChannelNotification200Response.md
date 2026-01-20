@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SendMultiChannelNotification200Response
+# Cashful.Model.SendMultiChannelNotification200Response
 
 ## Properties
 

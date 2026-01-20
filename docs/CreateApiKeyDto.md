@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.CreateApiKeyDto
+# Cashful.Model.CreateApiKeyDto
 
 ## Properties
 

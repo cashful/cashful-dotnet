@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.RefreshTokenResponseDto
+# Cashful.Model.RefreshTokenResponseDto
 
 ## Properties
 

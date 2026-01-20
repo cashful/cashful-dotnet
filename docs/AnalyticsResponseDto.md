@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.AnalyticsResponseDto
+# Cashful.Model.AnalyticsResponseDto
 
 ## Properties
 

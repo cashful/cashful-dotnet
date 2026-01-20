@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.GetAccessTokenDto
+# Cashful.Model.GetAccessTokenDto
 
 ## Properties
 

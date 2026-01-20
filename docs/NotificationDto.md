@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.NotificationDto
+# Cashful.Model.NotificationDto
 
 ## Properties
 

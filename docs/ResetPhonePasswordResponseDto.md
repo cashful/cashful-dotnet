@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ResetPhonePasswordResponseDto
+# Cashful.Model.ResetPhonePasswordResponseDto
 
 ## Properties
 

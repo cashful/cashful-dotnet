@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.LinkSocialDto
+# Cashful.Model.LinkSocialDto
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.AdminCreateUserResponseDto
+# Cashful.Model.AdminCreateUserResponseDto
 
 ## Properties
 

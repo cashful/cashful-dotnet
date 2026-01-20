@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.ComplianceApi
+# Cashful.Api.ComplianceApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -19,9 +19,9 @@ Create Compliance info
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -118,9 +118,9 @@ Get Compliance info for organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -216,9 +216,9 @@ Update Compliance info
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

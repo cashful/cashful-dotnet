@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.InitiatePaymentResponseDto
+# Cashful.Model.InitiatePaymentResponseDto
 
 ## Properties
 

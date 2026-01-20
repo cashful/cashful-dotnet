@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.PaymentLinksApi
+# Cashful.Api.PaymentLinksApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -22,9 +22,9 @@ Creates a re-usable hosted link. Can be used for: (1) Selling a product, or (2) 
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -123,9 +123,9 @@ Retrieves all payment links created by the merchant.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -231,9 +231,9 @@ Retrieves a single payment link by ID.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -331,9 +331,9 @@ Updates a link's details, most commonly to set active: false.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

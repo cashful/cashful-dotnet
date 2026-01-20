@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SendSms200Response
+# Cashful.Model.SendSms200Response
 
 ## Properties
 

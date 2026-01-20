@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.VerifyPhoneNumberResponseDto
+# Cashful.Model.VerifyPhoneNumberResponseDto
 
 ## Properties
 

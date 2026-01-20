@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.RejectInvitationDto
+# Cashful.Model.RejectInvitationDto
 
 ## Properties
 

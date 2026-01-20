@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.BanUserDto
+# Cashful.Model.BanUserDto
 
 ## Properties
 

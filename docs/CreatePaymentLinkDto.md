@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.CreatePaymentLinkDto
+# Cashful.Model.CreatePaymentLinkDto
 
 ## Properties
 

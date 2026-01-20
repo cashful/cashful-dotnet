@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ListCustomersResponseDto
+# Cashful.Model.ListCustomersResponseDto
 
 ## Properties
 

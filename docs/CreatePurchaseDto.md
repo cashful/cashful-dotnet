@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.CreatePurchaseDto
+# Cashful.Model.CreatePurchaseDto
 
 ## Properties
 

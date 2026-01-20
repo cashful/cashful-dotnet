@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SendVerificationEmailDto
+# Cashful.Model.SendVerificationEmailDto
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.CustomersApi
+# Cashful.Api.CustomersApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -25,9 +25,9 @@ Creates a new customer object. This also provisions their \"cash balance\" featu
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -127,9 +127,9 @@ Retrieves the real-time balance for a single customer's \"cash balance\" (the \"
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -228,9 +228,9 @@ Shows all saved payment methods (cards, etc.) for a single customer.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -333,9 +333,9 @@ Provides the full transaction history for a single customer's \"cash balance\" (
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -438,9 +438,9 @@ Retrieves a paginated list of all customers for the merchant.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -548,9 +548,9 @@ Gets the details for a single customer.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -649,9 +649,9 @@ Updates a customer's details (e.g., email, metadata).
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

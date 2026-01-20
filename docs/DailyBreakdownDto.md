@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.DailyBreakdownDto
+# Cashful.Model.DailyBreakdownDto
 
 ## Properties
 

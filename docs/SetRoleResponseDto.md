@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SetRoleResponseDto
+# Cashful.Model.SetRoleResponseDto
 
 ## Properties
 

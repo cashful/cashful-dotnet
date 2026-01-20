@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SignInResponseDto
+# Cashful.Model.SignInResponseDto
 
 ## Properties
 

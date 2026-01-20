@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.RequestUploadUrlDto
+# Cashful.Model.RequestUploadUrlDto
 
 ## Properties
 

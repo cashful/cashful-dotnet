@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.GetSessionResponseDto
+# Cashful.Model.GetSessionResponseDto
 
 ## Properties
 

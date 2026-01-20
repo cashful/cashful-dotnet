@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.AnalyticsSummaryDto
+# Cashful.Model.AnalyticsSummaryDto
 
 ## Properties
 

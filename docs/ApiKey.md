@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ApiKey
+# Cashful.Model.ApiKey
 
 ## Properties
 

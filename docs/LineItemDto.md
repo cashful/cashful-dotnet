@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.LineItemDto
+# Cashful.Model.LineItemDto
 
 ## Properties
 

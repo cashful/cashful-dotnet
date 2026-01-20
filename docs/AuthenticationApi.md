@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.AuthenticationApi
+# Cashful.Api.AuthenticationApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -76,9 +76,9 @@ Accept an invitation to an organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -177,9 +177,9 @@ Cancel an invitation to an organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -278,9 +278,9 @@ Change the email address of the current user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -379,9 +379,9 @@ Change the password of the current user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -480,9 +480,9 @@ Check if organization slug is available
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -581,9 +581,9 @@ Create a new API key
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -682,9 +682,9 @@ Create a new organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -783,9 +783,9 @@ Delete an API key
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -884,9 +884,9 @@ Delete an organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -985,9 +985,9 @@ Delete the current user's account
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -1086,9 +1086,9 @@ Send a password reset email to the user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -1183,9 +1183,9 @@ Get current access token
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -1284,9 +1284,9 @@ Get the member details of the active organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -1384,9 +1384,9 @@ Get the role of the current user in the active organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -1484,9 +1484,9 @@ Retrieve a specific API key by ID
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -1585,9 +1585,9 @@ Get an invitation by ID
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -1685,9 +1685,9 @@ Get the full organization details
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -1785,9 +1785,9 @@ Retrieve the current user session
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -1880,9 +1880,9 @@ Check if a user has permission
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -1981,9 +1981,9 @@ Invite a user to an organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -2082,9 +2082,9 @@ Check if username is available for signup
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -2179,9 +2179,9 @@ Leave an organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -2280,9 +2280,9 @@ Link a social account to existing user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -2381,9 +2381,9 @@ List all linked social accounts
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -2476,9 +2476,9 @@ List all API keys for the current user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -2571,9 +2571,9 @@ List all members of an organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -2671,9 +2671,9 @@ List all invitations a user has received
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -2771,9 +2771,9 @@ List all organizations for the current user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -2871,9 +2871,9 @@ List all invitations a user has received
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -2971,9 +2971,9 @@ List all active sessions for the user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -3066,9 +3066,9 @@ Check if the authentication API is working
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -3160,9 +3160,9 @@ Refresh authentication token
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -3261,9 +3261,9 @@ Reject an invitation to an organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -3362,9 +3362,9 @@ Remove a member from an organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -3463,9 +3463,9 @@ Send a password reset email to the user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -3560,9 +3560,9 @@ Request password reset via phone number
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -3657,9 +3657,9 @@ Reset the user's password using a token
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -3754,9 +3754,9 @@ Redirects user to callback URL with token
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -3853,9 +3853,9 @@ Reset password using phone verification
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -3950,9 +3950,9 @@ Revoke all sessions except the current one
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -4046,9 +4046,9 @@ Revoke a specific session
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -4147,9 +4147,9 @@ Revoke all sessions for the current user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -4243,9 +4243,9 @@ Send one-time password to phone number
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -4340,9 +4340,9 @@ Send a verification email to the user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -4437,9 +4437,9 @@ Set the active organization for the current session
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -4538,9 +4538,9 @@ Authenticate a user using email and password
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -4635,9 +4635,9 @@ Sign in using phone number and password
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -4732,9 +4732,9 @@ Sign out the current user and invalidate the session
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -4832,9 +4832,9 @@ Create a new user account using email and password
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -4929,9 +4929,9 @@ Sign in with a social provider (OAuth, etc.)
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -5026,9 +5026,9 @@ Unlink a social account from user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -5127,9 +5127,9 @@ Update an API key
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -5228,9 +5228,9 @@ Update a member's role in an organization
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -5329,9 +5329,9 @@ Update an organization's details
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -5430,9 +5430,9 @@ Update the current user's information
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -5531,9 +5531,9 @@ Verify an API key
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -5628,9 +5628,9 @@ Verify the email of a user
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -5727,9 +5727,9 @@ Verify phone number with OTP code
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

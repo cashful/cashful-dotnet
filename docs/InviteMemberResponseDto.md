@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.InviteMemberResponseDto
+# Cashful.Model.InviteMemberResponseDto
 
 ## Properties
 

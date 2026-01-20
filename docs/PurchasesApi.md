@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.PurchasesApi
+# Cashful.Api.PurchasesApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -19,9 +19,9 @@ Buy with Cash Balance
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

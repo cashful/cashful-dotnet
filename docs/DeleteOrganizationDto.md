@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.DeleteOrganizationDto
+# Cashful.Model.DeleteOrganizationDto
 
 ## Properties
 

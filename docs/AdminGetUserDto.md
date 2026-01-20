@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.AdminGetUserDto
+# Cashful.Model.AdminGetUserDto
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.CreatePaymentMethodDto
+# Cashful.Model.CreatePaymentMethodDto
 
 ## Properties
 

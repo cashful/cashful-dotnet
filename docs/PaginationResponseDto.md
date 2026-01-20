@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.PaginationResponseDto
+# Cashful.Model.PaginationResponseDto
 
 ## Properties
 

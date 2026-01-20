@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.UpdateOrganizationComplianceDto
+# Cashful.Model.UpdateOrganizationComplianceDto
 
 ## Properties
 

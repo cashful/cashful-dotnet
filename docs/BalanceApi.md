@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.BalanceApi
+# Cashful.Api.BalanceApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -20,9 +20,9 @@ A full ledger of all transactions, fees, and payouts for the merchant's master a
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -132,9 +132,9 @@ Retrieves the merchant's own master balance (their earnings) available for payou
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

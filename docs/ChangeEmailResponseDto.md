@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ChangeEmailResponseDto
+# Cashful.Model.ChangeEmailResponseDto
 
 ## Properties
 

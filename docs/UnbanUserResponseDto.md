@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.UnbanUserResponseDto
+# Cashful.Model.UnbanUserResponseDto
 
 ## Properties
 

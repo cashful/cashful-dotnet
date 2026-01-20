@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.AdminRemoveUserResponseDto
+# Cashful.Model.AdminRemoveUserResponseDto
 
 ## Properties
 

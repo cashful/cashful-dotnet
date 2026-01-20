@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ListWebhookEndpointsResponseDto
+# Cashful.Model.ListWebhookEndpointsResponseDto
 
 ## Properties
 

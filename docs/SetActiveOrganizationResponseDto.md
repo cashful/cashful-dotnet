@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SetActiveOrganizationResponseDto
+# Cashful.Model.SetActiveOrganizationResponseDto
 
 ## Properties
 

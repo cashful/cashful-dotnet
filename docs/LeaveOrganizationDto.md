@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.LeaveOrganizationDto
+# Cashful.Model.LeaveOrganizationDto
 
 ## Properties
 

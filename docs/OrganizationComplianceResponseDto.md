@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.OrganizationComplianceResponseDto
+# Cashful.Model.OrganizationComplianceResponseDto
 
 ## Properties
 

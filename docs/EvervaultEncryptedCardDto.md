@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.EvervaultEncryptedCardDto
+# Cashful.Model.EvervaultEncryptedCardDto
 
 ## Properties
 

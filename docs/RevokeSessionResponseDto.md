@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.RevokeSessionResponseDto
+# Cashful.Model.RevokeSessionResponseDto
 
 ## Properties
 

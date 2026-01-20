@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.GetActiveMemberResponseDto
+# Cashful.Model.GetActiveMemberResponseDto
 
 ## Properties
 

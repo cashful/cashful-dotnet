@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.PayoutsApi
+# Cashful.Api.PayoutsApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -20,9 +20,9 @@ Allows the merchant to move funds from their MerchantBalance (their earnings) to
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -122,9 +122,9 @@ Retrieves a list of all historical and pending payouts for the merchant.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

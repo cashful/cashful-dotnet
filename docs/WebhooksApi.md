@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.WebhooksApi
+# Cashful.Api.WebhooksApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -21,9 +21,9 @@ Registers a URL to receive real-time events (e.g., checkout.session.completed, p
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -122,9 +122,9 @@ Stops sending events to a specific URL.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -223,9 +223,9 @@ Lists all configured webhook endpoints.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.HealthApi
+# Cashful.Api.HealthApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -19,9 +19,9 @@ Performs a health check on the application and external dependencies
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

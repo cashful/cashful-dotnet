@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.UpdateApiKeyResponseDto
+# Cashful.Model.UpdateApiKeyResponseDto
 
 ## Properties
 

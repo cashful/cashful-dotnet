@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ChangeEmailDto
+# Cashful.Model.ChangeEmailDto
 
 ## Properties
 

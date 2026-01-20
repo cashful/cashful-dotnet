@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.CreateWebhookEndpointDto
+# Cashful.Model.CreateWebhookEndpointDto
 
 ## Properties
 

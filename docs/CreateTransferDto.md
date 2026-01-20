@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.CreateTransferDto
+# Cashful.Model.CreateTransferDto
 
 ## Properties
 

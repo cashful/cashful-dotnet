@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.TimeframeMetricsDto
+# Cashful.Model.TimeframeMetricsDto
 
 ## Properties
 

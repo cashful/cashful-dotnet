@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.OrganizationDto
+# Cashful.Model.OrganizationDto
 
 ## Properties
 

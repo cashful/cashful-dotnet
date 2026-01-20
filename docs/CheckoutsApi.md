@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.CheckoutsApi
+# Cashful.Api.CheckoutsApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -21,9 +21,9 @@ Creates a hosted payment page. Used for: (1) A standard e-commerce purchase, or 
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -122,9 +122,9 @@ Lists checkout sessions
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -230,9 +230,9 @@ Retrieves details of a specific checkout session
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

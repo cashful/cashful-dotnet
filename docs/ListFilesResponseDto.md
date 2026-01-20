@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ListFilesResponseDto
+# Cashful.Model.ListFilesResponseDto
 
 ## Properties
 

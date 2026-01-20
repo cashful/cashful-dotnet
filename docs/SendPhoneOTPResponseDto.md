@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SendPhoneOTPResponseDto
+# Cashful.Model.SendPhoneOTPResponseDto
 
 ## Properties
 

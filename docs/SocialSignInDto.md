@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SocialSignInDto
+# Cashful.Model.SocialSignInDto
 
 ## Properties
 

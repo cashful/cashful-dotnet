@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.AdminListUserSessionsResponseDto
+# Cashful.Model.AdminListUserSessionsResponseDto
 
 ## Properties
 

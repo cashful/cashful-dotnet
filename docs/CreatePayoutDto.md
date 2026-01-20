@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.CreatePayoutDto
+# Cashful.Model.CreatePayoutDto
 
 ## Properties
 

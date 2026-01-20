@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.UpdateUserDto
+# Cashful.Model.UpdateUserDto
 
 ## Properties
 

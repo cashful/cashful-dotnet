@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.StopImpersonatingResponseDto
+# Cashful.Model.StopImpersonatingResponseDto
 
 ## Properties
 

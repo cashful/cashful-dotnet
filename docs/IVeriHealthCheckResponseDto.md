@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.IVeriHealthCheckResponseDto
+# Cashful.Model.IVeriHealthCheckResponseDto
 
 ## Properties
 

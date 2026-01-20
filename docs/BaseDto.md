@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.BaseDto
+# Cashful.Model.BaseDto
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.SignInPhoneNumberDto
+# Cashful.Model.SignInPhoneNumberDto
 
 ## Properties
 

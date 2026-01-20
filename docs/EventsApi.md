@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.EventsApi
+# Cashful.Api.EventsApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -19,9 +19,9 @@ Retrieves a log of all API events for debugging and logging.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

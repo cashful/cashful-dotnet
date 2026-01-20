@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.DeleteUserDto
+# Cashful.Model.DeleteUserDto
 
 ## Properties
 

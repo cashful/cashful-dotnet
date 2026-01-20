@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.CancelInvitationResponseDto
+# Cashful.Model.CancelInvitationResponseDto
 
 ## Properties
 

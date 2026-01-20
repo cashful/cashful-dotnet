@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.DeleteApiKeyResponseDto
+# Cashful.Model.DeleteApiKeyResponseDto
 
 ## Properties
 

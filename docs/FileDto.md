@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.FileDto
+# Cashful.Model.FileDto
 
 ## Properties
 

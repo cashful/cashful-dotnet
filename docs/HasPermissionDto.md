@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.HasPermissionDto
+# Cashful.Model.HasPermissionDto
 
 ## Properties
 

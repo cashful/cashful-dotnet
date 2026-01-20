@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ConfirmUploadDto
+# Cashful.Model.ConfirmUploadDto
 
 ## Properties
 

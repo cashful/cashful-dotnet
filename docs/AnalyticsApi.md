@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.AnalyticsApi
+# Cashful.Api.AnalyticsApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -20,9 +20,9 @@ Retrieves transaction volume and customer growth metrics for the merchant.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -121,9 +121,9 @@ Retrieves a quick summary of key metrics for the merchant.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.ForgotPasswordResponseDto
+# Cashful.Model.ForgotPasswordResponseDto
 
 ## Properties
 

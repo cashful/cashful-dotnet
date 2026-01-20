@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.UnlinkAccountDto
+# Cashful.Model.UnlinkAccountDto
 
 ## Properties
 

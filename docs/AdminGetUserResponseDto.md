@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.AdminGetUserResponseDto
+# Cashful.Model.AdminGetUserResponseDto
 
 ## Properties
 

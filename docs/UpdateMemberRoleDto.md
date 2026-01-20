@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.UpdateMemberRoleDto
+# Cashful.Model.UpdateMemberRoleDto
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# Cashful.Sdk.Api.PaymentMethodsApi
+# Cashful.Api.PaymentMethodsApi
 
 All URIs are relative to *https://api.cashful.africa*
 
@@ -21,9 +21,9 @@ Detaches and deletes a saved payment method from a customer.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -122,9 +122,9 @@ Lists saved payment methods for a specific customer.
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {
@@ -228,9 +228,9 @@ Gets the non-sensitive details of a saved card (e.g., brand, last 4).
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using Cashful.Sdk.Api;
-using Cashful.Sdk.Client;
-using Cashful.Sdk.Model;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
 
 namespace Example
 {

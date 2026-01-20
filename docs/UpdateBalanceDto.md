@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.UpdateBalanceDto
+# Cashful.Model.UpdateBalanceDto
 
 ## Properties
 

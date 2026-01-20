@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.AdminRevokeUserSessionDto
+# Cashful.Model.AdminRevokeUserSessionDto
 
 ## Properties
 

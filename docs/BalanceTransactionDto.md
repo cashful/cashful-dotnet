@@ -1,4 +1,4 @@
-# Cashful.Sdk.Model.BalanceTransactionDto
+# Cashful.Model.BalanceTransactionDto
 
 ## Properties
 
