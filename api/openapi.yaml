@@ -6,7 +6,7 @@ info:
     url: https://cashful.africa
   description: Developer documentation for the Cashful platform.
   title: Cashful API
-  version: 0.6.2
+  version: 0.6.3
 servers:
 - description: Live
   url: https://api.cashful.africa
@@ -3170,20 +3170,13 @@ paths:
       description: Retrieves a log of all API events for debugging and logging.
       operationId: listEvents
       parameters:
-      - description: The ID of the merchant. This parameter is required.
-        explode: true
-        in: query
-        name: merchantId
-        required: true
-        schema:
-          type: string
-        style: form
       - description: Maximum number of records to return
         explode: true
         in: query
         name: limit
         required: false
         schema:
+          example: 50
           type: number
         style: form
       - description: Number of records to skip
@@ -3192,7 +3185,16 @@ paths:
         name: offset
         required: false
         schema:
+          example: 0
           type: number
+        style: form
+      - description: The ID of the merchant. This parameter is required.
+        explode: true
+        in: query
+        name: merchantId
+        required: true
+        schema:
+          type: string
         style: form
       - description: Filter by event type
         explode: true
@@ -3416,6 +3418,8 @@ paths:
                   offset: 0
                   total: 2
                   hasMore: false
+              schema:
+                $ref: "#/components/schemas/ListPaymentIntentsResponseDto"
           description: Successfully retrieved payment intents
         "401":
           content:
@@ -4573,6 +4577,77 @@ paths:
       tags:
       - Payouts
   /api/canary/transfers:
+    get:
+      description: Lists transfers for a specific merchant with pagination.
+      operationId: listTransfers
+      parameters:
+      - description: Maximum number of items to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          example: 50
+          type: number
+        style: form
+      - description: Number of items to skip
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          example: 0
+          type: number
+        style: form
+      - description: Filter by merchant ID
+        explode: true
+        in: query
+        name: merchantId
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                data:
+                - id: transfer_001
+                  merchantId: merchant_456
+                  fromCustomerId: customer_123
+                  toCustomerId: customer_789
+                  amount: 1000
+                  currency: ZAR
+                  status: completed
+                  description: Payment for services
+                  createdAt: 2025-01-15T10:30:00.000Z
+                  updatedAt: 2025-01-15T10:30:00.000Z
+                pagination:
+                  limit: 50
+                  offset: 0
+                  total: 1
+                  hasMore: false
+              schema:
+                $ref: "#/components/schemas/ListTransfersResponseDto"
+          description: Successfully retrieved transfers
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseDto"
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: List Transfers
+      tags:
+      - Transfers
     post:
       description: (Wallet-Enabling) Moves funds from one CustomerBalance to another
         CustomerBalance. This is the P2P feature.
@@ -8850,6 +8925,56 @@ components:
       - status
       - updatedAt
       type: object
+    ListPaymentIntentsResponseDto:
+      example:
+        pagination: ""
+        data:
+        - amount: 0.8008281904610115
+          metadata:
+            orderId: "12345"
+          idempotencyKey: idempotencyKey
+          description: description
+          expiresAt: 2000-01-23T04:56:07.000+00:00
+          mode: payment
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          merchantId: merchantId
+          paymentMethodId: paymentMethodId
+          customerId: customerId
+          currency: currency
+          id: id
+          status: initiation
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - amount: 0.8008281904610115
+          metadata:
+            orderId: "12345"
+          idempotencyKey: idempotencyKey
+          description: description
+          expiresAt: 2000-01-23T04:56:07.000+00:00
+          mode: payment
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          merchantId: merchantId
+          paymentMethodId: paymentMethodId
+          customerId: customerId
+          currency: currency
+          id: id
+          status: initiation
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          description: List of payment intents
+          items:
+            $ref: "#/components/schemas/PaymentIntentResponseDto"
+          type: array
+        pagination:
+          allOf:
+          - $ref: "#/components/schemas/PaginationResponseDto"
+          description: Pagination metadata
+      required:
+      - data
+      - pagination
+      type: object
     CreatePaymentLinkDto:
       example:
         mode: payment
@@ -9571,6 +9696,44 @@ components:
       - status
       - toCustomerId
       - updatedAt
+      type: object
+    ListTransfersResponseDto:
+      example:
+        pagination: ""
+        data:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          amount: 0.8008281904610115
+          fromCustomerId: fromCustomerId
+          merchantId: merchantId
+          description: description
+          currency: currency
+          id: id
+          toCustomerId: toCustomerId
+          status: status
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          amount: 0.8008281904610115
+          fromCustomerId: fromCustomerId
+          merchantId: merchantId
+          description: description
+          currency: currency
+          id: id
+          toCustomerId: toCustomerId
+          status: status
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          description: List of transfers
+          items:
+            $ref: "#/components/schemas/TransferResponseDto"
+          type: array
+        pagination:
+          allOf:
+          - $ref: "#/components/schemas/PaginationResponseDto"
+          description: Pagination metadata
+      required:
+      - data
+      - pagination
       type: object
     CreatePurchaseDto:
       example:

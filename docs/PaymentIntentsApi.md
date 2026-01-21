@@ -319,7 +319,7 @@ catch (ApiException e)
 
 <a id="listpaymentintents"></a>
 # **ListPaymentIntents**
-> void ListPaymentIntents (string merchantId, decimal? limit = null, decimal? offset = null, string? status = null)
+> ListPaymentIntentsResponseDto ListPaymentIntents (string merchantId, decimal? limit = null, decimal? offset = null, string? status = null)
 
 List Payment Intents
 
@@ -357,7 +357,8 @@ namespace Example
             try
             {
                 // List Payment Intents
-                apiInstance.ListPaymentIntents(merchantId, limit, offset, status);
+                ListPaymentIntentsResponseDto result = apiInstance.ListPaymentIntents(merchantId, limit, offset, status);
+                Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
@@ -377,7 +378,10 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Payment Intents
-    apiInstance.ListPaymentIntentsWithHttpInfo(merchantId, limit, offset, status);
+    ApiResponse<ListPaymentIntentsResponseDto> response = apiInstance.ListPaymentIntentsWithHttpInfo(merchantId, limit, offset, status);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
@@ -398,7 +402,7 @@ catch (ApiException e)
 
 ### Return type
 
-void (empty response body)
+[**ListPaymentIntentsResponseDto**](ListPaymentIntentsResponseDto.md)
 
 ### Authorization
 

@@ -39,8 +39,8 @@ namespace Example
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new EventsApi(httpClient, config, httpClientHandler);
             var merchantId = "merchantId_example";  // string | The ID of the merchant. This parameter is required.
-            var limit = 8.14D;  // decimal? | Maximum number of records to return (optional) 
-            var offset = 8.14D;  // decimal? | Number of records to skip (optional) 
+            var limit = 50;  // decimal? | Maximum number of records to return (optional) 
+            var offset = 0;  // decimal? | Number of records to skip (optional) 
             var type = "type_example";  // string? | Filter by event type (optional) 
             var status = "pending";  // string? | Filter by event status (optional) 
             var startDate = "startDate_example";  // string? | Filter by start date (optional) 
