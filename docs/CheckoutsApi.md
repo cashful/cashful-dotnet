@@ -141,7 +141,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new CheckoutsApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | The ID of the merchant. This parameter is required.
+            var merchantId = "merchantId_example";  // string | The ID of the merchant to filter checkout sessions
             var limit = 50;  // decimal? | Maximum number of records to return (optional) 
             var offset = 0;  // decimal? | Number of records to skip (optional) 
             var status = "status_example";  // string? | The status to filter checkout sessions (optional) 
@@ -187,7 +187,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The ID of the merchant. This parameter is required. |  |
+| **merchantId** | **string** | The ID of the merchant to filter checkout sessions |  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional]  |
 | **offset** | **decimal?** | Number of records to skip | [optional]  |
 | **status** | **string?** | The status to filter checkout sessions | [optional]  |

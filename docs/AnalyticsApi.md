@@ -9,7 +9,7 @@ All URIs are relative to *https://api.cashful.africa*
 
 <a id="getanalytics"></a>
 # **GetAnalytics**
-> AnalyticsResponseDto GetAnalytics (string merchantId)
+> AnalyticsResponseDto GetAnalytics (string? merchantId = null)
 
 Get Analytics
 
@@ -39,7 +39,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new AnalyticsApi(httpClient, config, httpClientHandler);
-            var merchantId = merchant_123;  // string | The unique identifier of the merchant
+            var merchantId = merchant_123;  // string? | The unique identifier of the merchant. If not provided, defaults to the authenticated user's active organization. (optional) 
 
             try
             {
@@ -82,7 +82,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The unique identifier of the merchant |  |
+| **merchantId** | **string?** | The unique identifier of the merchant. If not provided, defaults to the authenticated user&#39;s active organization. | [optional]  |
 
 ### Return type
 
@@ -110,7 +110,7 @@ catch (ApiException e)
 
 <a id="getanalyticssummary"></a>
 # **GetAnalyticsSummary**
-> AnalyticsSummaryDto GetAnalyticsSummary (string merchantId)
+> AnalyticsSummaryDto GetAnalyticsSummary (string? merchantId = null)
 
 Get Analytics Summary
 
@@ -140,7 +140,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new AnalyticsApi(httpClient, config, httpClientHandler);
-            var merchantId = merchant_123;  // string | The unique identifier of the merchant
+            var merchantId = merchant_123;  // string? | The unique identifier of the merchant. If not provided, defaults to the authenticated user's active organization. (optional) 
 
             try
             {
@@ -183,7 +183,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The unique identifier of the merchant |  |
+| **merchantId** | **string?** | The unique identifier of the merchant. If not provided, defaults to the authenticated user&#39;s active organization. | [optional]  |
 
 ### Return type
 

@@ -38,7 +38,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new EventsApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | The ID of the merchant. This parameter is required.
+            var merchantId = "merchantId_example";  // string | The ID of the merchant whose events are being requested. This parameter is required.
             var limit = 50;  // decimal? | Maximum number of records to return (optional) 
             var offset = 0;  // decimal? | Number of records to skip (optional) 
             var type = "type_example";  // string? | Filter by event type (optional) 
@@ -87,7 +87,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The ID of the merchant. This parameter is required. |  |
+| **merchantId** | **string** | The ID of the merchant whose events are being requested. This parameter is required. |  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional]  |
 | **offset** | **decimal?** | Number of records to skip | [optional]  |
 | **type** | **string?** | Filter by event type | [optional]  |

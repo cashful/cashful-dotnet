@@ -20,6 +20,8 @@ All URIs are relative to *https://api.cashful.africa*
 | [**GetActiveMemberRole**](AuthenticationApi.md#getactivememberrole) | **GET** /api/canary/authentication/organization/get-active-member-role | Get Active Member Role |
 | [**GetApiKey**](AuthenticationApi.md#getapikey) | **GET** /api/canary/authentication/api-key/get | Get API Key |
 | [**GetInvitation**](AuthenticationApi.md#getinvitation) | **GET** /api/canary/authentication/organization/get-invitation | Get Invitation |
+| [**GetJSONWebKeySet**](AuthenticationApi.md#getjsonwebkeyset) | **GET** /api/canary/authentication/jwks | Get the JSON Web Key Set |
+| [**GetJSONWebToken**](AuthenticationApi.md#getjsonwebtoken) | **GET** /api/canary/authentication/token | Get a JWT token |
 | [**GetOrganization**](AuthenticationApi.md#getorganization) | **GET** /api/canary/authentication/organization/get-full-organization | Get Full Organization |
 | [**GetSession**](AuthenticationApi.md#getsession) | **GET** /api/canary/authentication/get-session | Get Session |
 | [**HasPermission**](AuthenticationApi.md#haspermission) | **POST** /api/canary/authentication/organization/has-permission | Has Permission |
@@ -1667,6 +1669,196 @@ catch (ApiException e)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Invitation retrieved successfully |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getjsonwebkeyset"></a>
+# **GetJSONWebKeySet**
+> GetJsonWebKeySetResponseDto GetJSONWebKeySet ()
+
+Get the JSON Web Key Set
+
+Get the JSON Web Key Set
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
+
+namespace Example
+{
+    public class GetJSONWebKeySetExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://api.cashful.africa";
+            // Configure Bearer token for authorization: bearer
+            config.AccessToken = "YOUR_BEARER_TOKEN";
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new AuthenticationApi(httpClient, config, httpClientHandler);
+
+            try
+            {
+                // Get the JSON Web Key Set
+                GetJsonWebKeySetResponseDto result = apiInstance.GetJSONWebKeySet();
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling AuthenticationApi.GetJSONWebKeySet: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetJSONWebKeySetWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get the JSON Web Key Set
+    ApiResponse<GetJsonWebKeySetResponseDto> response = apiInstance.GetJSONWebKeySetWithHttpInfo();
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling AuthenticationApi.GetJSONWebKeySetWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+### Return type
+
+[**GetJsonWebKeySetResponseDto**](GetJsonWebKeySetResponseDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | JSON Web Key Set retrieved successfully |  -  |
+| **401** | Unauthorized |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="getjsonwebtoken"></a>
+# **GetJSONWebToken**
+> GetJsonWebTokenResponseDto GetJSONWebToken ()
+
+Get a JWT token
+
+Get a JWT token
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
+
+namespace Example
+{
+    public class GetJSONWebTokenExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://api.cashful.africa";
+            // Configure Bearer token for authorization: bearer
+            config.AccessToken = "YOUR_BEARER_TOKEN";
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new AuthenticationApi(httpClient, config, httpClientHandler);
+
+            try
+            {
+                // Get a JWT token
+                GetJsonWebTokenResponseDto result = apiInstance.GetJSONWebToken();
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling AuthenticationApi.GetJSONWebToken: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GetJSONWebTokenWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Get a JWT token
+    ApiResponse<GetJsonWebTokenResponseDto> response = apiInstance.GetJSONWebTokenWithHttpInfo();
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling AuthenticationApi.GetJSONWebTokenWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+### Return type
+
+[**GetJsonWebTokenResponseDto**](GetJsonWebTokenResponseDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success |  -  |
 | **401** | Unauthorized |  -  |
 | **500** | Internal server error |  -  |
 

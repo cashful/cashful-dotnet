@@ -111,7 +111,7 @@ catch (ApiException e)
 
 <a id="listpaymentmethods"></a>
 # **ListPaymentMethods**
-> ListPaymentMethodsResponseDto ListPaymentMethods (string merchantId, decimal? limit = null, decimal? offset = null, string? customerId = null)
+> ListPaymentMethodsResponseDto ListPaymentMethods (decimal? limit = null, decimal? offset = null, string? merchantId = null, string? customerId = null)
 
 List Payment Methods
 
@@ -141,15 +141,15 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new PaymentMethodsApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | The unique identifier of the merchant
             var limit = 50;  // decimal? | Maximum number of records to return (optional) 
             var offset = 0;  // decimal? | Number of records to skip (optional) 
+            var merchantId = "merchantId_example";  // string? | The unique identifier of the merchant. If not provided, defaults to the authenticated user's active organization. (optional) 
             var customerId = "customerId_example";  // string? | The unique identifier of the customer (optional) 
 
             try
             {
                 // List Payment Methods
-                ListPaymentMethodsResponseDto result = apiInstance.ListPaymentMethods(merchantId, limit, offset, customerId);
+                ListPaymentMethodsResponseDto result = apiInstance.ListPaymentMethods(limit, offset, merchantId, customerId);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -170,7 +170,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Payment Methods
-    ApiResponse<ListPaymentMethodsResponseDto> response = apiInstance.ListPaymentMethodsWithHttpInfo(merchantId, limit, offset, customerId);
+    ApiResponse<ListPaymentMethodsResponseDto> response = apiInstance.ListPaymentMethodsWithHttpInfo(limit, offset, merchantId, customerId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -187,9 +187,9 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The unique identifier of the merchant |  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional]  |
 | **offset** | **decimal?** | Number of records to skip | [optional]  |
+| **merchantId** | **string?** | The unique identifier of the merchant. If not provided, defaults to the authenticated user&#39;s active organization. | [optional]  |
 | **customerId** | **string?** | The unique identifier of the customer | [optional]  |
 
 ### Return type

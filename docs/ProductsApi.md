@@ -112,7 +112,7 @@ catch (ApiException e)
 
 <a id="listproducts"></a>
 # **ListProducts**
-> ListProductsResponseDto ListProducts (string merchantId, decimal? limit = null, decimal? offset = null, bool? active = null)
+> ListProductsResponseDto ListProducts (decimal? limit = null, decimal? offset = null, string? merchantId = null, bool? active = null)
 
 List Products
 
@@ -142,15 +142,15 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new ProductsApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | The ID of the merchant. This parameter is required.
             var limit = 50;  // decimal? | Maximum number of records to return (optional) 
             var offset = 0;  // decimal? | Number of records to skip (optional) 
+            var merchantId = "merchantId_example";  // string? | The ID of the merchant whose products are being requested. If not provided, the products of the authenticated merchant will be returned. (optional) 
             var active = true;  // bool? | Filter by active status (optional) 
 
             try
             {
                 // List Products
-                ListProductsResponseDto result = apiInstance.ListProducts(merchantId, limit, offset, active);
+                ListProductsResponseDto result = apiInstance.ListProducts(limit, offset, merchantId, active);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -171,7 +171,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Products
-    ApiResponse<ListProductsResponseDto> response = apiInstance.ListProductsWithHttpInfo(merchantId, limit, offset, active);
+    ApiResponse<ListProductsResponseDto> response = apiInstance.ListProductsWithHttpInfo(limit, offset, merchantId, active);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -188,9 +188,9 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The ID of the merchant. This parameter is required. |  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional]  |
 | **offset** | **decimal?** | Number of records to skip | [optional]  |
+| **merchantId** | **string?** | The ID of the merchant whose products are being requested. If not provided, the products of the authenticated merchant will be returned. | [optional]  |
 | **active** | **bool?** | Filter by active status | [optional]  |
 
 ### Return type

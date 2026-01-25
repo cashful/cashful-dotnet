@@ -9,7 +9,7 @@ All URIs are relative to *https://api.cashful.africa*
 
 <a id="getbalancehistory"></a>
 # **GetBalanceHistory**
-> BalanceHistoryResponseDto GetBalanceHistory (string merchantId, decimal? limit = null, decimal? offset = null, string? startDate = null, string? endDate = null, string? transactionType = null)
+> BalanceHistoryResponseDto GetBalanceHistory (string? merchantId = null, decimal? limit = null, decimal? offset = null, string? startDate = null, string? endDate = null, string? transactionType = null)
 
 List Merchant Balance History
 
@@ -39,7 +39,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new BalanceApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | The ID of the merchant. This parameter is required.
+            var merchantId = "merchantId_example";  // string? | The ID of the merchant whose balance is being requested. If omitted, defaults to the authenticated merchant. (optional) 
             var limit = 8.14D;  // decimal? | Maximum number of records to return (optional) 
             var offset = 8.14D;  // decimal? | Number of records to skip (optional) 
             var startDate = "startDate_example";  // string? | Filter transactions from this date (ISO 8601 format) (optional) 
@@ -87,7 +87,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The ID of the merchant. This parameter is required. |  |
+| **merchantId** | **string?** | The ID of the merchant whose balance is being requested. If omitted, defaults to the authenticated merchant. | [optional]  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional]  |
 | **offset** | **decimal?** | Number of records to skip | [optional]  |
 | **startDate** | **string?** | Filter transactions from this date (ISO 8601 format) | [optional]  |
@@ -121,7 +121,7 @@ catch (ApiException e)
 
 <a id="getmerchantbalance"></a>
 # **GetMerchantBalance**
-> MerchantBalanceResponseDto GetMerchantBalance (string merchantId)
+> MerchantBalanceResponseDto GetMerchantBalance (string? merchantId = null)
 
 Get Merchant Balance
 
@@ -151,7 +151,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new BalanceApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | The ID of the merchant whose balance is being requested.
+            var merchantId = "merchantId_example";  // string? | The ID of the merchant whose balance is being requested. If omitted, defaults to the authenticated merchant. (optional) 
 
             try
             {
@@ -194,7 +194,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The ID of the merchant whose balance is being requested. |  |
+| **merchantId** | **string?** | The ID of the merchant whose balance is being requested. If omitted, defaults to the authenticated merchant. | [optional]  |
 
 ### Return type
 

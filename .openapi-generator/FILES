@@ -89,6 +89,8 @@ docs/GetActiveMemberRoleResponseDto.md
 docs/GetApiKeyResponseDto.md
 docs/GetFullOrganizationResponseDto.md
 docs/GetInvitationResponseDto.md
+docs/GetJsonWebKeySetResponseDto.md
+docs/GetJsonWebTokenResponseDto.md
 docs/GetSessionResponseDto.md
 docs/HasPermissionDto.md
 docs/HasPermissionResponseDto.md
@@ -104,6 +106,7 @@ docs/InviteMemberResponseDto.md
 docs/IsUsernameAvailableDto.md
 docs/IsUsernameAvailableResponseDto.md
 docs/IveriParamsDto.md
+docs/JwkDto.md
 docs/LeaveOrganizationDto.md
 docs/LeaveOrganizationResponseDto.md
 docs/LineItemDto.md
@@ -321,6 +324,8 @@ src/Cashful.Test/Model/GetActiveMemberRoleResponseDtoTests.cs
 src/Cashful.Test/Model/GetApiKeyResponseDtoTests.cs
 src/Cashful.Test/Model/GetFullOrganizationResponseDtoTests.cs
 src/Cashful.Test/Model/GetInvitationResponseDtoTests.cs
+src/Cashful.Test/Model/GetJsonWebKeySetResponseDtoTests.cs
+src/Cashful.Test/Model/GetJsonWebTokenResponseDtoTests.cs
 src/Cashful.Test/Model/GetSessionResponseDtoTests.cs
 src/Cashful.Test/Model/HasPermissionDtoTests.cs
 src/Cashful.Test/Model/HasPermissionResponseDtoTests.cs
@@ -335,6 +340,7 @@ src/Cashful.Test/Model/InviteMemberResponseDtoTests.cs
 src/Cashful.Test/Model/IsUsernameAvailableDtoTests.cs
 src/Cashful.Test/Model/IsUsernameAvailableResponseDtoTests.cs
 src/Cashful.Test/Model/IveriParamsDtoTests.cs
+src/Cashful.Test/Model/JwkDtoTests.cs
 src/Cashful.Test/Model/LeaveOrganizationDtoTests.cs
 src/Cashful.Test/Model/LeaveOrganizationResponseDtoTests.cs
 src/Cashful.Test/Model/LineItemDtoTests.cs
@@ -559,6 +565,8 @@ src/Cashful/Model/GetActiveMemberRoleResponseDto.cs
 src/Cashful/Model/GetApiKeyResponseDto.cs
 src/Cashful/Model/GetFullOrganizationResponseDto.cs
 src/Cashful/Model/GetInvitationResponseDto.cs
+src/Cashful/Model/GetJsonWebKeySetResponseDto.cs
+src/Cashful/Model/GetJsonWebTokenResponseDto.cs
 src/Cashful/Model/GetSessionResponseDto.cs
 src/Cashful/Model/HasPermissionDto.cs
 src/Cashful/Model/HasPermissionResponseDto.cs
@@ -573,6 +581,7 @@ src/Cashful/Model/InviteMemberResponseDto.cs
 src/Cashful/Model/IsUsernameAvailableDto.cs
 src/Cashful/Model/IsUsernameAvailableResponseDto.cs
 src/Cashful/Model/IveriParamsDto.cs
+src/Cashful/Model/JwkDto.cs
 src/Cashful/Model/LeaveOrganizationDto.cs
 src/Cashful/Model/LeaveOrganizationResponseDto.cs
 src/Cashful/Model/LineItemDto.cs

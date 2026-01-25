@@ -309,7 +309,7 @@ catch (ApiException e)
 
 <a id="storagecontrollerlistcanary"></a>
 # **StorageControllerListCanary**
-> ListFilesResponseDto StorageControllerListCanary (string merchantId, decimal? limit = null, decimal? offset = null, string? tag = null, string? status = null, string? relatedEntityId = null, string? relatedEntityType = null)
+> ListFilesResponseDto StorageControllerListCanary (decimal? limit = null, decimal? offset = null, string? tag = null, string? status = null, string? relatedEntityId = null, string? relatedEntityType = null)
 
 List files
 
@@ -337,7 +337,6 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new StorageApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | The ID of the merchant. This parameter is required.
             var limit = 50;  // decimal? | Maximum number of records to return (optional) 
             var offset = 0;  // decimal? | Number of records to skip (optional) 
             var tag = "tag_example";  // string? | Filter by tag (optional) 
@@ -348,7 +347,7 @@ namespace Example
             try
             {
                 // List files
-                ListFilesResponseDto result = apiInstance.StorageControllerListCanary(merchantId, limit, offset, tag, status, relatedEntityId, relatedEntityType);
+                ListFilesResponseDto result = apiInstance.StorageControllerListCanary(limit, offset, tag, status, relatedEntityId, relatedEntityType);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -369,7 +368,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List files
-    ApiResponse<ListFilesResponseDto> response = apiInstance.StorageControllerListCanaryWithHttpInfo(merchantId, limit, offset, tag, status, relatedEntityId, relatedEntityType);
+    ApiResponse<ListFilesResponseDto> response = apiInstance.StorageControllerListCanaryWithHttpInfo(limit, offset, tag, status, relatedEntityId, relatedEntityType);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -386,7 +385,6 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The ID of the merchant. This parameter is required. |  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional]  |
 | **offset** | **decimal?** | Number of records to skip | [optional]  |
 | **tag** | **string?** | Filter by tag | [optional]  |

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Amount** | **decimal** | The price of the product in the smallest currency unit | [optional] 
 **Currency** | **string** | The three-letter ISO 4217 currency code | 
 **Active** | **bool** | Whether the product is active | [optional] 
+**ImageId** | **string** | The ID of the product image file | [optional] 
 **Metadata** | **Dictionary&lt;string, Object&gt;** | Optional custom metadata | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

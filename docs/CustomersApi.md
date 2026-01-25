@@ -427,7 +427,7 @@ catch (ApiException e)
 
 <a id="listcustomers"></a>
 # **ListCustomers**
-> ListCustomersResponseDto ListCustomers (string merchantId, decimal? limit = null, decimal? offset = null, string? email = null, string? search = null)
+> ListCustomersResponseDto ListCustomers (string? merchantId = null, decimal? limit = null, decimal? offset = null, string? email = null, string? search = null)
 
 List Customers
 
@@ -457,7 +457,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new CustomersApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | The ID of the merchant. This parameter is required.
+            var merchantId = "merchantId_example";  // string? | The ID of the merchant whose balance is being requested. If omitted, defaults to the authenticated merchant. (optional) 
             var limit = 8.14D;  // decimal? | Maximum number of records to return (optional) 
             var offset = 8.14D;  // decimal? | Number of records to skip (optional) 
             var email = "email_example";  // string? | Filter by email address (optional) 
@@ -504,7 +504,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The ID of the merchant. This parameter is required. |  |
+| **merchantId** | **string?** | The ID of the merchant whose balance is being requested. If omitted, defaults to the authenticated merchant. | [optional]  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional]  |
 | **offset** | **decimal?** | Number of records to skip | [optional]  |
 | **email** | **string?** | Filter by email address | [optional]  |

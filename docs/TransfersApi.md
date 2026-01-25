@@ -112,7 +112,7 @@ catch (ApiException e)
 
 <a id="listtransfers"></a>
 # **ListTransfers**
-> ListTransfersResponseDto ListTransfers (string merchantId, decimal? limit = null, decimal? offset = null)
+> ListTransfersResponseDto ListTransfers (decimal? limit = null, decimal? offset = null, string? merchantId = null)
 
 List Transfers
 
@@ -142,14 +142,14 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new TransfersApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | Filter by merchant ID
             var limit = 50;  // decimal? | Maximum number of items to return (optional) 
             var offset = 0;  // decimal? | Number of items to skip (optional) 
+            var merchantId = "merchantId_example";  // string? | Filter by merchant ID. If omitted, defaults to the authenticated merchant. (optional) 
 
             try
             {
                 // List Transfers
-                ListTransfersResponseDto result = apiInstance.ListTransfers(merchantId, limit, offset);
+                ListTransfersResponseDto result = apiInstance.ListTransfers(limit, offset, merchantId);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -170,7 +170,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Transfers
-    ApiResponse<ListTransfersResponseDto> response = apiInstance.ListTransfersWithHttpInfo(merchantId, limit, offset);
+    ApiResponse<ListTransfersResponseDto> response = apiInstance.ListTransfersWithHttpInfo(limit, offset, merchantId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -187,9 +187,9 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | Filter by merchant ID |  |
 | **limit** | **decimal?** | Maximum number of items to return | [optional]  |
 | **offset** | **decimal?** | Number of items to skip | [optional]  |
+| **merchantId** | **string?** | Filter by merchant ID. If omitted, defaults to the authenticated merchant. | [optional]  |
 
 ### Return type
 

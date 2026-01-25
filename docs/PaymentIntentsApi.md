@@ -319,7 +319,7 @@ catch (ApiException e)
 
 <a id="listpaymentintents"></a>
 # **ListPaymentIntents**
-> ListPaymentIntentsResponseDto ListPaymentIntents (string merchantId, decimal? limit = null, decimal? offset = null, string? status = null)
+> ListPaymentIntentsResponseDto ListPaymentIntents (string? merchantId = null, decimal? limit = null, decimal? offset = null, string? status = null)
 
 List Payment Intents
 
@@ -349,7 +349,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new PaymentIntentsApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | Filter by merchant ID
+            var merchantId = "merchantId_example";  // string? | The ID of the merchant. If omitted, defaults to the authenticated merchant. (optional) 
             var limit = 50MD;  // decimal? | Maximum number of records to return (optional)  (default to 50M)
             var offset = 0MD;  // decimal? | Number of records to skip (optional)  (default to 0M)
             var status = "initiation";  // string? | Filter by status (optional) 
@@ -395,7 +395,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | Filter by merchant ID |  |
+| **merchantId** | **string?** | The ID of the merchant. If omitted, defaults to the authenticated merchant. | [optional]  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional] [default to 50M] |
 | **offset** | **decimal?** | Number of records to skip | [optional] [default to 0M] |
 | **status** | **string?** | Filter by status | [optional]  |

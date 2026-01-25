@@ -111,7 +111,7 @@ catch (ApiException e)
 
 <a id="listpayouts"></a>
 # **ListPayouts**
-> ListPayoutsResponseDto ListPayouts (string merchantId, decimal? limit = null, decimal? offset = null, string? status = null)
+> ListPayoutsResponseDto ListPayouts (string? merchantId = null, decimal? limit = null, decimal? offset = null, string? status = null)
 
 List Payouts
 
@@ -141,7 +141,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new PayoutsApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | The ID of the merchant. This parameter is required.
+            var merchantId = "merchantId_example";  // string? | The ID of the merchant whose payouts are being requested. If omitted, defaults to the authenticated merchant. (optional) 
             var limit = 8.14D;  // decimal? | Maximum number of records to return (optional) 
             var offset = 8.14D;  // decimal? | Number of records to skip (optional) 
             var status = "status_example";  // string? | Filter by status (optional) 
@@ -187,7 +187,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The ID of the merchant. This parameter is required. |  |
+| **merchantId** | **string?** | The ID of the merchant whose payouts are being requested. If omitted, defaults to the authenticated merchant. | [optional]  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional]  |
 | **offset** | **decimal?** | Number of records to skip | [optional]  |
 | **status** | **string?** | Filter by status | [optional]  |
