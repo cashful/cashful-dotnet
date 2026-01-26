@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Name** | **string** | The name of the line item | [optional] 
 **ProductId** | **string** | The unique identifier of the product | [optional] 
 **Quantity** | **decimal** | The quantity of the product | [optional] 
 **Amount** | **decimal** | The amount for this line item in the smallest currency unit | 

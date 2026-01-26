@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **Status** | **string** |  | 
 **ExpiresAt** | **DateTimeOffset** |  | [optional] 
 **Metadata** | **Dictionary&lt;string, Object&gt;** |  | 
+**HostedCheckoutConfig** | [**HostedCheckoutConfigDto**](HostedCheckoutConfigDto.md) | Configuration for the hosted checkout page | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -6,6 +6,7 @@ All URIs are relative to *https://api.cashful.africa*
 |--------|--------------|-------------|
 | [**CreateProduct**](ProductsApi.md#createproduct) | **POST** /api/canary/products | Create Product |
 | [**ListProducts**](ProductsApi.md#listproducts) | **GET** /api/canary/products | List Products |
+| [**RetrieveMultipleProducts**](ProductsApi.md#retrievemultipleproducts) | **POST** /api/canary/products/multiple | Retrieve Multiple Products by ID |
 | [**RetrieveProduct**](ProductsApi.md#retrieveproduct) | **GET** /api/canary/products/{id} | Retrieve Product |
 | [**UpdateProduct**](ProductsApi.md#updateproduct) | **PATCH** /api/canary/products/{id} | Update Product |
 
@@ -218,6 +219,108 @@ catch (ApiException e)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="retrievemultipleproducts"></a>
+# **RetrieveMultipleProducts**
+> List&lt;ProductResponseDto&gt; RetrieveMultipleProducts (RetrieveMultipleProductsDto retrieveMultipleProductsDto)
+
+Retrieve Multiple Products by ID
+
+Retrieves multiple products using the provided ID's with a maximum of 50 IDs.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
+
+namespace Example
+{
+    public class RetrieveMultipleProductsExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://api.cashful.africa";
+            // Configure Bearer token for authorization: bearer
+            config.AccessToken = "YOUR_BEARER_TOKEN";
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new ProductsApi(httpClient, config, httpClientHandler);
+            var retrieveMultipleProductsDto = new RetrieveMultipleProductsDto(); // RetrieveMultipleProductsDto | List of product IDs
+
+            try
+            {
+                // Retrieve Multiple Products by ID
+                List<ProductResponseDto> result = apiInstance.RetrieveMultipleProducts(retrieveMultipleProductsDto);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling ProductsApi.RetrieveMultipleProducts: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the RetrieveMultipleProductsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Retrieve Multiple Products by ID
+    ApiResponse<List<ProductResponseDto>> response = apiInstance.RetrieveMultipleProductsWithHttpInfo(retrieveMultipleProductsDto);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling ProductsApi.RetrieveMultipleProductsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **retrieveMultipleProductsDto** | [**RetrieveMultipleProductsDto**](RetrieveMultipleProductsDto.md) | List of product IDs |  |
+
+### Return type
+
+[**List&lt;ProductResponseDto&gt;**](ProductResponseDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Successfully retrieved products |  -  |
+| **400** | Bad Request - Invalid input |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a id="retrieveproduct"></a>
 # **RetrieveProduct**
 > ProductResponseDto RetrieveProduct (string id)
@@ -313,6 +416,7 @@ catch (ApiException e)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Successfully retrieved product |  -  |
+| **400** | Bad Request - Invalid input |  -  |
 | **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |

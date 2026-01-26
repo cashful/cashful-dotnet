@@ -27,6 +27,7 @@ docs/AnalyticsResponseDto.md
 docs/AnalyticsSummaryDto.md
 docs/ApiKey.md
 docs/AuthenticationApi.md
+docs/BadRequestResponseDto.md
 docs/BalanceApi.md
 docs/BalanceHistoryResponseDto.md
 docs/BalanceTransactionDto.md
@@ -75,11 +76,11 @@ docs/DeleteOrganizationDto.md
 docs/DeleteOrganizationResponseDto.md
 docs/DeleteUserDto.md
 docs/DeleteUserResponseDto.md
-docs/ErrorResponseDto.md
 docs/EventResponseDto.md
 docs/EventsApi.md
 docs/EvervaultEncryptedCardDto.md
 docs/FileDto.md
+docs/ForbiddenResponseDto.md
 docs/ForgotPasswordDto.md
 docs/ForgotPasswordResponseDto.md
 docs/GetAccessTokenDto.md
@@ -95,11 +96,13 @@ docs/GetSessionResponseDto.md
 docs/HasPermissionDto.md
 docs/HasPermissionResponseDto.md
 docs/HealthApi.md
+docs/HostedCheckoutConfigDto.md
 docs/IVeriHealthCheckResponseDto.md
 docs/ImpersonateUserDto.md
 docs/ImpersonateUserResponseDto.md
 docs/InitiatePaymentDto.md
 docs/InitiatePaymentResponseDto.md
+docs/InternalServerErrorResponseDto.md
 docs/InvitationDto.md
 docs/InviteMemberDto.md
 docs/InviteMemberResponseDto.md
@@ -136,6 +139,7 @@ docs/ListWebhookEndpointsResponseDto.md
 docs/MemberDto.md
 docs/MerchantBalanceResponseDto.md
 docs/MetricStatsDto.md
+docs/NotFoundResponseDto.md
 docs/NotificationDto.md
 docs/NotificationsApi.md
 docs/OrganizationComplianceResponseDto.md
@@ -171,6 +175,7 @@ docs/ResetPasswordDto.md
 docs/ResetPasswordResponseDto.md
 docs/ResetPhonePasswordDto.md
 docs/ResetPhonePasswordResponseDto.md
+docs/RetrieveMultipleProductsDto.md
 docs/RevokeSessionDto.md
 docs/RevokeSessionResponseDto.md
 docs/SendEmail200Response.md
@@ -200,6 +205,7 @@ docs/StorageApi.md
 docs/TimeframeMetricsDto.md
 docs/TransferResponseDto.md
 docs/TransfersApi.md
+docs/UnauthorizedResponseDto.md
 docs/UnbanUserDto.md
 docs/UnbanUserResponseDto.md
 docs/UnlinkAccountDto.md
@@ -207,6 +213,8 @@ docs/UnlinkAccountResponseDto.md
 docs/UpdateApiKeyDto.md
 docs/UpdateApiKeyResponseDto.md
 docs/UpdateBalanceDto.md
+docs/UpdateCheckoutSessionDto.md
+docs/UpdateCheckoutSessionResponseDto.md
 docs/UpdateCustomerDto.md
 docs/UpdateMemberRoleDto.md
 docs/UpdateMemberRoleResponseDto.md
@@ -267,6 +275,7 @@ src/Cashful.Test/Model/AdminUpdateUserResponseDtoTests.cs
 src/Cashful.Test/Model/AnalyticsResponseDtoTests.cs
 src/Cashful.Test/Model/AnalyticsSummaryDtoTests.cs
 src/Cashful.Test/Model/ApiKeyTests.cs
+src/Cashful.Test/Model/BadRequestResponseDtoTests.cs
 src/Cashful.Test/Model/BalanceHistoryResponseDtoTests.cs
 src/Cashful.Test/Model/BalanceTransactionDtoTests.cs
 src/Cashful.Test/Model/BanUserDtoTests.cs
@@ -311,10 +320,10 @@ src/Cashful.Test/Model/DeleteOrganizationDtoTests.cs
 src/Cashful.Test/Model/DeleteOrganizationResponseDtoTests.cs
 src/Cashful.Test/Model/DeleteUserDtoTests.cs
 src/Cashful.Test/Model/DeleteUserResponseDtoTests.cs
-src/Cashful.Test/Model/ErrorResponseDtoTests.cs
 src/Cashful.Test/Model/EventResponseDtoTests.cs
 src/Cashful.Test/Model/EvervaultEncryptedCardDtoTests.cs
 src/Cashful.Test/Model/FileDtoTests.cs
+src/Cashful.Test/Model/ForbiddenResponseDtoTests.cs
 src/Cashful.Test/Model/ForgotPasswordDtoTests.cs
 src/Cashful.Test/Model/ForgotPasswordResponseDtoTests.cs
 src/Cashful.Test/Model/GetAccessTokenDtoTests.cs
@@ -329,11 +338,13 @@ src/Cashful.Test/Model/GetJsonWebTokenResponseDtoTests.cs
 src/Cashful.Test/Model/GetSessionResponseDtoTests.cs
 src/Cashful.Test/Model/HasPermissionDtoTests.cs
 src/Cashful.Test/Model/HasPermissionResponseDtoTests.cs
+src/Cashful.Test/Model/HostedCheckoutConfigDtoTests.cs
 src/Cashful.Test/Model/IVeriHealthCheckResponseDtoTests.cs
 src/Cashful.Test/Model/ImpersonateUserDtoTests.cs
 src/Cashful.Test/Model/ImpersonateUserResponseDtoTests.cs
 src/Cashful.Test/Model/InitiatePaymentDtoTests.cs
 src/Cashful.Test/Model/InitiatePaymentResponseDtoTests.cs
+src/Cashful.Test/Model/InternalServerErrorResponseDtoTests.cs
 src/Cashful.Test/Model/InvitationDtoTests.cs
 src/Cashful.Test/Model/InviteMemberDtoTests.cs
 src/Cashful.Test/Model/InviteMemberResponseDtoTests.cs
@@ -370,6 +381,7 @@ src/Cashful.Test/Model/ListWebhookEndpointsResponseDtoTests.cs
 src/Cashful.Test/Model/MemberDtoTests.cs
 src/Cashful.Test/Model/MerchantBalanceResponseDtoTests.cs
 src/Cashful.Test/Model/MetricStatsDtoTests.cs
+src/Cashful.Test/Model/NotFoundResponseDtoTests.cs
 src/Cashful.Test/Model/NotificationDtoTests.cs
 src/Cashful.Test/Model/OrganizationComplianceResponseDtoTests.cs
 src/Cashful.Test/Model/OrganizationDtoTests.cs
@@ -398,6 +410,7 @@ src/Cashful.Test/Model/ResetPasswordDtoTests.cs
 src/Cashful.Test/Model/ResetPasswordResponseDtoTests.cs
 src/Cashful.Test/Model/ResetPhonePasswordDtoTests.cs
 src/Cashful.Test/Model/ResetPhonePasswordResponseDtoTests.cs
+src/Cashful.Test/Model/RetrieveMultipleProductsDtoTests.cs
 src/Cashful.Test/Model/RevokeSessionDtoTests.cs
 src/Cashful.Test/Model/RevokeSessionResponseDtoTests.cs
 src/Cashful.Test/Model/SendEmail200ResponseTests.cs
@@ -425,6 +438,7 @@ src/Cashful.Test/Model/SocialSignInDtoTests.cs
 src/Cashful.Test/Model/StopImpersonatingResponseDtoTests.cs
 src/Cashful.Test/Model/TimeframeMetricsDtoTests.cs
 src/Cashful.Test/Model/TransferResponseDtoTests.cs
+src/Cashful.Test/Model/UnauthorizedResponseDtoTests.cs
 src/Cashful.Test/Model/UnbanUserDtoTests.cs
 src/Cashful.Test/Model/UnbanUserResponseDtoTests.cs
 src/Cashful.Test/Model/UnlinkAccountDtoTests.cs
@@ -432,6 +446,8 @@ src/Cashful.Test/Model/UnlinkAccountResponseDtoTests.cs
 src/Cashful.Test/Model/UpdateApiKeyDtoTests.cs
 src/Cashful.Test/Model/UpdateApiKeyResponseDtoTests.cs
 src/Cashful.Test/Model/UpdateBalanceDtoTests.cs
+src/Cashful.Test/Model/UpdateCheckoutSessionDtoTests.cs
+src/Cashful.Test/Model/UpdateCheckoutSessionResponseDtoTests.cs
 src/Cashful.Test/Model/UpdateCustomerDtoTests.cs
 src/Cashful.Test/Model/UpdateMemberRoleDtoTests.cs
 src/Cashful.Test/Model/UpdateMemberRoleResponseDtoTests.cs
@@ -508,6 +524,7 @@ src/Cashful/Model/AdminUpdateUserResponseDto.cs
 src/Cashful/Model/AnalyticsResponseDto.cs
 src/Cashful/Model/AnalyticsSummaryDto.cs
 src/Cashful/Model/ApiKey.cs
+src/Cashful/Model/BadRequestResponseDto.cs
 src/Cashful/Model/BalanceHistoryResponseDto.cs
 src/Cashful/Model/BalanceTransactionDto.cs
 src/Cashful/Model/BanUserDto.cs
@@ -552,10 +569,10 @@ src/Cashful/Model/DeleteOrganizationDto.cs
 src/Cashful/Model/DeleteOrganizationResponseDto.cs
 src/Cashful/Model/DeleteUserDto.cs
 src/Cashful/Model/DeleteUserResponseDto.cs
-src/Cashful/Model/ErrorResponseDto.cs
 src/Cashful/Model/EventResponseDto.cs
 src/Cashful/Model/EvervaultEncryptedCardDto.cs
 src/Cashful/Model/FileDto.cs
+src/Cashful/Model/ForbiddenResponseDto.cs
 src/Cashful/Model/ForgotPasswordDto.cs
 src/Cashful/Model/ForgotPasswordResponseDto.cs
 src/Cashful/Model/GetAccessTokenDto.cs
@@ -570,11 +587,13 @@ src/Cashful/Model/GetJsonWebTokenResponseDto.cs
 src/Cashful/Model/GetSessionResponseDto.cs
 src/Cashful/Model/HasPermissionDto.cs
 src/Cashful/Model/HasPermissionResponseDto.cs
+src/Cashful/Model/HostedCheckoutConfigDto.cs
 src/Cashful/Model/IVeriHealthCheckResponseDto.cs
 src/Cashful/Model/ImpersonateUserDto.cs
 src/Cashful/Model/ImpersonateUserResponseDto.cs
 src/Cashful/Model/InitiatePaymentDto.cs
 src/Cashful/Model/InitiatePaymentResponseDto.cs
+src/Cashful/Model/InternalServerErrorResponseDto.cs
 src/Cashful/Model/InvitationDto.cs
 src/Cashful/Model/InviteMemberDto.cs
 src/Cashful/Model/InviteMemberResponseDto.cs
@@ -611,6 +630,7 @@ src/Cashful/Model/ListWebhookEndpointsResponseDto.cs
 src/Cashful/Model/MemberDto.cs
 src/Cashful/Model/MerchantBalanceResponseDto.cs
 src/Cashful/Model/MetricStatsDto.cs
+src/Cashful/Model/NotFoundResponseDto.cs
 src/Cashful/Model/NotificationDto.cs
 src/Cashful/Model/OrganizationComplianceResponseDto.cs
 src/Cashful/Model/OrganizationDto.cs
@@ -639,6 +659,7 @@ src/Cashful/Model/ResetPasswordDto.cs
 src/Cashful/Model/ResetPasswordResponseDto.cs
 src/Cashful/Model/ResetPhonePasswordDto.cs
 src/Cashful/Model/ResetPhonePasswordResponseDto.cs
+src/Cashful/Model/RetrieveMultipleProductsDto.cs
 src/Cashful/Model/RevokeSessionDto.cs
 src/Cashful/Model/RevokeSessionResponseDto.cs
 src/Cashful/Model/SendEmail200Response.cs
@@ -666,6 +687,7 @@ src/Cashful/Model/SocialSignInDto.cs
 src/Cashful/Model/StopImpersonatingResponseDto.cs
 src/Cashful/Model/TimeframeMetricsDto.cs
 src/Cashful/Model/TransferResponseDto.cs
+src/Cashful/Model/UnauthorizedResponseDto.cs
 src/Cashful/Model/UnbanUserDto.cs
 src/Cashful/Model/UnbanUserResponseDto.cs
 src/Cashful/Model/UnlinkAccountDto.cs
@@ -673,6 +695,8 @@ src/Cashful/Model/UnlinkAccountResponseDto.cs
 src/Cashful/Model/UpdateApiKeyDto.cs
 src/Cashful/Model/UpdateApiKeyResponseDto.cs
 src/Cashful/Model/UpdateBalanceDto.cs
+src/Cashful/Model/UpdateCheckoutSessionDto.cs
+src/Cashful/Model/UpdateCheckoutSessionResponseDto.cs
 src/Cashful/Model/UpdateCustomerDto.cs
 src/Cashful/Model/UpdateMemberRoleDto.cs
 src/Cashful/Model/UpdateMemberRoleResponseDto.cs

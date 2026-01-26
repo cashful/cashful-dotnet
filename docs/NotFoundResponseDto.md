@@ -1,4 +1,4 @@
-# Cashful.Model.ErrorResponseDto
+# Cashful.Model.NotFoundResponseDto
 
 ## Properties
 

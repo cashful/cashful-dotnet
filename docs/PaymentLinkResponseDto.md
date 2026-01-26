@@ -5,17 +5,20 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
+**Name** | **string** |  | [optional] 
+**Description** | **string** |  | [optional] 
 **MerchantId** | **string** |  | 
 **Url** | **string** |  | 
-**ProductId** | **string** |  | [optional] 
+**LineItems** | [**List&lt;LineItemDto&gt;**](LineItemDto.md) |  | [optional] 
 **CustomerId** | **string** |  | [optional] 
-**Amount** | **decimal** |  | [optional] 
+**TotalAmount** | **decimal** |  | 
 **Currency** | **string** |  | 
 **Mode** | **string** |  | 
 **Active** | **bool** |  | 
 **SuccessUrl** | **string** |  | 
 **CancelUrl** | **string** |  | 
 **Metadata** | **Dictionary&lt;string, Object&gt;** |  | 
+**HostedCheckoutConfig** | [**HostedCheckoutConfigDto**](HostedCheckoutConfigDto.md) | Configuration for the hosted checkout page | [optional] 
 **CreatedAt** | **DateTimeOffset** |  | 
 **UpdatedAt** | **DateTimeOffset** |  | 
 **DeletedAt** | **DateTimeOffset** |  | [optional] 
