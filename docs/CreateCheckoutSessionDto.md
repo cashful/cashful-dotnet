@@ -4,11 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MerchantId** | **string** | The ID of the merchant whose balance is being requested. If omitted, defaults to the authenticated merchant. | [optional] 
+**MerchantId** | **string** | The ID of the merchant for the checkout session. | 
 **CustomerId** | **string** | The unique identifier of the customer | [optional] 
 **ProductId** | **string** | The unique identifier of the product | [optional] 
 **SuccessUrl** | **string** | The URL to redirect to on successful payment | [optional] 
-**FailureUrl** | **string** | The URL to redirect to on failure | [optional] 
 **CancelUrl** | **string** | The URL to redirect to on cancel | [optional] 
 **LineItems** | [**List&lt;LineItemDto&gt;**](LineItemDto.md) | Array of line items for the checkout | [optional] 
 **TotalAmount** | **decimal** | The total amount in the smallest currency unit | [optional] 

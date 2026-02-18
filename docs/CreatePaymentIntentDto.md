@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MerchantId** | **string** | The ID of the merchant whose balance is being requested. If omitted, defaults to the authenticated merchant. | [optional] 
+**MerchantId** | **string** | The ID of the merchant. If omitted, defaults to the authenticated merchant. | [optional] 
 **CustomerId** | **string** | The unique identifier of the customer. Optional for payment intents that don&#39;t require a customer. | [optional] 
 **PaymentMethodId** | **string** | The unique identifier of the payment method. Optional if payment method will be collected later. | [optional] 
 **Amount** | **decimal** | The amount to charge in the smallest currency unit (cents) | 

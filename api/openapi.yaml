@@ -6,7 +6,7 @@ info:
     url: https://cashful.africa
   description: Developer documentation for the Cashful platform.
   title: Cashful API
-  version: 0.8.0
+  version: 0.8.4
 servers:
 - description: Live
   url: https://api.cashful.africa
@@ -2303,7 +2303,6 @@ paths:
         name: limit
         required: false
         schema:
-          example: 50
           type: number
         style: form
       - description: Number of records to skip
@@ -2312,24 +2311,7 @@ paths:
         name: offset
         required: false
         schema:
-          example: 0
           type: number
-        style: form
-      - description: The ID of the merchant to filter checkout sessions
-        explode: true
-        in: query
-        name: merchantId
-        required: true
-        schema:
-          type: string
-        style: form
-      - description: The status to filter checkout sessions
-        explode: true
-        in: query
-        name: status
-        required: false
-        schema:
-          type: string
         style: form
       responses:
         "200":
@@ -2339,6 +2321,7 @@ paths:
                 data:
                 - id: checkout_sess_123
                   merchantId: merchant_456
+                  paymentIntentId: pi_123456789
                   customerId: customer_789
                   sessionUrl: https://pay.cashful.africa/?op=checkout&sessionId=checkout_sess_123
                   successUrl: https://example.com/success
@@ -2355,12 +2338,13 @@ paths:
                   totalAmount: 13000
                   currency: ZAR
                   mode: payment
-                  status: active
+                  status: open
                   expiresAt: 2025-01-17T10:30:00.000Z
                   createdAt: 2025-01-15T10:30:00.000Z
                   updatedAt: 2025-01-15T10:30:00.000Z
                 - id: checkout_sess_124
                   merchantId: merchant_456
+                  paymentIntentId: pi_123456790
                   customerId: customer_789
                   sessionUrl: https://pay.cashful.africa/?op=checkout&sessionId=checkout_sess_124
                   successUrl: https://example.com/success
@@ -2368,8 +2352,8 @@ paths:
                   lineItems: []
                   totalAmount: 10000
                   currency: ZAR
-                  mode: payin
-                  status: active
+                  mode: payment
+                  status: open
                   expiresAt: 2025-01-17T10:30:00.000Z
                   createdAt: 2025-01-15T10:30:00.000Z
                   updatedAt: 2025-01-15T10:30:00.000Z
@@ -2430,6 +2414,7 @@ paths:
               example:
                 id: checkout_sess_123
                 merchantId: merchant_456
+                paymentIntentId: pi_123456789
                 customerId: customer_789
                 sessionUrl: https://pay.cashful.africa/?op=checkout&sessionId=checkout_sess_123
                 successUrl: https://example.com/success
@@ -2446,7 +2431,7 @@ paths:
                 totalAmount: 13000
                 currency: ZAR
                 mode: payment
-                status: active
+                status: open
                 expiresAt: 2025-01-17T10:30:00.000Z
                 createdAt: 2025-01-15T10:30:00.000Z
                 updatedAt: 2025-01-15T10:30:00.000Z
@@ -2496,6 +2481,7 @@ paths:
               example:
                 id: checkout_sess_123
                 merchantId: merchant_456
+                paymentIntentId: pi_123456789
                 customerId: customer_789
                 sessionUrl: https://pay.cashful.africa/?op=checkout&sessionId=checkout_sess_123
                 successUrl: https://example.com/success
@@ -2512,7 +2498,7 @@ paths:
                 totalAmount: 13000
                 currency: ZAR
                 mode: payment
-                status: active
+                status: open
                 expiresAt: 2025-01-17T10:30:00.000Z
                 createdAt: 2025-01-15T10:30:00.000Z
                 updatedAt: 2025-01-15T10:30:00.000Z
@@ -2536,6 +2522,506 @@ paths:
       summary: Retrieve Checkout Session
       tags:
       - Checkouts
+  /api/canary/payment-intents:
+    get:
+      description: Lists payment intents for a specific merchant with pagination and
+        filtering.
+      operationId: listPaymentIntents
+      parameters:
+      - explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - initiation
+          - requires_payment_method
+          - requires_confirmation
+          - requires_action
+          - processing
+          - requires_capture
+          - succeeded
+          - failed
+          - canceled
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: number
+        style: form
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: number
+        style: form
+      - explode: true
+        in: query
+        name: merchantId
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                data:
+                - id: pi_001
+                  merchantId: merchant_456
+                  customerId: customer_789
+                  paymentMethodId: pm_001
+                  amount: 5000
+                  currency: ZAR
+                  description: Subscription payment
+                  status: succeeded
+                  mode: payment
+                  idempotencyKey: idem_abc123
+                  metadata:
+                    subscriptionId: sub_123
+                  expiresAt: 2025-01-16T10:30:00.000Z
+                  createdAt: 2025-01-15T10:30:00.000Z
+                  updatedAt: 2025-01-15T10:30:05.000Z
+                  deletedAt: null
+                - id: pi_002
+                  merchantId: merchant_456
+                  customerId: customer_789
+                  paymentMethodId: pm_001
+                  amount: 10000
+                  currency: ZAR
+                  description: One-time purchase
+                  status: processing
+                  mode: payment
+                  idempotencyKey: idem_xyz789
+                  metadata:
+                    orderId: order_456
+                  expiresAt: 2025-01-16T14:00:00.000Z
+                  createdAt: 2025-01-15T14:00:00.000Z
+                  updatedAt: 2025-01-15T14:00:02.000Z
+                  deletedAt: null
+                pagination:
+                  limit: 50
+                  offset: 0
+                  total: 2
+                  hasMore: false
+              schema:
+                $ref: "#/components/schemas/ListPaymentIntentsResponseDto"
+          description: Successfully retrieved payment intents
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: List Payment Intents
+      tags:
+      - Payment Intents
+    post:
+      description: Creates a payment intent for a payment attempt. Used for hosted
+        checkout or direct integrations.
+      operationId: createPaymentIntent
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePaymentIntentDto"
+        description: Payment intent details
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              example:
+                id: pi_001
+                merchantId: merchant_456
+                customerId: customer_789
+                paymentMethodId: pm_001
+                amount: 5000
+                currency: ZAR
+                description: Subscription payment
+                status: requires_action
+                mode: payment
+                idempotencyKey: idem_abc123
+                metadata:
+                  subscriptionId: sub_123
+                expiresAt: 2025-01-16T10:30:00.000Z
+                createdAt: 2025-01-15T10:30:00.000Z
+                updatedAt: 2025-01-15T10:30:00.000Z
+                deletedAt: null
+              schema:
+                $ref: "#/components/schemas/PaymentIntentResponseDto"
+          description: Payment intent created successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponseDto"
+          description: Bad Request - Invalid input
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "402":
+          description: Payment declined
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: Create Payment Intent
+      tags:
+      - Payment Intents
+  /api/canary/payment-intents/{id}:
+    get:
+      description: Retrieves the current state of a specific payment intent.
+      operationId: retrievePaymentIntent
+      parameters:
+      - description: The unique identifier of the payment intent
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id: pi_001
+                merchantId: merchant_456
+                customerId: customer_789
+                paymentMethodId: pm_001
+                amount: 5000
+                currency: ZAR
+                description: Subscription payment
+                status: succeeded
+                mode: payment
+                idempotencyKey: idem_abc123
+                metadata:
+                  subscriptionId: sub_123
+                expiresAt: 2025-01-16T10:30:00.000Z
+                createdAt: 2025-01-15T10:30:00.000Z
+                updatedAt: 2025-01-15T10:30:05.000Z
+                deletedAt: null
+              schema:
+                $ref: "#/components/schemas/PaymentIntentResponseDto"
+          description: Successfully retrieved payment intent
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: Retrieve Payment Intent
+      tags:
+      - Payment Intents
+  /api/canary/payment-intents/{id}/confirm:
+    post:
+      description: Confirms a payment intent that requires confirmation and returns
+        3DS parameters for card authentication.
+      operationId: confirmPaymentIntent
+      parameters:
+      - description: The unique identifier of the payment intent
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConfirmPaymentIntentDto"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConfirmPaymentIntentResponseDto"
+          description: Payment intent confirmed and awaiting authentication
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponseDto"
+          description: Bad Request - Invalid input
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: Confirm Payment Intent
+      tags:
+      - Payment Intents
+  /api/canary/payment-intents/{id}/cancel:
+    post:
+      description: Cancels a payment intent that has not yet succeeded or failed.
+      operationId: cancelPaymentIntent
+      parameters:
+      - description: The unique identifier of the payment intent
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaymentIntentResponseDto"
+          description: Payment intent canceled
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponseDto"
+          description: Bad Request - Invalid input
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: Cancel Payment Intent
+      tags:
+      - Payment Intents
+  /api/canary/events:
+    get:
+      description: Retrieves a log of all API events for debugging and logging.
+      operationId: listEvents
+      parameters:
+      - description: Maximum number of records to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          example: 50
+          type: number
+        style: form
+      - description: Number of records to skip
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          example: 0
+          type: number
+        style: form
+      - description: The ID of the merchant whose events are being requested. This
+          parameter is required.
+        explode: true
+        in: query
+        name: merchantId
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Filter by event type
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by event status
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - pending
+          - delivered
+          - failed
+          type: string
+        style: form
+      - description: Filter by start date
+        explode: true
+        in: query
+        name: startDate
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by end date
+        explode: true
+        in: query
+        name: endDate
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                data:
+                - id: event_001
+                  merchantId: merchant_456
+                  webhookEndpointId: wh_endpoint_789
+                  type: checkout.session.completed
+                  data:
+                    sessionId: checkout_sess_123
+                    amount: 10000
+                    currency: ZAR
+                  status: delivered
+                  attempts: 1
+                  relatedEntityId: checkout_sess_123
+                  relatedEntityType: CheckoutSession
+                  lastAttemptAt: 2025-01-15T10:30:05.000Z
+                  nextRetryAt: null
+                  deliveredAt: 2025-01-15T10:30:05.000Z
+                  createdAt: 2025-01-15T10:30:00.000Z
+                  updatedAt: 2025-01-15T10:30:05.000Z
+                - id: event_002
+                  merchantId: merchant_456
+                  webhookEndpointId: wh_endpoint_789
+                  type: payment_intent.succeeded
+                  data:
+                    paymentIntentId: pi_123
+                    amount: 5000
+                    currency: ZAR
+                  status: pending
+                  attempts: 0
+                  relatedEntityId: pi_123
+                  relatedEntityType: PaymentIntent
+                  lastAttemptAt: null
+                  nextRetryAt: 2025-01-15T10:35:00.000Z
+                  deliveredAt: null
+                  createdAt: 2025-01-15T10:30:00.000Z
+                  updatedAt: 2025-01-15T10:30:00.000Z
+                - id: event_003
+                  merchantId: merchant_456
+                  webhookEndpointId: wh_endpoint_789
+                  type: payout.failed
+                  data:
+                    payoutId: payout_123
+                    error: Insufficient funds
+                  status: failed
+                  attempts: 3
+                  relatedEntityId: payout_123
+                  relatedEntityType: Payout
+                  lastAttemptAt: 2025-01-15T11:00:00.000Z
+                  nextRetryAt: null
+                  deliveredAt: null
+                  createdAt: 2025-01-15T10:30:00.000Z
+                  updatedAt: 2025-01-15T11:00:00.000Z
+                pagination:
+                  limit: 50
+                  offset: 0
+                  total: 500
+                  hasMore: true
+              schema:
+                $ref: "#/components/schemas/ListEventsResponseDto"
+          description: Successfully retrieved events
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponseDto"
+          description: Bad Request - Invalid input
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: List Events
+      tags:
+      - Events
   /api/canary/balance:
     get:
       description: Retrieves the merchant's own master balance (their earnings) available
@@ -3222,507 +3708,6 @@ paths:
       summary: List Customer's Payment Methods
       tags:
       - Customers
-  /api/canary/events:
-    get:
-      description: Retrieves a log of all API events for debugging and logging.
-      operationId: listEvents
-      parameters:
-      - description: Maximum number of records to return
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          example: 50
-          type: number
-        style: form
-      - description: Number of records to skip
-        explode: true
-        in: query
-        name: offset
-        required: false
-        schema:
-          example: 0
-          type: number
-        style: form
-      - description: The ID of the merchant whose events are being requested. This
-          parameter is required.
-        explode: true
-        in: query
-        name: merchantId
-        required: true
-        schema:
-          type: string
-        style: form
-      - description: Filter by event type
-        explode: true
-        in: query
-        name: type
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Filter by event status
-        explode: true
-        in: query
-        name: status
-        required: false
-        schema:
-          enum:
-          - pending
-          - delivered
-          - failed
-          type: string
-        style: form
-      - description: Filter by start date
-        explode: true
-        in: query
-        name: startDate
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Filter by end date
-        explode: true
-        in: query
-        name: endDate
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              example:
-                data:
-                - id: event_001
-                  merchantId: merchant_456
-                  webhookEndpointId: wh_endpoint_789
-                  type: checkout.session.completed
-                  data:
-                    sessionId: checkout_sess_123
-                    amount: 10000
-                    currency: ZAR
-                  status: delivered
-                  attempts: 1
-                  relatedEntityId: checkout_sess_123
-                  relatedEntityType: CheckoutSession
-                  lastAttemptAt: 2025-01-15T10:30:05.000Z
-                  nextRetryAt: null
-                  deliveredAt: 2025-01-15T10:30:05.000Z
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T10:30:05.000Z
-                - id: event_002
-                  merchantId: merchant_456
-                  webhookEndpointId: wh_endpoint_789
-                  type: payment_intent.succeeded
-                  data:
-                    paymentIntentId: pi_123
-                    amount: 5000
-                    currency: ZAR
-                  status: pending
-                  attempts: 0
-                  relatedEntityId: pi_123
-                  relatedEntityType: PaymentIntent
-                  lastAttemptAt: null
-                  nextRetryAt: 2025-01-15T10:35:00.000Z
-                  deliveredAt: null
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T10:30:00.000Z
-                - id: event_003
-                  merchantId: merchant_456
-                  webhookEndpointId: wh_endpoint_789
-                  type: payout.failed
-                  data:
-                    payoutId: payout_123
-                    error: Insufficient funds
-                  status: failed
-                  attempts: 3
-                  relatedEntityId: payout_123
-                  relatedEntityType: Payout
-                  lastAttemptAt: 2025-01-15T11:00:00.000Z
-                  nextRetryAt: null
-                  deliveredAt: null
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T11:00:00.000Z
-                pagination:
-                  limit: 50
-                  offset: 0
-                  total: 500
-                  hasMore: true
-              schema:
-                $ref: "#/components/schemas/ListEventsResponseDto"
-          description: Successfully retrieved events
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BadRequestResponseDto"
-          description: Bad Request - Invalid input
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedResponseDto"
-          description: Unauthorized
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundResponseDto"
-          description: Resource not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponseDto"
-          description: Internal server error
-      security:
-      - bearer: []
-      summary: List Events
-      tags:
-      - Events
-  /api/canary/payment-intents:
-    get:
-      description: Lists payment intents for a specific merchant with pagination and
-        filtering.
-      operationId: listPaymentIntents
-      parameters:
-      - description: "The ID of the merchant. If omitted, defaults to the authenticated\
-          \ merchant."
-        explode: true
-        in: query
-        name: merchantId
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Maximum number of records to return
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          default: 50
-          type: number
-        style: form
-      - description: Number of records to skip
-        explode: true
-        in: query
-        name: offset
-        required: false
-        schema:
-          default: 0
-          type: number
-        style: form
-      - description: Filter by status
-        explode: true
-        in: query
-        name: status
-        required: false
-        schema:
-          enum:
-          - initiation
-          - requires_payment_method
-          - requires_confirmation
-          - requires_action
-          - processing
-          - requires_capture
-          - succeeded
-          - failed
-          - canceled
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              example:
-                data:
-                - id: pi_001
-                  merchantId: merchant_456
-                  customerId: customer_789
-                  paymentMethodId: pm_001
-                  amount: 5000
-                  currency: ZAR
-                  description: Subscription payment
-                  status: succeeded
-                  mode: payment
-                  idempotencyKey: idem_abc123
-                  metadata:
-                    subscriptionId: sub_123
-                  expiresAt: 2025-01-16T10:30:00.000Z
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T10:30:05.000Z
-                  deletedAt: null
-                - id: pi_002
-                  merchantId: merchant_456
-                  customerId: customer_789
-                  paymentMethodId: pm_001
-                  amount: 10000
-                  currency: ZAR
-                  description: One-time purchase
-                  status: processing
-                  mode: payment
-                  idempotencyKey: idem_xyz789
-                  metadata:
-                    orderId: order_456
-                  expiresAt: 2025-01-16T14:00:00.000Z
-                  createdAt: 2025-01-15T14:00:00.000Z
-                  updatedAt: 2025-01-15T14:00:02.000Z
-                  deletedAt: null
-                pagination:
-                  limit: 50
-                  offset: 0
-                  total: 2
-                  hasMore: false
-              schema:
-                $ref: "#/components/schemas/ListPaymentIntentsResponseDto"
-          description: Successfully retrieved payment intents
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedResponseDto"
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponseDto"
-          description: Internal server error
-      security:
-      - bearer: []
-      summary: List Payment Intents
-      tags:
-      - Payment Intents
-    post:
-      description: "Creates a payment intent for off-session charges. Used for subscriptions,\
-        \ recurring billing, or server-to-server payments with saved cards."
-      operationId: createPaymentIntent
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreatePaymentIntentDto"
-        description: Payment intent details
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              example:
-                id: pi_001
-                merchantId: merchant_456
-                customerId: customer_789
-                paymentMethodId: pm_001
-                amount: 5000
-                currency: ZAR
-                description: Subscription payment
-                status: requires_action
-                mode: payment
-                idempotencyKey: idem_abc123
-                metadata:
-                  subscriptionId: sub_123
-                expiresAt: 2025-01-16T10:30:00.000Z
-                createdAt: 2025-01-15T10:30:00.000Z
-                updatedAt: 2025-01-15T10:30:00.000Z
-                deletedAt: null
-              schema:
-                $ref: "#/components/schemas/PaymentIntentResponseDto"
-          description: Payment intent created successfully
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BadRequestResponseDto"
-          description: Bad Request - Invalid input
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedResponseDto"
-          description: Unauthorized
-        "402":
-          description: Payment declined
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundResponseDto"
-          description: Resource not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponseDto"
-          description: Internal server error
-      security:
-      - bearer: []
-      summary: Create Payment Intent
-      tags:
-      - Payment Intents
-  /api/canary/payment-intents/{id}:
-    get:
-      description: Retrieves the current state of a specific payment intent.
-      operationId: retrievePaymentIntent
-      parameters:
-      - description: The unique identifier of the payment intent
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              example:
-                id: pi_001
-                merchantId: merchant_456
-                customerId: customer_789
-                paymentMethodId: pm_001
-                amount: 5000
-                currency: ZAR
-                description: Subscription payment
-                status: succeeded
-                mode: payment
-                idempotencyKey: idem_abc123
-                metadata:
-                  subscriptionId: sub_123
-                expiresAt: 2025-01-16T10:30:00.000Z
-                createdAt: 2025-01-15T10:30:00.000Z
-                updatedAt: 2025-01-15T10:30:05.000Z
-                deletedAt: null
-              schema:
-                $ref: "#/components/schemas/PaymentIntentResponseDto"
-          description: Successfully retrieved payment intent
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedResponseDto"
-          description: Unauthorized
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundResponseDto"
-          description: Resource not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponseDto"
-          description: Internal server error
-      security:
-      - bearer: []
-      summary: Retrieve Payment Intent
-      tags:
-      - Payment Intents
-  /api/canary/payment-intents/{id}/confirm:
-    post:
-      description: Confirms a payment intent that requires confirmation. This initiates
-        the actual payment processing.
-      operationId: confirmPaymentIntent
-      parameters:
-      - description: The unique identifier of the payment intent
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PaymentIntentResponseDto"
-          description: Payment intent confirmed and processing
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BadRequestResponseDto"
-          description: Bad Request - Invalid input
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedResponseDto"
-          description: Unauthorized
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundResponseDto"
-          description: Resource not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponseDto"
-          description: Internal server error
-      security:
-      - bearer: []
-      summary: Confirm Payment Intent
-      tags:
-      - Payment Intents
-  /api/canary/payment-intents/{id}/cancel:
-    post:
-      description: Cancels a payment intent that has not yet succeeded or failed.
-      operationId: cancelPaymentIntent
-      parameters:
-      - description: The unique identifier of the payment intent
-        explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/PaymentIntentResponseDto"
-          description: Payment intent canceled
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BadRequestResponseDto"
-          description: Bad Request - Invalid input
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedResponseDto"
-          description: Unauthorized
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundResponseDto"
-          description: Resource not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponseDto"
-          description: Internal server error
-      security:
-      - bearer: []
-      summary: Cancel Payment Intent
-      tags:
-      - Payment Intents
   /api/canary/payment-links:
     get:
       description: Retrieves all payment links created by the merchant.
@@ -8165,7 +8150,9 @@ components:
       example:
         amount: 6.027456183070403
         quantity: 0.8008281904610115
+        imageId: imageId
         productId: productId
+        imageUrl: imageUrl
         name: name
         currency: currency
       properties:
@@ -8183,6 +8170,12 @@ components:
           type: number
         currency:
           description: The three-letter ISO 4217 currency code
+          type: string
+        imageId:
+          description: The image identifier for the line item
+          type: string
+        imageUrl:
+          description: The URL of the image for the line item
           type: string
       required:
       - amount
@@ -8220,18 +8213,31 @@ components:
         embedOrigin:
           description: Embed origin
           type: string
+        methods:
+          description: Enabled payment methods
+          items:
+            enum:
+            - card
+            - wallet
+            - bank
+            type: string
+          type: array
       type: object
     CreateCheckoutSessionDto:
       example:
         lineItems:
         - amount: 6.027456183070403
           quantity: 0.8008281904610115
+          imageId: imageId
           productId: productId
+          imageUrl: imageUrl
           name: name
           currency: currency
         - amount: 6.027456183070403
           quantity: 0.8008281904610115
+          imageId: imageId
           productId: productId
+          imageUrl: imageUrl
           name: name
           currency: currency
         mode: mode
@@ -8246,11 +8252,9 @@ components:
         customerId: customerId
         successUrl: successUrl
         currency: currency
-        failureUrl: failureUrl
       properties:
         merchantId:
-          description: "The ID of the merchant whose balance is being requested. If\
-            \ omitted, defaults to the authenticated merchant."
+          description: The ID of the merchant for the checkout session.
           type: string
         customerId:
           description: The unique identifier of the customer
@@ -8260,9 +8264,6 @@ components:
           type: string
         successUrl:
           description: The URL to redirect to on successful payment
-          type: string
-        failureUrl:
-          description: The URL to redirect to on failure
           type: string
         cancelUrl:
           description: The URL to redirect to on cancel
@@ -8294,10 +8295,12 @@ components:
           description: Configuration for the hosted checkout page
       required:
       - currency
+      - merchantId
       - metadata
       type: object
     CheckoutSessionResponseDto:
       example:
+        paymentIntentId: paymentIntentId
         hostedCheckoutConfig: ""
         metadata:
           orderId: ORD-12345
@@ -8306,12 +8309,16 @@ components:
         lineItems:
         - amount: 6.027456183070403
           quantity: 0.8008281904610115
+          imageId: imageId
           productId: productId
+          imageUrl: imageUrl
           name: name
           currency: currency
         - amount: 6.027456183070403
           quantity: 0.8008281904610115
+          imageId: imageId
           productId: productId
+          imageUrl: imageUrl
           name: name
           currency: currency
         mode: mode
@@ -8340,6 +8347,8 @@ components:
           format: date-time
           type: string
         merchantId:
+          type: string
+        paymentIntentId:
           type: string
         customerId:
           type: string
@@ -8422,7 +8431,8 @@ components:
           limit: 50
           hasMore: true
         data:
-        - hostedCheckoutConfig: ""
+        - paymentIntentId: paymentIntentId
+          hostedCheckoutConfig: ""
           metadata:
             orderId: ORD-12345
           successUrl: successUrl
@@ -8430,12 +8440,16 @@ components:
           lineItems:
           - amount: 6.027456183070403
             quantity: 0.8008281904610115
+            imageId: imageId
             productId: productId
+            imageUrl: imageUrl
             name: name
             currency: currency
           - amount: 6.027456183070403
             quantity: 0.8008281904610115
+            imageId: imageId
             productId: productId
+            imageUrl: imageUrl
             name: name
             currency: currency
           mode: mode
@@ -8450,7 +8464,8 @@ components:
           id: id
           updatedAt: 2000-01-23T04:56:07.000+00:00
           status: status
-        - hostedCheckoutConfig: ""
+        - paymentIntentId: paymentIntentId
+          hostedCheckoutConfig: ""
           metadata:
             orderId: ORD-12345
           successUrl: successUrl
@@ -8458,12 +8473,16 @@ components:
           lineItems:
           - amount: 6.027456183070403
             quantity: 0.8008281904610115
+            imageId: imageId
             productId: productId
+            imageUrl: imageUrl
             name: name
             currency: currency
           - amount: 6.027456183070403
             quantity: 0.8008281904610115
+            imageId: imageId
             productId: productId
+            imageUrl: imageUrl
             name: name
             currency: currency
           mode: mode
@@ -8543,6 +8562,627 @@ components:
       - metadata
       - status
       - updatedAt
+      type: object
+    EvervaultEncryptedCardDto:
+      properties:
+        pAN:
+          description: Encrypted Primary Account Number (PAN)
+          example: ev:encrypted:ABC123...
+          type: string
+        expiryDate:
+          description: Encrypted card expiry date
+          example: ev:encrypted:DEF456...
+          type: string
+        cardSecurityCode:
+          description: Encrypted card security code (CVV)
+          example: ev:encrypted:GHI789...
+          type: string
+        cardholderName:
+          description: Encrypted cardholder name
+          example: ev:encrypted:JKL012...
+          type: string
+      required:
+      - cardSecurityCode
+      - expiryDate
+      - pAN
+      type: object
+    ConfirmCheckoutSessionDto:
+      properties:
+        evervaultEncryptedCard:
+          allOf:
+          - $ref: "#/components/schemas/EvervaultEncryptedCardDto"
+          description: Evervault encrypted card details
+        maskedPan:
+          description: Masked PAN for display purposes
+          type: string
+        tokenizeCard:
+          default: false
+          description: Whether to tokenize the card for future use
+          type: boolean
+        firstName:
+          description: Cardholder first name
+          type: string
+        lastName:
+          description: Cardholder last name
+          type: string
+        phoneNumber:
+          description: Cardholder phone number
+          type: string
+        paymentDescription:
+          description: Payment description
+          type: string
+        merchantName:
+          description: Merchant name for display
+          type: string
+        metadata:
+          additionalProperties: true
+          description: Additional metadata
+          type: object
+      required:
+      - evervaultEncryptedCard
+      type: object
+    CheckoutSessionConfirmResponseDto:
+      properties:
+        sessionId:
+          type: string
+        paymentIntentId:
+          type: string
+        iveriParams:
+          type: object
+        iVeri3dsEndpoint:
+          type: string
+      required:
+      - iVeri3dsEndpoint
+      - iveriParams
+      - paymentIntentId
+      - sessionId
+      type: object
+    CreatePaymentIntentDto:
+      example:
+        mode: payment
+        amount: 0.8008281904610115
+        metadata:
+          orderId: "12345"
+          customField: value
+        merchantId: merchantId
+        paymentMethodId: paymentMethodId
+        idempotencyKey: idempotencyKey
+        customerId: customerId
+        description: description
+        currency: ZAR
+        expiresAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        merchantId:
+          description: "The ID of the merchant. If omitted, defaults to the authenticated\
+            \ merchant."
+          type: string
+        customerId:
+          description: The unique identifier of the customer. Optional for payment
+            intents that don't require a customer.
+          type: string
+        paymentMethodId:
+          description: The unique identifier of the payment method. Optional if payment
+            method will be collected later.
+          type: string
+        amount:
+          description: The amount to charge in the smallest currency unit (cents)
+          type: number
+        currency:
+          description: The three-letter ISO 4217 currency code
+          example: ZAR
+          type: string
+        mode:
+          default: payment
+          description: The mode of the payment intent
+          enum:
+          - payment
+          - setup
+          - subscription
+          type: string
+        description:
+          description: Optional description for the payment
+          type: string
+        metadata:
+          additionalProperties: true
+          description: Optional custom metadata
+          example:
+            orderId: "12345"
+            customField: value
+          type: object
+        idempotencyKey:
+          description: "A unique key to prevent duplicate charges. If not provided,\
+            \ one will be generated."
+          type: string
+        expiresAt:
+          description: When the payment intent expires. Defaults to 24 hours from
+            creation.
+          format: date-time
+          type: string
+      required:
+      - amount
+      - currency
+      type: object
+    PaymentIntentResponseDto:
+      example:
+        amount: 0.8008281904610115
+        metadata:
+          orderId: "12345"
+        idempotencyKey: idempotencyKey
+        description: description
+        expiresAt: 2000-01-23T04:56:07.000+00:00
+        mode: payment
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        deletedAt: 2000-01-23T04:56:07.000+00:00
+        merchantId: merchantId
+        paymentMethodId: paymentMethodId
+        customerId: customerId
+        currency: currency
+        id: id
+        status: initiation
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Unique payment intent ID
+          type: string
+        merchantId:
+          description: Merchant ID
+          type: string
+        customerId:
+          description: Customer ID (if associated)
+          nullable: true
+          type: string
+        paymentMethodId:
+          description: Payment method ID (if attached)
+          nullable: true
+          type: string
+        amount:
+          description: Amount in smallest currency unit
+          type: number
+        currency:
+          description: Three-letter currency code
+          type: string
+        status:
+          description: Current status of the payment intent
+          enum:
+          - initiation
+          - requires_payment_method
+          - requires_confirmation
+          - requires_action
+          - processing
+          - requires_capture
+          - succeeded
+          - failed
+          - canceled
+          type: string
+        mode:
+          description: Mode of the payment intent
+          enum:
+          - payment
+          - setup
+          - subscription
+          type: string
+        description:
+          description: Description
+          type: string
+        metadata:
+          additionalProperties: true
+          description: Custom metadata
+          example:
+            orderId: "12345"
+          type: object
+        idempotencyKey:
+          description: Unique idempotency key for this payment intent
+          type: string
+        expiresAt:
+          description: When the payment intent expires
+          format: date-time
+          type: string
+        createdAt:
+          description: Creation timestamp
+          format: date-time
+          type: string
+        updatedAt:
+          description: Last update timestamp
+          format: date-time
+          type: string
+        deletedAt:
+          description: Deletion timestamp (for soft deletes)
+          format: date-time
+          nullable: true
+          type: string
+      required:
+      - amount
+      - createdAt
+      - currency
+      - customerId
+      - expiresAt
+      - id
+      - idempotencyKey
+      - merchantId
+      - mode
+      - paymentMethodId
+      - status
+      - updatedAt
+      type: object
+    ListPaymentIntentsResponseDto:
+      example:
+        pagination: ""
+        data:
+        - amount: 0.8008281904610115
+          metadata:
+            orderId: "12345"
+          idempotencyKey: idempotencyKey
+          description: description
+          expiresAt: 2000-01-23T04:56:07.000+00:00
+          mode: payment
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          merchantId: merchantId
+          paymentMethodId: paymentMethodId
+          customerId: customerId
+          currency: currency
+          id: id
+          status: initiation
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - amount: 0.8008281904610115
+          metadata:
+            orderId: "12345"
+          idempotencyKey: idempotencyKey
+          description: description
+          expiresAt: 2000-01-23T04:56:07.000+00:00
+          mode: payment
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          merchantId: merchantId
+          paymentMethodId: paymentMethodId
+          customerId: customerId
+          currency: currency
+          id: id
+          status: initiation
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          description: List of payment intents
+          items:
+            $ref: "#/components/schemas/PaymentIntentResponseDto"
+          type: array
+        pagination:
+          allOf:
+          - $ref: "#/components/schemas/PaginationResponseDto"
+          description: Pagination metadata
+      required:
+      - data
+      - pagination
+      type: object
+    ConfirmPaymentIntentDto:
+      example:
+        firstName: firstName
+        lastName: lastName
+        metadata:
+          key: ""
+        tokenizeCard: false
+        phoneNumber: phoneNumber
+        maskedPan: maskedPan
+        evervaultEncryptedCard: ""
+        paymentDescription: paymentDescription
+        merchantName: merchantName
+      properties:
+        evervaultEncryptedCard:
+          allOf:
+          - $ref: "#/components/schemas/EvervaultEncryptedCardDto"
+          description: Evervault encrypted card details
+        maskedPan:
+          description: Masked PAN for display purposes
+          type: string
+        tokenizeCard:
+          default: false
+          description: Whether to tokenize the card for future use
+          type: boolean
+        firstName:
+          description: Cardholder first name
+          type: string
+        lastName:
+          description: Cardholder last name
+          type: string
+        phoneNumber:
+          description: Cardholder phone number
+          type: string
+        paymentDescription:
+          description: Payment description
+          type: string
+        merchantName:
+          description: Merchant name for display
+          type: string
+        metadata:
+          additionalProperties: true
+          description: Additional metadata
+          type: object
+      required:
+      - evervaultEncryptedCard
+      type: object
+    ConfirmPaymentIntentResponseDto:
+      example:
+        iVeri3dsEndpoint: iVeri3dsEndpoint
+        paymentIntent:
+          amount: 0.8008281904610115
+          metadata:
+            orderId: "12345"
+          idempotencyKey: idempotencyKey
+          description: description
+          expiresAt: 2000-01-23T04:56:07.000+00:00
+          mode: payment
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          merchantId: merchantId
+          paymentMethodId: paymentMethodId
+          customerId: customerId
+          currency: currency
+          id: id
+          status: initiation
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        iveriParams: "{}"
+      properties:
+        paymentIntent:
+          $ref: "#/components/schemas/PaymentIntentResponseDto"
+        iveriParams:
+          type: object
+        iVeri3dsEndpoint:
+          type: string
+      required:
+      - iVeri3dsEndpoint
+      - iveriParams
+      - paymentIntent
+      type: object
+    InitiatePaymentDto:
+      properties:
+        amount:
+          description: "Payment amount in the smallest currency unit (e.g., cents)"
+          example: 10000
+          type: number
+        currency:
+          description: Three-letter ISO 4217 currency code
+          example: ZAR
+          type: string
+        merchantId:
+          description: The unique identifier of the merchant
+          example: mer_abc123
+          type: string
+        evervaultEncryptedCard:
+          allOf:
+          - $ref: "#/components/schemas/EvervaultEncryptedCardDto"
+          description: Evervault encrypted card details
+        paymentIntentId:
+          description: Payment intent ID linked to the checkout/payment flow
+          example: pi_xyz789
+          type: string
+        maskedPan:
+          description: Masked PAN for display purposes
+          example: '************1234'
+          type: string
+        tokenizeCard:
+          default: false
+          description: Whether to tokenize the card for future use
+          type: boolean
+        firstName:
+          description: Cardholder first name
+          example: John
+          type: string
+        lastName:
+          description: Cardholder last name
+          example: Doe
+          type: string
+        phoneNumber:
+          description: Cardholder phone number
+          example: "+27123456789"
+          type: string
+        paymentDescription:
+          description: Payment description
+          example: "Payment for order #12345"
+          type: string
+        merchantName:
+          description: Merchant name for display
+          example: Acme Store
+          type: string
+        metadata:
+          description: Additional metadata
+          example:
+            orderId: "12345"
+            customField: value
+          type: object
+      required:
+      - amount
+      - currency
+      - evervaultEncryptedCard
+      - merchantId
+      - paymentIntentId
+      type: object
+    IveriParamsDto:
+      properties:
+        ApplicationID:
+          description: iVeri Application ID
+          example: APP123
+          type: string
+        ReturnUrl:
+          description: URL to return to after 3DS authentication
+          example: https://api.example.com/api/iveri/debit-return
+          type: string
+        MerchantReference:
+          description: Unique merchant reference for this payment
+          example: pi_xyz789
+          type: string
+        Amount:
+          description: Payment amount in cents (as string)
+          example: "10000"
+          type: string
+        Currency:
+          description: Three-letter ISO 4217 currency code
+          example: ZAR
+          type: string
+      required:
+      - Amount
+      - ApplicationID
+      - Currency
+      - MerchantReference
+      - ReturnUrl
+      type: object
+    InitiatePaymentResponseDto:
+      properties:
+        iveriParams:
+          allOf:
+          - $ref: "#/components/schemas/IveriParamsDto"
+          description: Parameters to POST to iVeri 3DS endpoint
+        iVeri3dsEndpoint:
+          description: iVeri 3DS endpoint URL to POST the parameters to
+          example: https://portal.nedsecure.co.za/threedsecure/EnrollmentInitial
+          type: string
+      required:
+      - iVeri3dsEndpoint
+      - iveriParams
+      type: object
+    IVeriHealthCheckResponseDto:
+      properties:
+        status:
+          description: Service health status
+          example: ok
+          type: string
+        timestamp:
+          description: Current server timestamp in ISO format
+          example: 2024-01-15T10:30:00.000Z
+          type: string
+      required:
+      - status
+      - timestamp
+      type: object
+    EventResponseDto:
+      example:
+        nextRetryAt: 2000-01-23T04:56:07.000+00:00
+        data:
+          key: value
+        lastAttemptAt: 2000-01-23T04:56:07.000+00:00
+        relatedEntityType: relatedEntityType
+        type: type
+        deliveredAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        merchantId: merchantId
+        webhookEndpointId: webhookEndpointId
+        relatedEntityId: relatedEntityId
+        id: id
+        status: pending
+        attempts: 0.8008281904610115
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Unique identifier for the event
+          type: string
+        merchantId:
+          description: ID of the merchant this event belongs to
+          type: string
+        webhookEndpointId:
+          description: ID of the webhook endpoint this event was sent to
+          type: string
+        type:
+          description: Event type name
+          type: string
+        data:
+          description: Event data payload
+          example:
+            key: value
+          type: object
+        status:
+          description: Current delivery status of the event
+          enum:
+          - pending
+          - delivered
+          - failed
+          type: string
+        attempts:
+          description: Number of delivery attempts
+          type: number
+        relatedEntityId:
+          description: ID of the related entity
+          type: string
+        relatedEntityType:
+          description: Type of the related entity
+          type: string
+        lastAttemptAt:
+          description: Timestamp of the last delivery attempt
+          format: date-time
+          type: string
+        nextRetryAt:
+          description: Timestamp for the next retry attempt
+          format: date-time
+          type: string
+        deliveredAt:
+          description: Timestamp when the event was successfully delivered
+          format: date-time
+          type: string
+        createdAt:
+          description: Timestamp when the event was created
+          format: date-time
+          type: string
+        updatedAt:
+          description: Timestamp when the event was last updated
+          format: date-time
+          type: string
+      required:
+      - attempts
+      - createdAt
+      - data
+      - id
+      - merchantId
+      - status
+      - type
+      - updatedAt
+      - webhookEndpointId
+      type: object
+    ListEventsResponseDto:
+      example:
+        pagination:
+          total: 150
+          offset: 0
+          limit: 50
+          hasMore: true
+        data:
+        - nextRetryAt: 2000-01-23T04:56:07.000+00:00
+          data:
+            key: value
+          lastAttemptAt: 2000-01-23T04:56:07.000+00:00
+          relatedEntityType: relatedEntityType
+          type: type
+          deliveredAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          merchantId: merchantId
+          webhookEndpointId: webhookEndpointId
+          relatedEntityId: relatedEntityId
+          id: id
+          status: pending
+          attempts: 0.8008281904610115
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - nextRetryAt: 2000-01-23T04:56:07.000+00:00
+          data:
+            key: value
+          lastAttemptAt: 2000-01-23T04:56:07.000+00:00
+          relatedEntityType: relatedEntityType
+          type: type
+          deliveredAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          merchantId: merchantId
+          webhookEndpointId: webhookEndpointId
+          relatedEntityId: relatedEntityId
+          id: id
+          status: pending
+          attempts: 0.8008281904610115
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/EventResponseDto"
+          type: array
+        pagination:
+          $ref: "#/components/schemas/PaginationResponseDto"
+      required:
+      - data
+      - pagination
       type: object
     MerchantBalanceResponseDto:
       example:
@@ -9093,365 +9733,21 @@ components:
       - data
       - pagination
       type: object
-    EventResponseDto:
-      example:
-        nextRetryAt: 2000-01-23T04:56:07.000+00:00
-        data:
-          key: value
-        lastAttemptAt: 2000-01-23T04:56:07.000+00:00
-        relatedEntityType: relatedEntityType
-        type: type
-        deliveredAt: 2000-01-23T04:56:07.000+00:00
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        merchantId: merchantId
-        webhookEndpointId: webhookEndpointId
-        relatedEntityId: relatedEntityId
-        id: id
-        status: pending
-        attempts: 0.8008281904610115
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        id:
-          description: Unique identifier for the event
-          type: string
-        merchantId:
-          description: ID of the merchant this event belongs to
-          type: string
-        webhookEndpointId:
-          description: ID of the webhook endpoint this event was sent to
-          type: string
-        type:
-          description: Event type name
-          type: string
-        data:
-          description: Event data payload
-          example:
-            key: value
-          type: object
-        status:
-          description: Current delivery status of the event
-          enum:
-          - pending
-          - delivered
-          - failed
-          type: string
-        attempts:
-          description: Number of delivery attempts
-          type: number
-        relatedEntityId:
-          description: ID of the related entity
-          type: string
-        relatedEntityType:
-          description: Type of the related entity
-          type: string
-        lastAttemptAt:
-          description: Timestamp of the last delivery attempt
-          format: date-time
-          type: string
-        nextRetryAt:
-          description: Timestamp for the next retry attempt
-          format: date-time
-          type: string
-        deliveredAt:
-          description: Timestamp when the event was successfully delivered
-          format: date-time
-          type: string
-        createdAt:
-          description: Timestamp when the event was created
-          format: date-time
-          type: string
-        updatedAt:
-          description: Timestamp when the event was last updated
-          format: date-time
-          type: string
-      required:
-      - attempts
-      - createdAt
-      - data
-      - id
-      - merchantId
-      - status
-      - type
-      - updatedAt
-      - webhookEndpointId
-      type: object
-    ListEventsResponseDto:
-      example:
-        pagination:
-          total: 150
-          offset: 0
-          limit: 50
-          hasMore: true
-        data:
-        - nextRetryAt: 2000-01-23T04:56:07.000+00:00
-          data:
-            key: value
-          lastAttemptAt: 2000-01-23T04:56:07.000+00:00
-          relatedEntityType: relatedEntityType
-          type: type
-          deliveredAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          merchantId: merchantId
-          webhookEndpointId: webhookEndpointId
-          relatedEntityId: relatedEntityId
-          id: id
-          status: pending
-          attempts: 0.8008281904610115
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - nextRetryAt: 2000-01-23T04:56:07.000+00:00
-          data:
-            key: value
-          lastAttemptAt: 2000-01-23T04:56:07.000+00:00
-          relatedEntityType: relatedEntityType
-          type: type
-          deliveredAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          merchantId: merchantId
-          webhookEndpointId: webhookEndpointId
-          relatedEntityId: relatedEntityId
-          id: id
-          status: pending
-          attempts: 0.8008281904610115
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        data:
-          items:
-            $ref: "#/components/schemas/EventResponseDto"
-          type: array
-        pagination:
-          $ref: "#/components/schemas/PaginationResponseDto"
-      required:
-      - data
-      - pagination
-      type: object
-    CreatePaymentIntentDto:
-      example:
-        mode: payment
-        amount: 0.8008281904610115
-        metadata:
-          orderId: "12345"
-          customField: value
-        merchantId: merchantId
-        paymentMethodId: paymentMethodId
-        idempotencyKey: idempotencyKey
-        customerId: customerId
-        description: description
-        currency: ZAR
-        expiresAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        merchantId:
-          description: "The ID of the merchant whose balance is being requested. If\
-            \ omitted, defaults to the authenticated merchant."
-          type: string
-        customerId:
-          description: The unique identifier of the customer. Optional for payment
-            intents that don't require a customer.
-          type: string
-        paymentMethodId:
-          description: The unique identifier of the payment method. Optional if payment
-            method will be collected later.
-          type: string
-        amount:
-          description: The amount to charge in the smallest currency unit (cents)
-          type: number
-        currency:
-          description: The three-letter ISO 4217 currency code
-          example: ZAR
-          type: string
-        mode:
-          default: payment
-          description: The mode of the payment intent
-          enum:
-          - payment
-          - setup
-          - subscription
-          type: string
-        description:
-          description: Optional description for the payment
-          type: string
-        metadata:
-          additionalProperties: true
-          description: Optional custom metadata
-          example:
-            orderId: "12345"
-            customField: value
-          type: object
-        idempotencyKey:
-          description: "A unique key to prevent duplicate charges. If not provided,\
-            \ one will be generated."
-          type: string
-        expiresAt:
-          description: When the payment intent expires. Defaults to 24 hours from
-            creation.
-          format: date-time
-          type: string
-      required:
-      - amount
-      - currency
-      type: object
-    PaymentIntentResponseDto:
-      example:
-        amount: 0.8008281904610115
-        metadata:
-          orderId: "12345"
-        idempotencyKey: idempotencyKey
-        description: description
-        expiresAt: 2000-01-23T04:56:07.000+00:00
-        mode: payment
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        deletedAt: 2000-01-23T04:56:07.000+00:00
-        merchantId: merchantId
-        paymentMethodId: paymentMethodId
-        customerId: customerId
-        currency: currency
-        id: id
-        status: initiation
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        id:
-          description: Unique payment intent ID
-          type: string
-        merchantId:
-          description: Merchant ID
-          type: string
-        customerId:
-          description: Customer ID (if associated)
-          nullable: true
-          type: string
-        paymentMethodId:
-          description: Payment method ID (if attached)
-          nullable: true
-          type: string
-        amount:
-          description: Amount in smallest currency unit
-          type: number
-        currency:
-          description: Three-letter currency code
-          type: string
-        status:
-          description: Current status of the payment intent
-          enum:
-          - initiation
-          - requires_payment_method
-          - requires_confirmation
-          - requires_action
-          - processing
-          - requires_capture
-          - succeeded
-          - failed
-          - canceled
-          type: string
-        mode:
-          description: Mode of the payment intent
-          enum:
-          - payment
-          - setup
-          - subscription
-          type: string
-        description:
-          description: Description
-          type: string
-        metadata:
-          additionalProperties: true
-          description: Custom metadata
-          example:
-            orderId: "12345"
-          type: object
-        idempotencyKey:
-          description: Unique idempotency key for this payment intent
-          type: string
-        expiresAt:
-          description: When the payment intent expires
-          format: date-time
-          type: string
-        createdAt:
-          description: Creation timestamp
-          format: date-time
-          type: string
-        updatedAt:
-          description: Last update timestamp
-          format: date-time
-          type: string
-        deletedAt:
-          description: Deletion timestamp (for soft deletes)
-          format: date-time
-          nullable: true
-          type: string
-      required:
-      - amount
-      - createdAt
-      - currency
-      - customerId
-      - expiresAt
-      - id
-      - idempotencyKey
-      - merchantId
-      - mode
-      - paymentMethodId
-      - status
-      - updatedAt
-      type: object
-    ListPaymentIntentsResponseDto:
-      example:
-        pagination: ""
-        data:
-        - amount: 0.8008281904610115
-          metadata:
-            orderId: "12345"
-          idempotencyKey: idempotencyKey
-          description: description
-          expiresAt: 2000-01-23T04:56:07.000+00:00
-          mode: payment
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          merchantId: merchantId
-          paymentMethodId: paymentMethodId
-          customerId: customerId
-          currency: currency
-          id: id
-          status: initiation
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - amount: 0.8008281904610115
-          metadata:
-            orderId: "12345"
-          idempotencyKey: idempotencyKey
-          description: description
-          expiresAt: 2000-01-23T04:56:07.000+00:00
-          mode: payment
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          merchantId: merchantId
-          paymentMethodId: paymentMethodId
-          customerId: customerId
-          currency: currency
-          id: id
-          status: initiation
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        data:
-          description: List of payment intents
-          items:
-            $ref: "#/components/schemas/PaymentIntentResponseDto"
-          type: array
-        pagination:
-          allOf:
-          - $ref: "#/components/schemas/PaginationResponseDto"
-          description: Pagination metadata
-      required:
-      - data
-      - pagination
-      type: object
     CreatePaymentLinkDto:
       example:
         lineItems:
         - amount: 6.027456183070403
           quantity: 0.8008281904610115
+          imageId: imageId
           productId: productId
+          imageUrl: imageUrl
           name: name
           currency: currency
         - amount: 6.027456183070403
           quantity: 0.8008281904610115
+          imageId: imageId
           productId: productId
+          imageUrl: imageUrl
           name: name
           currency: currency
         mode: payment
@@ -9536,12 +9832,16 @@ components:
         lineItems:
         - amount: 6.027456183070403
           quantity: 0.8008281904610115
+          imageId: imageId
           productId: productId
+          imageUrl: imageUrl
           name: name
           currency: currency
         - amount: 6.027456183070403
           quantity: 0.8008281904610115
+          imageId: imageId
           productId: productId
+          imageUrl: imageUrl
           name: name
           currency: currency
         mode: payment
@@ -9638,12 +9938,16 @@ components:
           lineItems:
           - amount: 6.027456183070403
             quantity: 0.8008281904610115
+            imageId: imageId
             productId: productId
+            imageUrl: imageUrl
             name: name
             currency: currency
           - amount: 6.027456183070403
             quantity: 0.8008281904610115
+            imageId: imageId
             productId: productId
+            imageUrl: imageUrl
             name: name
             currency: currency
           mode: payment
@@ -9667,12 +9971,16 @@ components:
           lineItems:
           - amount: 6.027456183070403
             quantity: 0.8008281904610115
+            imageId: imageId
             productId: productId
+            imageUrl: imageUrl
             name: name
             currency: currency
           - amount: 6.027456183070403
             quantity: 0.8008281904610115
+            imageId: imageId
             productId: productId
+            imageUrl: imageUrl
             name: name
             currency: currency
           mode: payment
@@ -10745,190 +11053,6 @@ components:
       - customers
       - members
       - transactions
-      type: object
-    EvervaultEncryptedCardDto:
-      properties:
-        PAN:
-          description: Encrypted Primary Account Number (PAN)
-          example: ev:encrypted:ABC123...
-          type: string
-        ExpiryDate:
-          description: Encrypted card expiry date
-          example: ev:encrypted:DEF456...
-          type: string
-        CardSecurityCode:
-          description: Encrypted card security code (CVV)
-          example: ev:encrypted:GHI789...
-          type: string
-        CardholderName:
-          description: Encrypted cardholder name
-          example: ev:encrypted:JKL012...
-          type: string
-      required:
-      - CardSecurityCode
-      - ExpiryDate
-      - PAN
-      type: object
-    InitiatePaymentDto:
-      properties:
-        amount:
-          description: "Payment amount in the smallest currency unit (e.g., cents)"
-          example: 10000
-          type: number
-        currency:
-          description: Three-letter ISO 4217 currency code
-          example: ZAR
-          type: string
-        merchantId:
-          description: The unique identifier of the merchant
-          example: mer_abc123
-          type: string
-        evervaultEncryptedCard:
-          allOf:
-          - $ref: "#/components/schemas/EvervaultEncryptedCardDto"
-          description: Evervault encrypted card details
-        paymentIntentId:
-          description: Payment intent ID (generated if not provided)
-          example: pi_xyz789
-          type: string
-        maskedPan:
-          description: Masked PAN for display purposes
-          example: '************1234'
-          type: string
-        tokenizeCard:
-          default: false
-          description: Whether to tokenize the card for future use
-          type: boolean
-        firstName:
-          description: Cardholder first name
-          example: John
-          type: string
-        lastName:
-          description: Cardholder last name
-          example: Doe
-          type: string
-        phoneNumber:
-          description: Cardholder phone number
-          example: "+27123456789"
-          type: string
-        paymentDescription:
-          description: Payment description
-          example: "Payment for order #12345"
-          type: string
-        merchantName:
-          description: Merchant name for display
-          example: Acme Store
-          type: string
-        metadata:
-          description: Additional metadata
-          example:
-            orderId: "12345"
-            customField: value
-          type: object
-      required:
-      - amount
-      - currency
-      - evervaultEncryptedCard
-      - merchantId
-      type: object
-    IveriParamsDto:
-      properties:
-        ApplicationID:
-          description: iVeri Application ID
-          example: APP123
-          type: string
-        ReturnUrl:
-          description: URL to return to after 3DS authentication
-          example: https://api.example.com/api/iveri/debit-return
-          type: string
-        MerchantReference:
-          description: Unique merchant reference for this payment
-          example: pi_xyz789
-          type: string
-        Amount:
-          description: Payment amount in cents (as string)
-          example: "10000"
-          type: string
-        Currency:
-          description: Three-letter ISO 4217 currency code
-          example: ZAR
-          type: string
-      required:
-      - Amount
-      - ApplicationID
-      - Currency
-      - MerchantReference
-      - ReturnUrl
-      type: object
-    InitiatePaymentResponseDto:
-      properties:
-        iveriParams:
-          allOf:
-          - $ref: "#/components/schemas/IveriParamsDto"
-          description: Parameters to POST to iVeri 3DS endpoint
-        iVeri3dsEndpoint:
-          description: iVeri 3DS endpoint URL to POST the parameters to
-          example: https://portal.nedsecure.co.za/threedsecure/EnrollmentInitial
-          type: string
-      required:
-      - iVeri3dsEndpoint
-      - iveriParams
-      type: object
-    DebitReturnResponseDto:
-      properties:
-        status:
-          description: Payment status after 3DS authentication
-          enum:
-          - succeeded
-          - failed
-          - pending
-          example: succeeded
-          type: string
-        merchantReference:
-          description: Merchant reference for the payment
-          example: pi_xyz789
-          type: string
-        paymentIntentId:
-          description: Payment intent ID
-          example: pi_xyz789
-          type: string
-        transactionId:
-          description: Transaction ID if payment succeeded
-          example: txn_abc123
-          type: string
-        authCode:
-          description: Authorization code from payment gateway
-          example: AUTH123456
-          type: string
-        reason:
-          description: Reason for failure if payment failed
-          example: Insufficient funds
-          type: string
-        amount:
-          description: Payment amount in smallest currency unit
-          example: 10000
-          type: number
-        currency:
-          description: Currency code
-          example: ZAR
-          type: string
-      required:
-      - merchantReference
-      - status
-      type: object
-    IVeriHealthCheckResponseDto:
-      properties:
-        status:
-          description: Service health status
-          example: ok
-          type: string
-        timestamp:
-          description: Current server timestamp in ISO format
-          example: 2024-01-15T10:30:00.000Z
-          type: string
-      required:
-      - status
-      - timestamp
       type: object
     CreateOrganizationComplianceDto:
       example:

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **UpdatedAt** | **DateTimeOffset** |  | 
 **DeletedAt** | **DateTimeOffset** |  | [optional] 
 **MerchantId** | **string** |  | 
+**PaymentIntentId** | **string** |  | [optional] 
 **CustomerId** | **string** |  | [optional] 
 **SessionUrl** | **string** |  | 
 **SuccessUrl** | **string** |  | 

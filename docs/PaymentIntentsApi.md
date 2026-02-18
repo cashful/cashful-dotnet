@@ -114,11 +114,11 @@ catch (ApiException e)
 
 <a id="confirmpaymentintent"></a>
 # **ConfirmPaymentIntent**
-> PaymentIntentResponseDto ConfirmPaymentIntent (string id)
+> ConfirmPaymentIntentResponseDto ConfirmPaymentIntent (string id, ConfirmPaymentIntentDto confirmPaymentIntentDto)
 
 Confirm Payment Intent
 
-Confirms a payment intent that requires confirmation. This initiates the actual payment processing.
+Confirms a payment intent that requires confirmation and returns 3DS parameters for card authentication.
 
 ### Example
 ```csharp
@@ -145,11 +145,12 @@ namespace Example
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new PaymentIntentsApi(httpClient, config, httpClientHandler);
             var id = "id_example";  // string | The unique identifier of the payment intent
+            var confirmPaymentIntentDto = new ConfirmPaymentIntentDto(); // ConfirmPaymentIntentDto | 
 
             try
             {
                 // Confirm Payment Intent
-                PaymentIntentResponseDto result = apiInstance.ConfirmPaymentIntent(id);
+                ConfirmPaymentIntentResponseDto result = apiInstance.ConfirmPaymentIntent(id, confirmPaymentIntentDto);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -170,7 +171,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // Confirm Payment Intent
-    ApiResponse<PaymentIntentResponseDto> response = apiInstance.ConfirmPaymentIntentWithHttpInfo(id);
+    ApiResponse<ConfirmPaymentIntentResponseDto> response = apiInstance.ConfirmPaymentIntentWithHttpInfo(id, confirmPaymentIntentDto);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -188,10 +189,11 @@ catch (ApiException e)
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **id** | **string** | The unique identifier of the payment intent |  |
+| **confirmPaymentIntentDto** | [**ConfirmPaymentIntentDto**](ConfirmPaymentIntentDto.md) |  |  |
 
 ### Return type
 
-[**PaymentIntentResponseDto**](PaymentIntentResponseDto.md)
+[**ConfirmPaymentIntentResponseDto**](ConfirmPaymentIntentResponseDto.md)
 
 ### Authorization
 
@@ -199,14 +201,14 @@ catch (ApiException e)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Payment intent confirmed and processing |  -  |
+| **200** | Payment intent confirmed and awaiting authentication |  -  |
 | **400** | Bad Request - Invalid input |  -  |
 | **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |
@@ -220,7 +222,7 @@ catch (ApiException e)
 
 Create Payment Intent
 
-Creates a payment intent for off-session charges. Used for subscriptions, recurring billing, or server-to-server payments with saved cards.
+Creates a payment intent for a payment attempt. Used for hosted checkout or direct integrations.
 
 ### Example
 ```csharp
@@ -319,7 +321,7 @@ catch (ApiException e)
 
 <a id="listpaymentintents"></a>
 # **ListPaymentIntents**
-> ListPaymentIntentsResponseDto ListPaymentIntents (string? merchantId = null, decimal? limit = null, decimal? offset = null, string? status = null)
+> ListPaymentIntentsResponseDto ListPaymentIntents (string? status = null, decimal? offset = null, decimal? limit = null, string? merchantId = null)
 
 List Payment Intents
 
@@ -349,15 +351,15 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new PaymentIntentsApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string? | The ID of the merchant. If omitted, defaults to the authenticated merchant. (optional) 
-            var limit = 50MD;  // decimal? | Maximum number of records to return (optional)  (default to 50M)
-            var offset = 0MD;  // decimal? | Number of records to skip (optional)  (default to 0M)
-            var status = "initiation";  // string? | Filter by status (optional) 
+            var status = "initiation";  // string? |  (optional) 
+            var offset = 8.14D;  // decimal? |  (optional) 
+            var limit = 8.14D;  // decimal? |  (optional) 
+            var merchantId = "merchantId_example";  // string? |  (optional) 
 
             try
             {
                 // List Payment Intents
-                ListPaymentIntentsResponseDto result = apiInstance.ListPaymentIntents(merchantId, limit, offset, status);
+                ListPaymentIntentsResponseDto result = apiInstance.ListPaymentIntents(status, offset, limit, merchantId);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -378,7 +380,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Payment Intents
-    ApiResponse<ListPaymentIntentsResponseDto> response = apiInstance.ListPaymentIntentsWithHttpInfo(merchantId, limit, offset, status);
+    ApiResponse<ListPaymentIntentsResponseDto> response = apiInstance.ListPaymentIntentsWithHttpInfo(status, offset, limit, merchantId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -395,10 +397,10 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string?** | The ID of the merchant. If omitted, defaults to the authenticated merchant. | [optional]  |
-| **limit** | **decimal?** | Maximum number of records to return | [optional] [default to 50M] |
-| **offset** | **decimal?** | Number of records to skip | [optional] [default to 0M] |
-| **status** | **string?** | Filter by status | [optional]  |
+| **status** | **string?** |  | [optional]  |
+| **offset** | **decimal?** |  | [optional]  |
+| **limit** | **decimal?** |  | [optional]  |
+| **merchantId** | **string?** |  | [optional]  |
 
 ### Return type
 

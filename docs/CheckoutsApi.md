@@ -111,7 +111,7 @@ catch (ApiException e)
 
 <a id="listcheckoutsessions"></a>
 # **ListCheckoutSessions**
-> ListCheckoutSessionsResponseDto ListCheckoutSessions (string merchantId, decimal? limit = null, decimal? offset = null, string? status = null)
+> ListCheckoutSessionsResponseDto ListCheckoutSessions (decimal? limit = null, decimal? offset = null)
 
 List Checkout Sessions
 
@@ -141,15 +141,13 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new CheckoutsApi(httpClient, config, httpClientHandler);
-            var merchantId = "merchantId_example";  // string | The ID of the merchant to filter checkout sessions
-            var limit = 50;  // decimal? | Maximum number of records to return (optional) 
-            var offset = 0;  // decimal? | Number of records to skip (optional) 
-            var status = "status_example";  // string? | The status to filter checkout sessions (optional) 
+            var limit = 8.14D;  // decimal? | Maximum number of records to return (optional) 
+            var offset = 8.14D;  // decimal? | Number of records to skip (optional) 
 
             try
             {
                 // List Checkout Sessions
-                ListCheckoutSessionsResponseDto result = apiInstance.ListCheckoutSessions(merchantId, limit, offset, status);
+                ListCheckoutSessionsResponseDto result = apiInstance.ListCheckoutSessions(limit, offset);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -170,7 +168,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Checkout Sessions
-    ApiResponse<ListCheckoutSessionsResponseDto> response = apiInstance.ListCheckoutSessionsWithHttpInfo(merchantId, limit, offset, status);
+    ApiResponse<ListCheckoutSessionsResponseDto> response = apiInstance.ListCheckoutSessionsWithHttpInfo(limit, offset);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -187,10 +185,8 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **merchantId** | **string** | The ID of the merchant to filter checkout sessions |  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional]  |
 | **offset** | **decimal?** | Number of records to skip | [optional]  |
-| **status** | **string?** | The status to filter checkout sessions | [optional]  |
 
 ### Return type
 

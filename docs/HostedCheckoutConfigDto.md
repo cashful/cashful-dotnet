@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **TaxRate** | **decimal** | Tax rate | [optional] 
 **EmbedMode** | **bool** | Embed mode | [optional] 
 **EmbedOrigin** | **string** | Embed origin | [optional] 
+**Methods** | **List&lt;HostedCheckoutConfigDto.MethodsEnum&gt;** | Enabled payment methods | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

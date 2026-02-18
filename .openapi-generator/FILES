@@ -42,9 +42,13 @@ docs/ChangePasswordDto.md
 docs/ChangePasswordResponseDto.md
 docs/CheckSlugDto.md
 docs/CheckSlugResponseDto.md
+docs/CheckoutSessionConfirmResponseDto.md
 docs/CheckoutSessionResponseDto.md
 docs/CheckoutsApi.md
 docs/ComplianceApi.md
+docs/ConfirmCheckoutSessionDto.md
+docs/ConfirmPaymentIntentDto.md
+docs/ConfirmPaymentIntentResponseDto.md
 docs/ConfirmUploadDto.md
 docs/CreateApiKeyDto.md
 docs/CreateApiKeyResponseDto.md
@@ -69,7 +73,6 @@ docs/CustomerStatsDto.md
 docs/CustomerTransactionDto.md
 docs/CustomersApi.md
 docs/DailyBreakdownDto.md
-docs/DebitReturnResponseDto.md
 docs/DeleteApiKeyDto.md
 docs/DeleteApiKeyResponseDto.md
 docs/DeleteOrganizationDto.md
@@ -289,7 +292,11 @@ src/Cashful.Test/Model/ChangePasswordDtoTests.cs
 src/Cashful.Test/Model/ChangePasswordResponseDtoTests.cs
 src/Cashful.Test/Model/CheckSlugDtoTests.cs
 src/Cashful.Test/Model/CheckSlugResponseDtoTests.cs
+src/Cashful.Test/Model/CheckoutSessionConfirmResponseDtoTests.cs
 src/Cashful.Test/Model/CheckoutSessionResponseDtoTests.cs
+src/Cashful.Test/Model/ConfirmCheckoutSessionDtoTests.cs
+src/Cashful.Test/Model/ConfirmPaymentIntentDtoTests.cs
+src/Cashful.Test/Model/ConfirmPaymentIntentResponseDtoTests.cs
 src/Cashful.Test/Model/ConfirmUploadDtoTests.cs
 src/Cashful.Test/Model/CreateApiKeyDtoTests.cs
 src/Cashful.Test/Model/CreateApiKeyResponseDtoTests.cs
@@ -313,7 +320,6 @@ src/Cashful.Test/Model/CustomerResponseDtoTests.cs
 src/Cashful.Test/Model/CustomerStatsDtoTests.cs
 src/Cashful.Test/Model/CustomerTransactionDtoTests.cs
 src/Cashful.Test/Model/DailyBreakdownDtoTests.cs
-src/Cashful.Test/Model/DebitReturnResponseDtoTests.cs
 src/Cashful.Test/Model/DeleteApiKeyDtoTests.cs
 src/Cashful.Test/Model/DeleteApiKeyResponseDtoTests.cs
 src/Cashful.Test/Model/DeleteOrganizationDtoTests.cs
@@ -538,7 +544,11 @@ src/Cashful/Model/ChangePasswordDto.cs
 src/Cashful/Model/ChangePasswordResponseDto.cs
 src/Cashful/Model/CheckSlugDto.cs
 src/Cashful/Model/CheckSlugResponseDto.cs
+src/Cashful/Model/CheckoutSessionConfirmResponseDto.cs
 src/Cashful/Model/CheckoutSessionResponseDto.cs
+src/Cashful/Model/ConfirmCheckoutSessionDto.cs
+src/Cashful/Model/ConfirmPaymentIntentDto.cs
+src/Cashful/Model/ConfirmPaymentIntentResponseDto.cs
 src/Cashful/Model/ConfirmUploadDto.cs
 src/Cashful/Model/CreateApiKeyDto.cs
 src/Cashful/Model/CreateApiKeyResponseDto.cs
@@ -562,7 +572,6 @@ src/Cashful/Model/CustomerResponseDto.cs
 src/Cashful/Model/CustomerStatsDto.cs
 src/Cashful/Model/CustomerTransactionDto.cs
 src/Cashful/Model/DailyBreakdownDto.cs
-src/Cashful/Model/DebitReturnResponseDto.cs
 src/Cashful/Model/DeleteApiKeyDto.cs
 src/Cashful/Model/DeleteApiKeyResponseDto.cs
 src/Cashful/Model/DeleteOrganizationDto.cs
