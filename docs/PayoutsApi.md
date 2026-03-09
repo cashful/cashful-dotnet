@@ -111,7 +111,7 @@ catch (ApiException e)
 
 <a id="listpayouts"></a>
 # **ListPayouts**
-> ListPayoutsResponseDto ListPayouts (string? merchantId = null, decimal? limit = null, decimal? offset = null, string? status = null)
+> ListPayoutsResponseDto ListPayouts (decimal? limit = null, decimal? offset = null, string? filter = null, string? sort = null, string? order = null, string? merchantId = null, string? status = null)
 
 List Payouts
 
@@ -141,15 +141,18 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new PayoutsApi(httpClient, config, httpClientHandler);
+            var limit = 50;  // decimal? | Maximum number of items to return (optional) 
+            var offset = 0;  // decimal? | Number of items to skip (optional) 
+            var filter = {"ids":["prod_123","prod_456"]};  // string? | JSON string used for dynamic filtering (optional) 
+            var sort = createdAt;  // string? | Field name to sort by (optional) 
+            var order = DESC;  // string? | Sort direction (optional) 
             var merchantId = "merchantId_example";  // string? | The ID of the merchant whose payouts are being requested. If omitted, defaults to the authenticated merchant. (optional) 
-            var limit = 8.14D;  // decimal? | Maximum number of records to return (optional) 
-            var offset = 8.14D;  // decimal? | Number of records to skip (optional) 
             var status = "status_example";  // string? | Filter by status (optional) 
 
             try
             {
                 // List Payouts
-                ListPayoutsResponseDto result = apiInstance.ListPayouts(merchantId, limit, offset, status);
+                ListPayoutsResponseDto result = apiInstance.ListPayouts(limit, offset, filter, sort, order, merchantId, status);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -170,7 +173,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Payouts
-    ApiResponse<ListPayoutsResponseDto> response = apiInstance.ListPayoutsWithHttpInfo(merchantId, limit, offset, status);
+    ApiResponse<ListPayoutsResponseDto> response = apiInstance.ListPayoutsWithHttpInfo(limit, offset, filter, sort, order, merchantId, status);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -187,9 +190,12 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **limit** | **decimal?** | Maximum number of items to return | [optional]  |
+| **offset** | **decimal?** | Number of items to skip | [optional]  |
+| **filter** | **string?** | JSON string used for dynamic filtering | [optional]  |
+| **sort** | **string?** | Field name to sort by | [optional]  |
+| **order** | **string?** | Sort direction | [optional]  |
 | **merchantId** | **string?** | The ID of the merchant whose payouts are being requested. If omitted, defaults to the authenticated merchant. | [optional]  |
-| **limit** | **decimal?** | Maximum number of records to return | [optional]  |
-| **offset** | **decimal?** | Number of records to skip | [optional]  |
 | **status** | **string?** | Filter by status | [optional]  |
 
 ### Return type

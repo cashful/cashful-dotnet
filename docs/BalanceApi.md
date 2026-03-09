@@ -9,7 +9,7 @@ All URIs are relative to *https://api.cashful.africa*
 
 <a id="getbalancehistory"></a>
 # **GetBalanceHistory**
-> BalanceHistoryResponseDto GetBalanceHistory (string? merchantId = null, decimal? limit = null, decimal? offset = null, string? startDate = null, string? endDate = null, string? transactionType = null)
+> BalanceHistoryResponseDto GetBalanceHistory (decimal? limit = null, decimal? offset = null, string? filter = null, string? sort = null, string? order = null, string? merchantId = null, string? startDate = null, string? endDate = null, string? transactionType = null)
 
 List Merchant Balance History
 
@@ -39,9 +39,12 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new BalanceApi(httpClient, config, httpClientHandler);
+            var limit = 50;  // decimal? | Maximum number of items to return (optional) 
+            var offset = 0;  // decimal? | Number of items to skip (optional) 
+            var filter = {"ids":["prod_123","prod_456"]};  // string? | JSON string used for dynamic filtering (optional) 
+            var sort = createdAt;  // string? | Field name to sort by (optional) 
+            var order = DESC;  // string? | Sort direction (optional) 
             var merchantId = "merchantId_example";  // string? | The ID of the merchant whose balance is being requested. If omitted, defaults to the authenticated merchant. (optional) 
-            var limit = 8.14D;  // decimal? | Maximum number of records to return (optional) 
-            var offset = 8.14D;  // decimal? | Number of records to skip (optional) 
             var startDate = "startDate_example";  // string? | Filter transactions from this date (ISO 8601 format) (optional) 
             var endDate = "endDate_example";  // string? | Filter transactions until this date (ISO 8601 format) (optional) 
             var transactionType = "transactionType_example";  // string? | Filter by transaction type (e.g., \"credit\", \"debit\", \"fee\", \"payout\") (optional) 
@@ -49,7 +52,7 @@ namespace Example
             try
             {
                 // List Merchant Balance History
-                BalanceHistoryResponseDto result = apiInstance.GetBalanceHistory(merchantId, limit, offset, startDate, endDate, transactionType);
+                BalanceHistoryResponseDto result = apiInstance.GetBalanceHistory(limit, offset, filter, sort, order, merchantId, startDate, endDate, transactionType);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -70,7 +73,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Merchant Balance History
-    ApiResponse<BalanceHistoryResponseDto> response = apiInstance.GetBalanceHistoryWithHttpInfo(merchantId, limit, offset, startDate, endDate, transactionType);
+    ApiResponse<BalanceHistoryResponseDto> response = apiInstance.GetBalanceHistoryWithHttpInfo(limit, offset, filter, sort, order, merchantId, startDate, endDate, transactionType);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -87,9 +90,12 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **limit** | **decimal?** | Maximum number of items to return | [optional]  |
+| **offset** | **decimal?** | Number of items to skip | [optional]  |
+| **filter** | **string?** | JSON string used for dynamic filtering | [optional]  |
+| **sort** | **string?** | Field name to sort by | [optional]  |
+| **order** | **string?** | Sort direction | [optional]  |
 | **merchantId** | **string?** | The ID of the merchant whose balance is being requested. If omitted, defaults to the authenticated merchant. | [optional]  |
-| **limit** | **decimal?** | Maximum number of records to return | [optional]  |
-| **offset** | **decimal?** | Number of records to skip | [optional]  |
 | **startDate** | **string?** | Filter transactions from this date (ISO 8601 format) | [optional]  |
 | **endDate** | **string?** | Filter transactions until this date (ISO 8601 format) | [optional]  |
 | **transactionType** | **string?** | Filter by transaction type (e.g., \&quot;credit\&quot;, \&quot;debit\&quot;, \&quot;fee\&quot;, \&quot;payout\&quot;) | [optional]  |

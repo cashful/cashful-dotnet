@@ -112,7 +112,7 @@ catch (ApiException e)
 
 <a id="listpaymentlinks"></a>
 # **ListPaymentLinks**
-> ListPaymentLinksResponseDto ListPaymentLinks (string? merchantId = null, decimal? limit = null, decimal? offset = null, bool? active = null)
+> ListPaymentLinksResponseDto ListPaymentLinks (decimal? limit = null, decimal? offset = null, string? filter = null, string? sort = null, string? order = null, string? merchantId = null, bool? active = null)
 
 List Payment Links
 
@@ -142,15 +142,18 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new PaymentLinksApi(httpClient, config, httpClientHandler);
+            var limit = 50;  // decimal? | Maximum number of items to return (optional) 
+            var offset = 0;  // decimal? | Number of items to skip (optional) 
+            var filter = {"ids":["prod_123","prod_456"]};  // string? | JSON string used for dynamic filtering (optional) 
+            var sort = createdAt;  // string? | Field name to sort by (optional) 
+            var order = DESC;  // string? | Sort direction (optional) 
             var merchantId = "merchantId_example";  // string? | The ID of the merchant whose payment links are being requested. If omitted, defaults to the authenticated merchant. (optional) 
-            var limit = 8.14D;  // decimal? | Maximum number of records to return (optional) 
-            var offset = 8.14D;  // decimal? | Number of records to skip (optional) 
             var active = true;  // bool? | Filter by active status (optional) 
 
             try
             {
                 // List Payment Links
-                ListPaymentLinksResponseDto result = apiInstance.ListPaymentLinks(merchantId, limit, offset, active);
+                ListPaymentLinksResponseDto result = apiInstance.ListPaymentLinks(limit, offset, filter, sort, order, merchantId, active);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -171,7 +174,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Payment Links
-    ApiResponse<ListPaymentLinksResponseDto> response = apiInstance.ListPaymentLinksWithHttpInfo(merchantId, limit, offset, active);
+    ApiResponse<ListPaymentLinksResponseDto> response = apiInstance.ListPaymentLinksWithHttpInfo(limit, offset, filter, sort, order, merchantId, active);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -188,9 +191,12 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **limit** | **decimal?** | Maximum number of items to return | [optional]  |
+| **offset** | **decimal?** | Number of items to skip | [optional]  |
+| **filter** | **string?** | JSON string used for dynamic filtering | [optional]  |
+| **sort** | **string?** | Field name to sort by | [optional]  |
+| **order** | **string?** | Sort direction | [optional]  |
 | **merchantId** | **string?** | The ID of the merchant whose payment links are being requested. If omitted, defaults to the authenticated merchant. | [optional]  |
-| **limit** | **decimal?** | Maximum number of records to return | [optional]  |
-| **offset** | **decimal?** | Number of records to skip | [optional]  |
 | **active** | **bool?** | Filter by active status | [optional]  |
 
 ### Return type

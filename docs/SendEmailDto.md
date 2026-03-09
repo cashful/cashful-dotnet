@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **From** | **string** | Sender email address | [optional] 
 **Cc** | **Object** | CC email address(es) | [optional] 
 **Bcc** | **Object** | BCC email address(es) | [optional] 
+**MerchantId** | **string** | Merchant ID for context and auditing | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

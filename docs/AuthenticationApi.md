@@ -3963,7 +3963,7 @@ namespace Example
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new AuthenticationApi(httpClient, config, httpClientHandler);
             var token = "token_example";  // string | 
-            var callbackURL = https://example.com/reset-password;  // string | The URL to redirect user to reset their password
+            var callbackURL = https://www.cashful.africa/reset-password;  // string | The URL to redirect user to reset their password
 
             try
             {
@@ -5837,7 +5837,7 @@ namespace Example
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new AuthenticationApi(httpClient, config, httpClientHandler);
             var token = verify_token_12345;  // string | The token to verify email
-            var callbackURL = https://example.com/callback;  // string? | The URL to redirect to after email verification (optional) 
+            var callbackURL = https://www.cashful.africa/callback;  // string? | The URL to redirect to after email verification (optional) 
 
             try
             {

@@ -321,7 +321,7 @@ catch (ApiException e)
 
 <a id="listpaymentintents"></a>
 # **ListPaymentIntents**
-> ListPaymentIntentsResponseDto ListPaymentIntents (string? status = null, decimal? offset = null, decimal? limit = null, string? merchantId = null)
+> ListPaymentIntentsResponseDto ListPaymentIntents (string? merchantId = null, decimal? limit = null, decimal? offset = null, string? status = null)
 
 List Payment Intents
 
@@ -351,15 +351,15 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new PaymentIntentsApi(httpClient, config, httpClientHandler);
-            var status = "initiation";  // string? |  (optional) 
-            var offset = 8.14D;  // decimal? |  (optional) 
-            var limit = 8.14D;  // decimal? |  (optional) 
-            var merchantId = "merchantId_example";  // string? |  (optional) 
+            var merchantId = "merchantId_example";  // string? | The ID of the merchant. If omitted, defaults to the authenticated merchant. (optional) 
+            var limit = 50MD;  // decimal? | Maximum number of records to return (optional)  (default to 50M)
+            var offset = 0MD;  // decimal? | Number of records to skip (optional)  (default to 0M)
+            var status = "initiation";  // string? | Filter by status (optional) 
 
             try
             {
                 // List Payment Intents
-                ListPaymentIntentsResponseDto result = apiInstance.ListPaymentIntents(status, offset, limit, merchantId);
+                ListPaymentIntentsResponseDto result = apiInstance.ListPaymentIntents(merchantId, limit, offset, status);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -380,7 +380,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Payment Intents
-    ApiResponse<ListPaymentIntentsResponseDto> response = apiInstance.ListPaymentIntentsWithHttpInfo(status, offset, limit, merchantId);
+    ApiResponse<ListPaymentIntentsResponseDto> response = apiInstance.ListPaymentIntentsWithHttpInfo(merchantId, limit, offset, status);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -397,10 +397,10 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **status** | **string?** |  | [optional]  |
-| **offset** | **decimal?** |  | [optional]  |
-| **limit** | **decimal?** |  | [optional]  |
-| **merchantId** | **string?** |  | [optional]  |
+| **merchantId** | **string?** | The ID of the merchant. If omitted, defaults to the authenticated merchant. | [optional]  |
+| **limit** | **decimal?** | Maximum number of records to return | [optional] [default to 50M] |
+| **offset** | **decimal?** | Number of records to skip | [optional] [default to 0M] |
+| **status** | **string?** | Filter by status | [optional]  |
 
 ### Return type
 

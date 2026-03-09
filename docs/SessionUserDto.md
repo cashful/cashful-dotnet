@@ -8,6 +8,16 @@ Name | Type | Description | Notes
 **Email** | **string** |  | 
 **EmailVerified** | **bool** |  | 
 **Name** | **string** |  | 
+**Image** | **string** |  | [optional] 
+**Role** | **string** |  | [optional] 
+**Banned** | **bool** |  | [optional] 
+**BanReason** | **string** |  | [optional] 
+**BanExpires** | **DateTimeOffset** |  | [optional] 
+**IsAnonymous** | **bool** |  | [optional] 
+**Username** | **string** |  | [optional] 
+**DisplayUsername** | **string** |  | [optional] 
+**PhoneNumber** | **string** |  | [optional] 
+**PhoneNumberVerified** | **bool** |  | [optional] 
 **CreatedAt** | **DateTimeOffset** |  | 
 **UpdatedAt** | **DateTimeOffset** |  | 
 

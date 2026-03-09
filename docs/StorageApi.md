@@ -409,7 +409,7 @@ catch (ApiException e)
 
 <a id="listfiles"></a>
 # **ListFiles**
-> ListFilesResponseDto ListFiles (decimal? limit = null, decimal? offset = null, string? tag = null, string? status = null, string? relatedEntityId = null, string? relatedEntityType = null)
+> ListFilesResponseDto ListFiles (decimal? limit = null, decimal? offset = null, string? filter = null, string? sort = null, string? order = null, string? tag = null, string? status = null, string? relatedEntityId = null, string? relatedEntityType = null)
 
 List files
 
@@ -437,8 +437,11 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new StorageApi(httpClient, config, httpClientHandler);
-            var limit = 50;  // decimal? | Maximum number of records to return (optional) 
-            var offset = 0;  // decimal? | Number of records to skip (optional) 
+            var limit = 50;  // decimal? | Maximum number of items to return (optional) 
+            var offset = 0;  // decimal? | Number of items to skip (optional) 
+            var filter = {"ids":["prod_123","prod_456"]};  // string? | JSON string used for dynamic filtering (optional) 
+            var sort = createdAt;  // string? | Field name to sort by (optional) 
+            var order = DESC;  // string? | Sort direction (optional) 
             var tag = "tag_example";  // string? | Filter by tag (optional) 
             var status = "pending";  // string? |  (optional) 
             var relatedEntityId = "relatedEntityId_example";  // string? |  (optional) 
@@ -447,7 +450,7 @@ namespace Example
             try
             {
                 // List files
-                ListFilesResponseDto result = apiInstance.ListFiles(limit, offset, tag, status, relatedEntityId, relatedEntityType);
+                ListFilesResponseDto result = apiInstance.ListFiles(limit, offset, filter, sort, order, tag, status, relatedEntityId, relatedEntityType);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -468,7 +471,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List files
-    ApiResponse<ListFilesResponseDto> response = apiInstance.ListFilesWithHttpInfo(limit, offset, tag, status, relatedEntityId, relatedEntityType);
+    ApiResponse<ListFilesResponseDto> response = apiInstance.ListFilesWithHttpInfo(limit, offset, filter, sort, order, tag, status, relatedEntityId, relatedEntityType);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -485,8 +488,11 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **limit** | **decimal?** | Maximum number of records to return | [optional]  |
-| **offset** | **decimal?** | Number of records to skip | [optional]  |
+| **limit** | **decimal?** | Maximum number of items to return | [optional]  |
+| **offset** | **decimal?** | Number of items to skip | [optional]  |
+| **filter** | **string?** | JSON string used for dynamic filtering | [optional]  |
+| **sort** | **string?** | Field name to sort by | [optional]  |
+| **order** | **string?** | Sort direction | [optional]  |
 | **tag** | **string?** | Filter by tag | [optional]  |
 | **status** | **string?** |  | [optional]  |
 | **relatedEntityId** | **string?** |  | [optional]  |

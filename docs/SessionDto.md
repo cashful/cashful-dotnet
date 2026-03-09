@@ -6,6 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **UserId** | **string** |  | 
+**Token** | **string** |  | 
+**CreatedAt** | **DateTimeOffset** |  | 
+**UpdatedAt** | **DateTimeOffset** |  | 
+**ImpersonatedBy** | **string** |  | [optional] 
+**ActiveOrganizationId** | **string** |  | [optional] 
 **ExpiresAt** | **DateTimeOffset** |  | 
 **IpAddress** | **string** |  | [optional] 
 **UserAgent** | **string** |  | [optional] 

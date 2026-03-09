@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OrganizationId** | **string** |  | 
 **CompanyRegistrationName** | **string** |  | [optional] 
 **CompanyRegistrationNumber** | **string** |  | [optional] 
 **CompanyTradingName** | **string** |  | [optional] 
@@ -41,9 +40,6 @@ Name | Type | Description | Notes
 **TermsAccepted** | **bool** |  | [optional] 
 **AcceptedAt** | **DateTimeOffset** |  | [optional] 
 **CurrentStep** | **string** |  | [optional] 
-**Status** | **string** |  | [optional] 
-**IsCompleted** | **bool** |  | [optional] 
-**CompletionScore** | **decimal** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

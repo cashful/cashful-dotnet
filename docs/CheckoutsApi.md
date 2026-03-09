@@ -111,7 +111,7 @@ catch (ApiException e)
 
 <a id="listcheckoutsessions"></a>
 # **ListCheckoutSessions**
-> ListCheckoutSessionsResponseDto ListCheckoutSessions (decimal? limit = null, decimal? offset = null)
+> ListCheckoutSessionsResponseDto ListCheckoutSessions (string merchantId, decimal? limit = null, decimal? offset = null, string? filter = null, string? sort = null, string? order = null, string? status = null)
 
 List Checkout Sessions
 
@@ -141,13 +141,18 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new CheckoutsApi(httpClient, config, httpClientHandler);
-            var limit = 8.14D;  // decimal? | Maximum number of records to return (optional) 
-            var offset = 8.14D;  // decimal? | Number of records to skip (optional) 
+            var merchantId = "merchantId_example";  // string | The ID of the merchant to filter checkout sessions
+            var limit = 50;  // decimal? | Maximum number of items to return (optional) 
+            var offset = 0;  // decimal? | Number of items to skip (optional) 
+            var filter = {"ids":["prod_123","prod_456"]};  // string? | JSON string used for dynamic filtering (optional) 
+            var sort = createdAt;  // string? | Field name to sort by (optional) 
+            var order = DESC;  // string? | Sort direction (optional) 
+            var status = "status_example";  // string? | The status to filter checkout sessions (optional) 
 
             try
             {
                 // List Checkout Sessions
-                ListCheckoutSessionsResponseDto result = apiInstance.ListCheckoutSessions(limit, offset);
+                ListCheckoutSessionsResponseDto result = apiInstance.ListCheckoutSessions(merchantId, limit, offset, filter, sort, order, status);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -168,7 +173,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Checkout Sessions
-    ApiResponse<ListCheckoutSessionsResponseDto> response = apiInstance.ListCheckoutSessionsWithHttpInfo(limit, offset);
+    ApiResponse<ListCheckoutSessionsResponseDto> response = apiInstance.ListCheckoutSessionsWithHttpInfo(merchantId, limit, offset, filter, sort, order, status);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -185,8 +190,13 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **limit** | **decimal?** | Maximum number of records to return | [optional]  |
-| **offset** | **decimal?** | Number of records to skip | [optional]  |
+| **merchantId** | **string** | The ID of the merchant to filter checkout sessions |  |
+| **limit** | **decimal?** | Maximum number of items to return | [optional]  |
+| **offset** | **decimal?** | Number of items to skip | [optional]  |
+| **filter** | **string?** | JSON string used for dynamic filtering | [optional]  |
+| **sort** | **string?** | Field name to sort by | [optional]  |
+| **order** | **string?** | Sort direction | [optional]  |
+| **status** | **string?** | The status to filter checkout sessions | [optional]  |
 
 ### Return type
 
@@ -207,8 +217,6 @@ catch (ApiException e)
 |-------------|-------------|------------------|
 | **200** | Successfully retrieved checkout sessions |  -  |
 | **400** | Bad Request - Invalid input |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Resource not found |  -  |
 | **500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -112,7 +112,7 @@ catch (ApiException e)
 
 <a id="listtransfers"></a>
 # **ListTransfers**
-> ListTransfersResponseDto ListTransfers (decimal? limit = null, decimal? offset = null, string? merchantId = null)
+> ListTransfersResponseDto ListTransfers (decimal? limit = null, decimal? offset = null, string? filter = null, string? sort = null, string? order = null, string? merchantId = null)
 
 List Transfers
 
@@ -144,12 +144,15 @@ namespace Example
             var apiInstance = new TransfersApi(httpClient, config, httpClientHandler);
             var limit = 50;  // decimal? | Maximum number of items to return (optional) 
             var offset = 0;  // decimal? | Number of items to skip (optional) 
+            var filter = {"ids":["prod_123","prod_456"]};  // string? | JSON string used for dynamic filtering (optional) 
+            var sort = createdAt;  // string? | Field name to sort by (optional) 
+            var order = DESC;  // string? | Sort direction (optional) 
             var merchantId = "merchantId_example";  // string? | Filter by merchant ID. If omitted, defaults to the authenticated merchant. (optional) 
 
             try
             {
                 // List Transfers
-                ListTransfersResponseDto result = apiInstance.ListTransfers(limit, offset, merchantId);
+                ListTransfersResponseDto result = apiInstance.ListTransfers(limit, offset, filter, sort, order, merchantId);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -170,7 +173,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Transfers
-    ApiResponse<ListTransfersResponseDto> response = apiInstance.ListTransfersWithHttpInfo(limit, offset, merchantId);
+    ApiResponse<ListTransfersResponseDto> response = apiInstance.ListTransfersWithHttpInfo(limit, offset, filter, sort, order, merchantId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -189,6 +192,9 @@ catch (ApiException e)
 |------|------|-------------|-------|
 | **limit** | **decimal?** | Maximum number of items to return | [optional]  |
 | **offset** | **decimal?** | Number of items to skip | [optional]  |
+| **filter** | **string?** | JSON string used for dynamic filtering | [optional]  |
+| **sort** | **string?** | Field name to sort by | [optional]  |
+| **order** | **string?** | Sort direction | [optional]  |
 | **merchantId** | **string?** | Filter by merchant ID. If omitted, defaults to the authenticated merchant. | [optional]  |
 
 ### Return type

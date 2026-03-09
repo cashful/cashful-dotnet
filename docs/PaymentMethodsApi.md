@@ -111,7 +111,7 @@ catch (ApiException e)
 
 <a id="listpaymentmethods"></a>
 # **ListPaymentMethods**
-> ListPaymentMethodsResponseDto ListPaymentMethods (decimal? limit = null, decimal? offset = null, string? merchantId = null, string? customerId = null)
+> ListPaymentMethodsResponseDto ListPaymentMethods (decimal? limit = null, decimal? offset = null, string? filter = null, string? sort = null, string? order = null, string? merchantId = null, string? customerId = null)
 
 List Payment Methods
 
@@ -141,15 +141,18 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new PaymentMethodsApi(httpClient, config, httpClientHandler);
-            var limit = 50;  // decimal? | Maximum number of records to return (optional) 
-            var offset = 0;  // decimal? | Number of records to skip (optional) 
-            var merchantId = "merchantId_example";  // string? | The unique identifier of the merchant. If not provided, defaults to the authenticated user's active organization. (optional) 
-            var customerId = "customerId_example";  // string? | The unique identifier of the customer (optional) 
+            var limit = 50;  // decimal? | Maximum number of items to return (optional) 
+            var offset = 0;  // decimal? | Number of items to skip (optional) 
+            var filter = {"ids":["prod_123","prod_456"]};  // string? | JSON string used for dynamic filtering (optional) 
+            var sort = createdAt;  // string? | Field name to sort by (optional) 
+            var order = DESC;  // string? | Sort direction (optional) 
+            var merchantId = "merchantId_example";  // string? | The ID of the merchant. If omitted, defaults to the authenticated merchant. (optional) 
+            var customerId = "customerId_example";  // string? | Customer ID to filter by (optional) 
 
             try
             {
                 // List Payment Methods
-                ListPaymentMethodsResponseDto result = apiInstance.ListPaymentMethods(limit, offset, merchantId, customerId);
+                ListPaymentMethodsResponseDto result = apiInstance.ListPaymentMethods(limit, offset, filter, sort, order, merchantId, customerId);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -170,7 +173,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Payment Methods
-    ApiResponse<ListPaymentMethodsResponseDto> response = apiInstance.ListPaymentMethodsWithHttpInfo(limit, offset, merchantId, customerId);
+    ApiResponse<ListPaymentMethodsResponseDto> response = apiInstance.ListPaymentMethodsWithHttpInfo(limit, offset, filter, sort, order, merchantId, customerId);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -187,10 +190,13 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **limit** | **decimal?** | Maximum number of records to return | [optional]  |
-| **offset** | **decimal?** | Number of records to skip | [optional]  |
-| **merchantId** | **string?** | The unique identifier of the merchant. If not provided, defaults to the authenticated user&#39;s active organization. | [optional]  |
-| **customerId** | **string?** | The unique identifier of the customer | [optional]  |
+| **limit** | **decimal?** | Maximum number of items to return | [optional]  |
+| **offset** | **decimal?** | Number of items to skip | [optional]  |
+| **filter** | **string?** | JSON string used for dynamic filtering | [optional]  |
+| **sort** | **string?** | Field name to sort by | [optional]  |
+| **order** | **string?** | Sort direction | [optional]  |
+| **merchantId** | **string?** | The ID of the merchant. If omitted, defaults to the authenticated merchant. | [optional]  |
+| **customerId** | **string?** | Customer ID to filter by | [optional]  |
 
 ### Return type
 

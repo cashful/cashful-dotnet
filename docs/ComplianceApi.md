@@ -5,7 +5,7 @@ All URIs are relative to *https://api.cashful.africa*
 | Method | HTTP request | Description |
 |--------|--------------|-------------|
 | [**CreateCompliance**](ComplianceApi.md#createcompliance) | **POST** /api/canary/compliance | Create Compliance info |
-| [**GetCompliance**](ComplianceApi.md#getcompliance) | **GET** /api/canary/compliance | Get Compliance info for organization |
+| [**ListCompliance**](ComplianceApi.md#listcompliance) | **GET** /api/canary/compliance | List Compliance info for organization |
 | [**UpdateCompliance**](ComplianceApi.md#updatecompliance) | **PATCH** /api/canary/compliance/{id} | Update Compliance info |
 
 <a id="createcompliance"></a>
@@ -107,11 +107,11 @@ catch (ApiException e)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="getcompliance"></a>
-# **GetCompliance**
-> OrganizationComplianceResponseDto GetCompliance (string organizationId)
+<a id="listcompliance"></a>
+# **ListCompliance**
+> ListOrganizationComplianceResponseDto ListCompliance (decimal? limit = null, decimal? offset = null, string? filter = null, string? sort = null, string? order = null)
 
-Get Compliance info for organization
+List Compliance info for organization
 
 ### Example
 ```csharp
@@ -124,7 +124,7 @@ using Cashful.Model;
 
 namespace Example
 {
-    public class GetComplianceExample
+    public class ListComplianceExample
     {
         public static void Main()
         {
@@ -137,17 +137,21 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new ComplianceApi(httpClient, config, httpClientHandler);
-            var organizationId = "organizationId_example";  // string | 
+            var limit = 50;  // decimal? | Maximum number of items to return (optional) 
+            var offset = 0;  // decimal? | Number of items to skip (optional) 
+            var filter = {"ids":["prod_123","prod_456"]};  // string? | JSON string used for dynamic filtering (optional) 
+            var sort = createdAt;  // string? | Field name to sort by (optional) 
+            var order = DESC;  // string? | Sort direction (optional) 
 
             try
             {
-                // Get Compliance info for organization
-                OrganizationComplianceResponseDto result = apiInstance.GetCompliance(organizationId);
+                // List Compliance info for organization
+                ListOrganizationComplianceResponseDto result = apiInstance.ListCompliance(limit, offset, filter, sort, order);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling ComplianceApi.GetCompliance: " + e.Message);
+                Debug.Print("Exception when calling ComplianceApi.ListCompliance: " + e.Message);
                 Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -156,21 +160,21 @@ namespace Example
 }
 ```
 
-#### Using the GetComplianceWithHttpInfo variant
+#### Using the ListComplianceWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
 
 ```csharp
 try
 {
-    // Get Compliance info for organization
-    ApiResponse<OrganizationComplianceResponseDto> response = apiInstance.GetComplianceWithHttpInfo(organizationId);
+    // List Compliance info for organization
+    ApiResponse<ListOrganizationComplianceResponseDto> response = apiInstance.ListComplianceWithHttpInfo(limit, offset, filter, sort, order);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
 }
 catch (ApiException e)
 {
-    Debug.Print("Exception when calling ComplianceApi.GetComplianceWithHttpInfo: " + e.Message);
+    Debug.Print("Exception when calling ComplianceApi.ListComplianceWithHttpInfo: " + e.Message);
     Debug.Print("Status Code: " + e.ErrorCode);
     Debug.Print(e.StackTrace);
 }
@@ -180,11 +184,15 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **organizationId** | **string** |  |  |
+| **limit** | **decimal?** | Maximum number of items to return | [optional]  |
+| **offset** | **decimal?** | Number of items to skip | [optional]  |
+| **filter** | **string?** | JSON string used for dynamic filtering | [optional]  |
+| **sort** | **string?** | Field name to sort by | [optional]  |
+| **order** | **string?** | Sort direction | [optional]  |
 
 ### Return type
 
-[**OrganizationComplianceResponseDto**](OrganizationComplianceResponseDto.md)
+[**ListOrganizationComplianceResponseDto**](ListOrganizationComplianceResponseDto.md)
 
 ### Authorization
 

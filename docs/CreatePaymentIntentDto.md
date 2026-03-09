@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **PaymentMethodId** | **string** | The unique identifier of the payment method. Optional if payment method will be collected later. | [optional] 
 **Amount** | **decimal** | The amount to charge in the smallest currency unit (cents) | 
 **Currency** | **string** | The three-letter ISO 4217 currency code | 
-**Mode** | **string** | The mode of the payment intent | [optional] [default to ModeEnum.Payment]
+**Mode** | **string** | The mode of the payment intent | [optional] 
 **Description** | **string** | Optional description for the payment | [optional] 
 **Metadata** | **Dictionary&lt;string, Object&gt;** | Optional custom metadata | [optional] 
 **IdempotencyKey** | **string** | A unique key to prevent duplicate charges. If not provided, one will be generated. | [optional] 

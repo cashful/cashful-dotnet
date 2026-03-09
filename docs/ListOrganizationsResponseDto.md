@@ -1,10 +1,11 @@
-# Cashful.Model.RetrieveMultipleProductsDto
+# Cashful.Model.ListOrganizationsResponseDto
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Ids** | **List&lt;string&gt;** | Max 50 IDs of the products to retrieve | 
+**Data** | [**List&lt;OrganizationDto&gt;**](OrganizationDto.md) | List of organizations | 
+**Pagination** | [**PaginationResponseDto**](PaginationResponseDto.md) | Pagination metadata | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

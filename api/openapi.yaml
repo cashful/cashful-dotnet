@@ -6,7 +6,7 @@ info:
     url: https://cashful.africa
   description: Developer documentation for the Cashful platform.
   title: Cashful API
-  version: 0.8.4
+  version: 0.9.0
 servers:
 - description: Live
   url: https://api.cashful.africa
@@ -27,12 +27,24 @@ paths:
               schema:
                 example:
                   status: ok
+                  environment: live
+                  system:
+                    apiVersion: canary
+                    nodeEnv: production
+                    environment: live
+                    logLevel: info
+                    isSandbox: false
+                    isLive: true
                   info:
                     database:
+                      status: up
+                    redis:
                       status: up
                   error: {}
                   details:
                     database:
+                      status: up
+                    redis:
                       status: up
           description: Application and all dependencies are healthy
         "503":
@@ -41,10 +53,21 @@ paths:
               schema:
                 example:
                   status: error
+                  environment: live
+                  system:
+                    apiVersion: canary
+                    nodeEnv: production
+                    environment: live
+                    logLevel: info
+                    isSandbox: false
+                    isLive: true
                   error:
                     database:
                       status: down
                       message: Database connection failed
+                    redis:
+                      status: down
+                      message: Redis connection failed
           description: One or more health checks failed
       summary: Health check endpoint
       tags:
@@ -1424,7 +1447,7 @@ paths:
         name: callbackURL
         required: false
         schema:
-          example: https://example.com/callback
+          example: https://www.cashful.africa/callback
           type: string
         style: form
       responses:
@@ -1697,7 +1720,7 @@ paths:
         name: callbackURL
         required: true
         schema:
-          example: https://example.com/reset-password
+          example: https://www.cashful.africa/reset-password
           type: string
         style: form
       responses:
@@ -2297,21 +2320,66 @@ paths:
       description: Lists checkout sessions
       operationId: listCheckoutSessions
       parameters:
-      - description: Maximum number of records to return
+      - description: Maximum number of items to return
         explode: true
         in: query
         name: limit
         required: false
         schema:
+          example: 50
           type: number
         style: form
-      - description: Number of records to skip
+      - description: Number of items to skip
         explode: true
         in: query
         name: offset
         required: false
         schema:
+          example: 0
           type: number
+        style: form
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"ids\":[\"prod_123\",\"prod_456\"]}"
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          example: createdAt
+          type: string
+        style: form
+      - description: Sort direction
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
+          type: string
+        style: form
+      - description: The ID of the merchant to filter checkout sessions
+        explode: true
+        in: query
+        name: merchantId
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: The status to filter checkout sessions
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          type: string
         style: form
       responses:
         "200":
@@ -2323,7 +2391,7 @@ paths:
                   merchantId: merchant_456
                   paymentIntentId: pi_123456789
                   customerId: customer_789
-                  sessionUrl: https://pay.cashful.africa/?op=checkout&sessionId=checkout_sess_123
+                  sessionUrl: https://checkout.cashful.africa/?entityType=checkout&entityId=checkout_sess_123
                   successUrl: https://example.com/success
                   cancelUrl: https://example.com/cancel
                   lineItems:
@@ -2346,7 +2414,7 @@ paths:
                   merchantId: merchant_456
                   paymentIntentId: pi_123456790
                   customerId: customer_789
-                  sessionUrl: https://pay.cashful.africa/?op=checkout&sessionId=checkout_sess_124
+                  sessionUrl: https://checkout.cashful.africa/?entityType=checkout&entityId=checkout_sess_124
                   successUrl: https://example.com/success
                   cancelUrl: https://example.com/cancel
                   lineItems: []
@@ -2372,18 +2440,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/BadRequestResponseDto"
           description: Bad Request - Invalid input
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedResponseDto"
-          description: Unauthorized
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundResponseDto"
-          description: Resource not found
         "500":
           content:
             application/json:
@@ -2416,7 +2472,7 @@ paths:
                 merchantId: merchant_456
                 paymentIntentId: pi_123456789
                 customerId: customer_789
-                sessionUrl: https://pay.cashful.africa/?op=checkout&sessionId=checkout_sess_123
+                sessionUrl: https://checkout.cashful.africa/?entityType=checkout&entityId=checkout_sess_123
                 successUrl: https://example.com/success
                 cancelUrl: https://example.com/cancel
                 lineItems:
@@ -2483,7 +2539,7 @@ paths:
                 merchantId: merchant_456
                 paymentIntentId: pi_123456789
                 customerId: customer_789
-                sessionUrl: https://pay.cashful.africa/?op=checkout&sessionId=checkout_sess_123
+                sessionUrl: https://checkout.cashful.africa/?entityType=checkout&entityId=checkout_sess_123
                 successUrl: https://example.com/success
                 cancelUrl: https://example.com/cancel
                 lineItems:
@@ -2528,7 +2584,35 @@ paths:
         filtering.
       operationId: listPaymentIntents
       parameters:
-      - explode: true
+      - description: "The ID of the merchant. If omitted, defaults to the authenticated\
+          \ merchant."
+        explode: true
+        in: query
+        name: merchantId
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of records to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 50
+          type: number
+        style: form
+      - description: Number of records to skip
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          type: number
+        style: form
+      - description: Filter by status
+        explode: true
         in: query
         name: status
         required: false
@@ -2543,27 +2627,6 @@ paths:
           - succeeded
           - failed
           - canceled
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: number
-        style: form
-      - explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: number
-        style: form
-      - explode: true
-        in: query
-        name: merchantId
-        required: false
-        schema:
           type: string
         style: form
       responses:
@@ -2861,167 +2924,6 @@ paths:
       summary: Cancel Payment Intent
       tags:
       - Payment Intents
-  /api/canary/events:
-    get:
-      description: Retrieves a log of all API events for debugging and logging.
-      operationId: listEvents
-      parameters:
-      - description: Maximum number of records to return
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          example: 50
-          type: number
-        style: form
-      - description: Number of records to skip
-        explode: true
-        in: query
-        name: offset
-        required: false
-        schema:
-          example: 0
-          type: number
-        style: form
-      - description: The ID of the merchant whose events are being requested. This
-          parameter is required.
-        explode: true
-        in: query
-        name: merchantId
-        required: true
-        schema:
-          type: string
-        style: form
-      - description: Filter by event type
-        explode: true
-        in: query
-        name: type
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Filter by event status
-        explode: true
-        in: query
-        name: status
-        required: false
-        schema:
-          enum:
-          - pending
-          - delivered
-          - failed
-          type: string
-        style: form
-      - description: Filter by start date
-        explode: true
-        in: query
-        name: startDate
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Filter by end date
-        explode: true
-        in: query
-        name: endDate
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              example:
-                data:
-                - id: event_001
-                  merchantId: merchant_456
-                  webhookEndpointId: wh_endpoint_789
-                  type: checkout.session.completed
-                  data:
-                    sessionId: checkout_sess_123
-                    amount: 10000
-                    currency: ZAR
-                  status: delivered
-                  attempts: 1
-                  relatedEntityId: checkout_sess_123
-                  relatedEntityType: CheckoutSession
-                  lastAttemptAt: 2025-01-15T10:30:05.000Z
-                  nextRetryAt: null
-                  deliveredAt: 2025-01-15T10:30:05.000Z
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T10:30:05.000Z
-                - id: event_002
-                  merchantId: merchant_456
-                  webhookEndpointId: wh_endpoint_789
-                  type: payment_intent.succeeded
-                  data:
-                    paymentIntentId: pi_123
-                    amount: 5000
-                    currency: ZAR
-                  status: pending
-                  attempts: 0
-                  relatedEntityId: pi_123
-                  relatedEntityType: PaymentIntent
-                  lastAttemptAt: null
-                  nextRetryAt: 2025-01-15T10:35:00.000Z
-                  deliveredAt: null
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T10:30:00.000Z
-                - id: event_003
-                  merchantId: merchant_456
-                  webhookEndpointId: wh_endpoint_789
-                  type: payout.failed
-                  data:
-                    payoutId: payout_123
-                    error: Insufficient funds
-                  status: failed
-                  attempts: 3
-                  relatedEntityId: payout_123
-                  relatedEntityType: Payout
-                  lastAttemptAt: 2025-01-15T11:00:00.000Z
-                  nextRetryAt: null
-                  deliveredAt: null
-                  createdAt: 2025-01-15T10:30:00.000Z
-                  updatedAt: 2025-01-15T11:00:00.000Z
-                pagination:
-                  limit: 50
-                  offset: 0
-                  total: 500
-                  hasMore: true
-              schema:
-                $ref: "#/components/schemas/ListEventsResponseDto"
-          description: Successfully retrieved events
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BadRequestResponseDto"
-          description: Bad Request - Invalid input
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UnauthorizedResponseDto"
-          description: Unauthorized
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/NotFoundResponseDto"
-          description: Resource not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InternalServerErrorResponseDto"
-          description: Internal server error
-      security:
-      - bearer: []
-      summary: List Events
-      tags:
-      - Events
   /api/canary/balance:
     get:
       description: Retrieves the merchant's own master balance (their earnings) available
@@ -3088,6 +2990,51 @@ paths:
         \ master account."
       operationId: getBalanceHistory
       parameters:
+      - description: Maximum number of items to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          example: 50
+          type: number
+        style: form
+      - description: Number of items to skip
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          example: 0
+          type: number
+        style: form
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"ids\":[\"prod_123\",\"prod_456\"]}"
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          example: createdAt
+          type: string
+        style: form
+      - description: Sort direction
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
+          type: string
+        style: form
       - description: "The ID of the merchant whose balance is being requested. If\
           \ omitted, defaults to the authenticated merchant."
         explode: true
@@ -3096,22 +3043,6 @@ paths:
         required: false
         schema:
           type: string
-        style: form
-      - description: Maximum number of records to return
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: number
-        style: form
-      - description: Number of records to skip
-        explode: true
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: number
         style: form
       - description: Filter transactions from this date (ISO 8601 format)
         explode: true
@@ -3151,7 +3082,7 @@ paths:
                   currency: ZAR
                   description: Checkout session completed
                   relatedEntityId: checkout_789
-                  relatedEntityType: CheckoutSession
+                  relatedEntityType: checkout_session
                   balanceAfter: 50000
                   createdAt: 2025-01-15T10:30:00.000Z
                   updatedAt: 2025-01-15T10:30:00.000Z
@@ -3162,7 +3093,7 @@ paths:
                   currency: ZAR
                   description: Platform fee
                   relatedEntityId: checkout_789
-                  relatedEntityType: CheckoutSession
+                  relatedEntityType: checkout_session
                   balanceAfter: 49500
                   createdAt: 2025-01-15T10:30:05.000Z
                   updatedAt: 2025-01-15T10:30:05.000Z
@@ -3173,7 +3104,7 @@ paths:
                   currency: ZAR
                   description: Payout to bank account
                   relatedEntityId: payout_001
-                  relatedEntityType: Payout
+                  relatedEntityType: payout
                   balanceAfter: 29500
                   createdAt: 2025-01-14T15:00:00.000Z
                   updatedAt: 2025-01-14T15:00:00.000Z
@@ -3214,6 +3145,254 @@ paths:
       summary: List Merchant Balance History
       tags:
       - Balance
+  /api/canary/events/types:
+    get:
+      description: Retrieves all available event types that can be sent or subscribed
+        to.
+      operationId: listEventTypes
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListEventTypesResponseDto"
+          description: Successfully retrieved event types
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponseDto"
+          description: Bad Request - Invalid input
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: List Event Types
+      tags:
+      - Events
+  /api/canary/events:
+    get:
+      description: Retrieves a log of all API events for debugging and logging.
+      operationId: listEvents
+      parameters:
+      - description: Maximum number of records to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          example: 50
+          type: number
+        style: form
+      - description: Number of records to skip
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          example: 0
+          type: number
+        style: form
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"ids\":[\"prod_123\",\"prod_456\"]}"
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          example: createdAt
+          type: string
+        style: form
+      - description: Sort direction (ASC or DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
+          type: string
+        style: form
+      - description: The ID of the merchant whose events are being requested. This
+          parameter is required.
+        explode: true
+        in: query
+        name: merchantId
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Filter by event type
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by event status
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - pending
+          - delivered
+          - failed
+          type: string
+        style: form
+      - description: Filter by start date
+        explode: true
+        in: query
+        name: startDate
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by end date
+        explode: true
+        in: query
+        name: endDate
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                data:
+                - id: event_001
+                  merchantId: merchant_456
+                  webhookEndpointId: wh_endpoint_789
+                  type: checkout.session.completed
+                  data:
+                    sessionId: checkout_sess_123
+                    amount: 10000
+                    currency: ZAR
+                  status: delivered
+                  attempts: 1
+                  relatedEntityId: checkout_sess_123
+                  relatedEntityType: checkout_session
+                  lastAttemptAt: 2025-01-15T10:30:05.000Z
+                  nextRetryAt: null
+                  deliveredAt: 2025-01-15T10:30:05.000Z
+                  createdAt: 2025-01-15T10:30:00.000Z
+                  updatedAt: 2025-01-15T10:30:05.000Z
+                - id: event_002
+                  merchantId: merchant_456
+                  webhookEndpointId: wh_endpoint_789
+                  type: payment_intent.succeeded
+                  data:
+                    paymentIntentId: pi_123
+                    amount: 5000
+                    currency: ZAR
+                  status: pending
+                  attempts: 0
+                  relatedEntityId: pi_123
+                  relatedEntityType: payment_intent
+                  lastAttemptAt: null
+                  nextRetryAt: 2025-01-15T10:35:00.000Z
+                  deliveredAt: null
+                  createdAt: 2025-01-15T10:30:00.000Z
+                  updatedAt: 2025-01-15T10:30:00.000Z
+                - id: event_003
+                  merchantId: merchant_456
+                  webhookEndpointId: wh_endpoint_789
+                  type: payout.failed
+                  data:
+                    payoutId: payout_123
+                    error: Insufficient funds
+                  status: failed
+                  attempts: 3
+                  relatedEntityId: payout_123
+                  relatedEntityType: payout
+                  lastAttemptAt: 2025-01-15T11:00:00.000Z
+                  nextRetryAt: null
+                  deliveredAt: null
+                  createdAt: 2025-01-15T10:30:00.000Z
+                  updatedAt: 2025-01-15T11:00:00.000Z
+                pagination:
+                  limit: 50
+                  offset: 0
+                  total: 500
+                  hasMore: true
+              schema:
+                $ref: "#/components/schemas/ListEventsResponseDto"
+          description: Successfully retrieved events
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponseDto"
+          description: Bad Request - Invalid input
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: List Events
+      tags:
+      - Events
+    post:
+      description: Records a new event and triggers associated webhooks.
+      operationId: createEvent
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEventDto"
+        required: true
+      responses:
+        "201":
+          description: Event successfully created
+      security:
+      - bearer: []
+      summary: Create Event
+      tags:
+      - Events
   /api/canary/customers:
     get:
       description: Retrieves a paginated list of all customers for the merchant.
@@ -3244,18 +3423,41 @@ paths:
         schema:
           type: number
         style: form
-      - description: Filter by email address
+      - description: JSON string used for dynamic filtering
         explode: true
         in: query
-        name: email
+        name: filter
         required: false
         schema:
           type: string
         style: form
-      - description: Search across customer fields
+      - explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          enum:
+          - id
+          - name
+          - email
+          - phoneNumber
+          - merchantId
+          - createdAt
+          - updatedAt
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
+          type: string
+        style: form
+      - description: Filter by email address
         explode: true
         in: query
-        name: search
+        name: email
         required: false
         schema:
           type: string
@@ -3586,7 +3788,7 @@ paths:
                   currency: ZAR
                   description: Checkout session completed
                   relatedEntityId: checkout_sess_123
-                  relatedEntityType: CheckoutSession
+                  relatedEntityType: checkout_session
                   balanceAfter: 5000
                   createdAt: 2025-01-15T10:30:00.000Z
                   updatedAt: 2025-01-15T10:30:00.000Z
@@ -3597,7 +3799,7 @@ paths:
                   currency: ZAR
                   description: Purchase of Airtime
                   relatedEntityId: purchase_001
-                  relatedEntityType: Purchase
+                  relatedEntityType: purchase
                   balanceAfter: 4950
                   createdAt: 2025-01-15T11:00:00.000Z
                   updatedAt: 2025-01-15T11:00:00.000Z
@@ -3708,11 +3910,157 @@ paths:
       summary: List Customer's Payment Methods
       tags:
       - Customers
+  /api/canary/customers/bulk:
+    delete:
+      description: Deletes multiple customers by ID.
+      operationId: deleteCustomersBulk
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BulkIdsDto"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                example:
+                  ids:
+                  - cust_1
+                  - cust_2
+                  count: 2
+          description: Customers deleted successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponseDto"
+          description: Bad Request - Invalid input
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: Bulk Delete Customers
+      tags:
+      - Customers
+    patch:
+      description: Updates multiple customers using a shared patch.
+      operationId: updateCustomersBulk
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BulkUpdateCustomersInputDto"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                example:
+                  ids:
+                  - cust_1
+                  - cust_2
+                  count: 2
+          description: Customers updated successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponseDto"
+          description: Bad Request - Invalid input
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: Bulk Update Customers
+      tags:
+      - Customers
   /api/canary/payment-links:
     get:
       description: Retrieves all payment links created by the merchant.
       operationId: listPaymentLinks
       parameters:
+      - description: Maximum number of items to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          example: 50
+          type: number
+        style: form
+      - description: Number of items to skip
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          example: 0
+          type: number
+        style: form
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"ids\":[\"prod_123\",\"prod_456\"]}"
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          example: createdAt
+          type: string
+        style: form
+      - description: Sort direction
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
+          type: string
+        style: form
       - description: "The ID of the merchant whose payment links are being requested.\
           \ If omitted, defaults to the authenticated merchant."
         explode: true
@@ -3721,22 +4069,6 @@ paths:
         required: false
         schema:
           type: string
-        style: form
-      - description: Maximum number of records to return
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: number
-        style: form
-      - description: Number of records to skip
-        explode: true
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: number
         style: form
       - description: Filter by active status
         explode: true
@@ -4116,7 +4448,7 @@ paths:
       description: Lists saved payment methods for a specific customer.
       operationId: listPaymentMethods
       parameters:
-      - description: Maximum number of records to return
+      - description: Maximum number of items to return
         explode: true
         in: query
         name: limit
@@ -4125,7 +4457,7 @@ paths:
           example: 50
           type: number
         style: form
-      - description: Number of records to skip
+      - description: Number of items to skip
         explode: true
         in: query
         name: offset
@@ -4134,8 +4466,35 @@ paths:
           example: 0
           type: number
         style: form
-      - description: "The unique identifier of the merchant. If not provided, defaults\
-          \ to the authenticated user's active organization."
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"ids\":[\"prod_123\",\"prod_456\"]}"
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          example: createdAt
+          type: string
+        style: form
+      - description: Sort direction
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
+          type: string
+        style: form
+      - description: "The ID of the merchant. If omitted, defaults to the authenticated\
+          \ merchant."
         explode: true
         in: query
         name: merchantId
@@ -4143,7 +4502,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: The unique identifier of the customer
+      - description: Customer ID to filter by
         explode: true
         in: query
         name: customerId
@@ -4211,7 +4570,7 @@ paths:
       description: Retrieves all products in the merchant's catalog.
       operationId: listProducts
       parameters:
-      - description: Maximum number of records to return
+      - description: Maximum number of items to return
         explode: true
         in: query
         name: limit
@@ -4220,7 +4579,7 @@ paths:
           example: 50
           type: number
         style: form
-      - description: Number of records to skip
+      - description: Number of items to skip
         explode: true
         in: query
         name: offset
@@ -4228,6 +4587,42 @@ paths:
         schema:
           example: 0
           type: number
+        style: form
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"ids\":[\"prod_123\",\"prod_456\"]}"
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          enum:
+          - id
+          - name
+          - amount
+          - currency
+          - active
+          - merchantId
+          - createdAt
+          - updatedAt
+          example: createdAt
+          type: string
+        style: form
+      - description: Sort direction
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
+          type: string
         style: form
       - description: "The ID of the merchant whose products are being requested. If\
           \ not provided, the products of the authenticated merchant will be returned."
@@ -4374,6 +4769,69 @@ paths:
       tags:
       - Products
   /api/canary/products/{id}:
+    delete:
+      description: Deletes a product by ID.
+      operationId: deleteProduct
+      parameters:
+      - description: The unique identifier of the product
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id: product_001
+                merchantId: merchant_456
+                name: Airtime
+                description: Mobile phone airtime
+                amount: 5000
+                currency: ZAR
+                active: true
+                imageId: file_abc123xyz
+                imageUrl: https://my-bucket.s3.af-south-1.amazonaws.com/merchant_123/1736951234567-a1b2c3-airtime.png
+                metadata:
+                  category: telecom
+                  provider: vodacom
+                createdAt: 2025-01-15T10:30:00.000Z
+                updatedAt: 2025-01-15T10:30:00.000Z
+              schema:
+                $ref: "#/components/schemas/ProductResponseDto"
+          description: Product deleted successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponseDto"
+          description: Bad Request - Invalid input
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: Delete Product
+      tags:
+      - Products
     get:
       description: Retrieves a single product by ID.
       operationId: retrieveProduct
@@ -4507,43 +4965,28 @@ paths:
       summary: Update Product
       tags:
       - Products
-  /api/canary/products/multiple:
-    post:
-      description: Retrieves multiple products using the provided ID's with a maximum
-        of 50 IDs.
-      operationId: retrieveMultipleProducts
+  /api/canary/products/bulk:
+    delete:
+      description: Deletes multiple products by ID.
+      operationId: deleteProductsBulk
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/RetrieveMultipleProductsDto"
-        description: List of product IDs
+              $ref: "#/components/schemas/BulkIdsDto"
         required: true
       responses:
         "200":
           content:
             application/json:
-              example:
-              - id: product_001
-                merchantId: merchant_456
-                name: Airtime
-                description: Mobile phone airtime
-                amount: 5000
-                currency: ZAR
-                active: true
-                imageId: file_abc123xyz
-                imageUrl: https://my-bucket.s3.af-south-1.amazonaws.com/merchant_123/1736951234567-a1b2c3-airtime.png
-                metadata:
-                  category: telecom
-                  provider: vodacom
-                createdAt: 2025-01-15T10:30:00.000Z
-                updatedAt: 2025-01-15T10:30:00.000Z
               schema:
-                items:
-                  $ref: "#/components/schemas/ProductResponseDto"
-                type: array
-          description: Successfully retrieved products
+                example:
+                  ids:
+                  - prod_1
+                  - prod_2
+                  count: 2
+          description: Products deleted successfully
         "400":
           content:
             application/json:
@@ -4570,7 +5013,57 @@ paths:
           description: Internal server error
       security:
       - bearer: []
-      summary: Retrieve Multiple Products by ID
+      summary: Bulk Delete Products
+      tags:
+      - Products
+    patch:
+      description: Updates multiple products using a shared patch.
+      operationId: updateProductsBulk
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BulkUpdateProductsInputDto"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                example:
+                  ids:
+                  - prod_1
+                  - prod_2
+                  count: 2
+          description: Products updated successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestResponseDto"
+          description: Bad Request - Invalid input
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedResponseDto"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NotFoundResponseDto"
+          description: Resource not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InternalServerErrorResponseDto"
+          description: Internal server error
+      security:
+      - bearer: []
+      summary: Bulk Update Products
       tags:
       - Products
   /api/canary/payouts:
@@ -4579,6 +5072,51 @@ paths:
         merchant.
       operationId: listPayouts
       parameters:
+      - description: Maximum number of items to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          example: 50
+          type: number
+        style: form
+      - description: Number of items to skip
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          example: 0
+          type: number
+        style: form
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"ids\":[\"prod_123\",\"prod_456\"]}"
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          example: createdAt
+          type: string
+        style: form
+      - description: Sort direction
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
+          type: string
+        style: form
       - description: "The ID of the merchant whose payouts are being requested. If\
           \ omitted, defaults to the authenticated merchant."
         explode: true
@@ -4587,22 +5125,6 @@ paths:
         required: false
         schema:
           type: string
-        style: form
-      - description: Maximum number of records to return
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: number
-        style: form
-      - description: Number of records to skip
-        explode: true
-        in: query
-        name: offset
-        required: false
-        schema:
-          type: number
         style: form
       - description: Filter by status
         explode: true
@@ -4752,6 +5274,33 @@ paths:
         schema:
           example: 0
           type: number
+        style: form
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"ids\":[\"prod_123\",\"prod_456\"]}"
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          example: createdAt
+          type: string
+        style: form
+      - description: Sort direction
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
+          type: string
         style: form
       - description: "Filter by merchant ID. If omitted, defaults to the authenticated\
           \ merchant."
@@ -4956,6 +5505,30 @@ paths:
         required: false
         schema:
           type: number
+        style: form
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Sort direction (ASC or DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          type: string
         style: form
       responses:
         "200":
@@ -5259,13 +5832,51 @@ paths:
       - Analytics
   /api/canary/compliance:
     get:
-      operationId: getCompliance
+      operationId: listCompliance
       parameters:
-      - explode: true
+      - description: Maximum number of items to return
+        explode: true
         in: query
-        name: organizationId
-        required: true
+        name: limit
+        required: false
         schema:
+          example: 50
+          type: number
+        style: form
+      - description: Number of items to skip
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          example: 0
+          type: number
+        style: form
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"ids\":[\"prod_123\",\"prod_456\"]}"
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          example: createdAt
+          type: string
+        style: form
+      - description: Sort direction
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
           type: string
         style: form
       responses:
@@ -5273,7 +5884,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrganizationComplianceResponseDto"
+                $ref: "#/components/schemas/ListOrganizationComplianceResponseDto"
           description: ""
         "401":
           content:
@@ -5289,7 +5900,7 @@ paths:
           description: Internal server error
       security:
       - bearer: []
-      summary: Get Compliance info for organization
+      summary: List Compliance info for organization
       tags:
       - Compliance
     post:
@@ -5660,7 +6271,7 @@ paths:
     get:
       operationId: listFiles
       parameters:
-      - description: Maximum number of records to return
+      - description: Maximum number of items to return
         explode: true
         in: query
         name: limit
@@ -5669,7 +6280,7 @@ paths:
           example: 50
           type: number
         style: form
-      - description: Number of records to skip
+      - description: Number of items to skip
         explode: true
         in: query
         name: offset
@@ -5677,6 +6288,33 @@ paths:
         schema:
           example: 0
           type: number
+        style: form
+      - description: JSON string used for dynamic filtering
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          example: "{\"ids\":[\"prod_123\",\"prod_456\"]}"
+          type: string
+        style: form
+      - description: Field name to sort by
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          example: createdAt
+          type: string
+        style: form
+      - description: Sort direction
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          example: DESC
+          type: string
         style: form
       - description: Filter by tag
         explode: true
@@ -5733,7 +6371,7 @@ paths:
                       status: uploaded
                       isPublic: false
                       relatedEntityId: compliance_info_123
-                      relatedEntityType: complianceInfo
+                      relatedEntityType: compliance_info
                       uploadedById: user_123
                       createdAt: 2026-01-15T14:00:00.000Z
                       updatedAt: 2026-01-15T14:05:00.000Z
@@ -5749,7 +6387,7 @@ paths:
                       status: uploaded
                       isPublic: false
                       relatedEntityId: compliance_info_123
-                      relatedEntityType: complianceInfo
+                      relatedEntityType: compliance_info
                       uploadedById: user_123
                       createdAt: 2026-01-15T13:30:00.000Z
                       updatedAt: 2026-01-15T13:35:00.000Z
@@ -5906,10 +6544,10 @@ components:
   schemas:
     SignUpDto:
       example:
-        image: https://example.com/avatar.jpg
+        image: https://www.cashful.africa/avatar.jpg
         password: StrongPassword123!
         name: John Doe
-        callbackURL: https://example.com/auth/callback
+        callbackURL: https://www.cashful.africa/auth/callback
         rememberMe: true
         email: john.doe@example.com
       properties:
@@ -5927,11 +6565,12 @@ components:
           type: string
         image:
           description: Optional URL to the user's profile image
-          example: https://example.com/avatar.jpg
+          example: https://www.cashful.africa/avatar.jpg
           type: string
         callbackURL:
+          default: https://api.cashful.africa/auth/callback
           description: Optional callback URL after successful sign-up
-          example: https://example.com/auth/callback
+          example: https://www.cashful.africa/auth/callback
           type: string
         rememberMe:
           description: Optional flag to indicate if the user should be remembered
@@ -5944,11 +6583,21 @@ components:
       type: object
     SessionUserDto:
       example:
+        image: image
+        role: role
+        banReason: banReason
         emailVerified: true
         createdAt: 2000-01-23T04:56:07.000+00:00
+        isAnonymous: true
+        phoneNumber: phoneNumber
+        displayUsername: displayUsername
         name: name
+        phoneNumberVerified: true
         id: id
+        banned: true
         email: email
+        banExpires: 2000-01-23T04:56:07.000+00:00
+        username: username
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         id:
@@ -5959,6 +6608,27 @@ components:
           type: boolean
         name:
           type: string
+        image:
+          type: string
+        role:
+          type: string
+        banned:
+          type: boolean
+        banReason:
+          type: string
+        banExpires:
+          format: date-time
+          type: string
+        isAnonymous:
+          type: boolean
+        username:
+          type: string
+        displayUsername:
+          type: string
+        phoneNumber:
+          type: string
+        phoneNumberVerified:
+          type: boolean
         createdAt:
           format: date-time
           type: string
@@ -6044,9 +6714,9 @@ components:
         requestSignUp: false
         provider: google
         idToken: "{}"
-        errorCallbackURL: https://example.com/auth/error
-        callbackURL: https://example.com/auth/callback
-        newUserCallbackURL: https://example.com/auth/new-user
+        errorCallbackURL: https://www.cashful.africa/auth/error
+        callbackURL: https://www.cashful.africa/auth/callback
+        newUserCallbackURL: https://www.cashful.africa/auth/new-user
         scopes:
         - email
         - profile
@@ -6059,15 +6729,15 @@ components:
           type: string
         callbackURL:
           description: Callback URL to redirect to after the user has signed in
-          example: https://example.com/auth/callback
+          example: https://www.cashful.africa/auth/callback
           type: string
         newUserCallbackURL:
           description: Callback URL for new users
-          example: https://example.com/auth/new-user
+          example: https://www.cashful.africa/auth/new-user
           type: string
         errorCallbackURL:
           description: Callback URL for errors
-          example: https://example.com/auth/error
+          example: https://www.cashful.africa/auth/error
           type: string
         disableRedirect:
           description: Disable automatic redirection to the provider
@@ -6101,7 +6771,7 @@ components:
       type: object
     SignInResponseDto:
       example:
-        redirect: 0.8008281904610115
+        redirect: true
         user: ""
         url: url
         token: token
@@ -6115,9 +6785,7 @@ components:
           type: string
         redirect:
           description: Whether to redirect
-          enum:
-          - null
-          type: number
+          type: boolean
         url:
           description: Redirect URL
           type: string
@@ -6129,7 +6797,7 @@ components:
     SignInDto:
       example:
         password: StrongPassword123!
-        callbackURL: https://example.com/auth/callback
+        callbackURL: https://www.cashful.africa/auth/callback
         rememberMe: true
         email: john.doe@example.com
       properties:
@@ -6143,7 +6811,7 @@ components:
           type: string
         callbackURL:
           description: The URL to use for email verification callback
-          example: https://example.com/auth/callback
+          example: https://www.cashful.africa/auth/callback
           type: string
         rememberMe:
           description: "If this is false, the session will not be remembered. Default\
@@ -6195,15 +6863,32 @@ components:
       type: object
     SessionDto:
       example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
         ipAddress: ipAddress
+        activeOrganizationId: activeOrganizationId
         userAgent: userAgent
         id: id
+        impersonatedBy: impersonatedBy
         userId: userId
         expiresAt: 2000-01-23T04:56:07.000+00:00
+        token: token
+        updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         id:
           type: string
         userId:
+          type: string
+        token:
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+        impersonatedBy:
+          type: string
+        activeOrganizationId:
           type: string
         expiresAt:
           format: date-time
@@ -6213,24 +6898,42 @@ components:
         userAgent:
           type: string
       required:
+      - createdAt
       - expiresAt
       - id
+      - token
+      - updatedAt
       - userId
       type: object
     GetSessionResponseDto:
       example:
         session:
+          createdAt: 2000-01-23T04:56:07.000+00:00
           ipAddress: ipAddress
+          activeOrganizationId: activeOrganizationId
           userAgent: userAgent
           id: id
+          impersonatedBy: impersonatedBy
           userId: userId
           expiresAt: 2000-01-23T04:56:07.000+00:00
+          token: token
+          updatedAt: 2000-01-23T04:56:07.000+00:00
         user:
+          image: image
+          role: role
+          banReason: banReason
           emailVerified: true
           createdAt: 2000-01-23T04:56:07.000+00:00
+          isAnonymous: true
+          phoneNumber: phoneNumber
+          displayUsername: displayUsername
           name: name
+          phoneNumberVerified: true
           id: id
+          banned: true
           email: email
+          banExpires: 2000-01-23T04:56:07.000+00:00
+          username: username
           updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         session:
@@ -6387,7 +7090,7 @@ components:
         metadata:
           plan: pro
         name: Acme Corp
-        logo: https://example.com/logo.png
+        logo: https://www.cashful.africa/logo.png
         slug: acme-corp
       properties:
         name:
@@ -6400,7 +7103,7 @@ components:
           type: string
         logo:
           description: The logo of the organization
-          example: https://example.com/logo.png
+          example: https://www.cashful.africa/logo.png
           type: string
         metadata:
           description: Metadata for the organization
@@ -6417,7 +7120,7 @@ components:
         metadata:
           plan: pro
         name: Acme Corp
-        logo: https://example.com/logo.png
+        logo: https://www.cashful.africa/logo.png
         id: org_12345
         slug: acme-corp
       properties:
@@ -6435,7 +7138,7 @@ components:
           type: string
         logo:
           description: Organization logo
-          example: https://example.com/logo.png
+          example: https://www.cashful.africa/logo.png
           type: string
         createdAt:
           description: Organization creation date
@@ -7242,7 +7945,7 @@ components:
       type: object
     SendVerificationEmailDto:
       example:
-        callbackURL: https://example.com/callback
+        callbackURL: https://www.cashful.africa/callback
         email: user@example.com
       properties:
         email:
@@ -7251,7 +7954,7 @@ components:
           type: string
         callbackURL:
           description: The URL to use for email verification callback
-          example: https://example.com/callback
+          example: https://www.cashful.africa/callback
           type: string
       required:
       - email
@@ -7270,7 +7973,7 @@ components:
     ChangeEmailDto:
       example:
         newEmail: newemail@example.com
-        callbackURL: https://example.com/callback
+        callbackURL: https://www.cashful.africa/callback
       properties:
         newEmail:
           description: The new email address to set must be a valid email address
@@ -7278,7 +7981,7 @@ components:
           type: string
         callbackURL:
           description: The URL to redirect to after email verification
-          example: https://example.com/callback
+          example: https://www.cashful.africa/callback
           type: string
       required:
       - newEmail
@@ -7346,7 +8049,7 @@ components:
       type: object
     UpdateUserDto:
       example:
-        image: https://example.com/avatar.jpg
+        image: https://www.cashful.africa/avatar.jpg
         name: John Doe
       properties:
         name:
@@ -7355,7 +8058,7 @@ components:
           type: string
         image:
           description: The image of user
-          example: https://example.com/avatar.jpg
+          example: https://www.cashful.africa/avatar.jpg
           type: string
       type: object
     UpdateUserResponseDto:
@@ -7372,12 +8075,12 @@ components:
     DeleteUserDto:
       example:
         password: CurrentPassword123!
-        callbackURL: https://example.com/goodbye
+        callbackURL: https://www.cashful.africa/goodbye
         token: delete_token_12345
       properties:
         callbackURL:
           description: The callback URL to redirect to after user is deleted
-          example: https://example.com/goodbye
+          example: https://www.cashful.africa/goodbye
           type: string
         password:
           description: The user's password. Required if session is not fresh
@@ -7409,7 +8112,7 @@ components:
       type: object
     RequestPasswordResetDto:
       example:
-        redirectTo: https://example.com/reset-password
+        redirectTo: https://www.cashful.africa/reset-password
         email: user@example.com
       properties:
         email:
@@ -7420,7 +8123,7 @@ components:
           description: "The URL to redirect user to reset their password. If token\
             \ isn't valid or expired, it'll be redirected with a query parameter `?error=INVALID_TOKEN`.\
             \ If token is valid, it'll be redirected with a query parameter `?token=VALID_TOKEN`"
-          example: https://example.com/reset-password
+          example: https://www.cashful.africa/reset-password
           type: string
       required:
       - email
@@ -7455,16 +8158,26 @@ components:
     ListSessionsResponseDto:
       example:
         sessions:
-        - ipAddress: ipAddress
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          ipAddress: ipAddress
+          activeOrganizationId: activeOrganizationId
           userAgent: userAgent
           id: id
+          impersonatedBy: impersonatedBy
           userId: userId
           expiresAt: 2000-01-23T04:56:07.000+00:00
-        - ipAddress: ipAddress
+          token: token
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          ipAddress: ipAddress
+          activeOrganizationId: activeOrganizationId
           userAgent: userAgent
           id: id
+          impersonatedBy: impersonatedBy
           userId: userId
           expiresAt: 2000-01-23T04:56:07.000+00:00
+          token: token
+          updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         sessions:
           description: List of user sessions
@@ -7617,19 +8330,107 @@ components:
       required:
       - success
       type: object
+    LinkedAccountDto:
+      example:
+        accessTokenExpiresAt: 2000-01-23T04:56:07.000+00:00
+        accessToken: accessToken
+        userId: userId
+        accountId: accountId
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        password: password
+        refreshTokenExpiresAt: 2000-01-23T04:56:07.000+00:00
+        providerId: providerId
+        scope: scope
+        idToken: idToken
+        id: id
+        refreshToken: refreshToken
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Unique identifier
+          type: string
+        accountId:
+          description: Account ID
+          type: string
+        providerId:
+          description: "Provider ID (e.g., google, github)"
+          type: string
+        userId:
+          description: User ID
+          type: string
+        accessToken:
+          description: Access token
+          type: string
+        refreshToken:
+          description: Refresh token
+          type: string
+        idToken:
+          description: ID token
+          type: string
+        accessTokenExpiresAt:
+          description: Access token expires at
+          format: date-time
+          type: string
+        refreshTokenExpiresAt:
+          description: Refresh token expires at
+          format: date-time
+          type: string
+        scope:
+          description: Scope
+          type: string
+        password:
+          description: Password
+          type: string
+        createdAt:
+          description: Creation timestamp
+          format: date-time
+          type: string
+        updatedAt:
+          description: Last update timestamp
+          format: date-time
+          type: string
+      required:
+      - accountId
+      - createdAt
+      - id
+      - providerId
+      - updatedAt
+      - userId
+      type: object
     ListAccountsResponseDto:
       example:
         accounts:
-        - provider: google
-          email: user@gmail.com
+        - accessTokenExpiresAt: 2000-01-23T04:56:07.000+00:00
+          accessToken: accessToken
+          userId: userId
+          accountId: accountId
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          password: password
+          refreshTokenExpiresAt: 2000-01-23T04:56:07.000+00:00
+          providerId: providerId
+          scope: scope
+          idToken: idToken
+          id: id
+          refreshToken: refreshToken
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - accessTokenExpiresAt: 2000-01-23T04:56:07.000+00:00
+          accessToken: accessToken
+          userId: userId
+          accountId: accountId
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          password: password
+          refreshTokenExpiresAt: 2000-01-23T04:56:07.000+00:00
+          providerId: providerId
+          scope: scope
+          idToken: idToken
+          id: id
+          refreshToken: refreshToken
+          updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         accounts:
           description: List of linked social accounts
-          example:
-          - provider: google
-            email: user@gmail.com
           items:
-            type: object
+            $ref: "#/components/schemas/LinkedAccountDto"
           type: array
       required:
       - accounts
@@ -7706,7 +8507,7 @@ components:
       example:
         password: StrongPassword123!
         phoneNumber: "+1234567890"
-        callbackURL: https://example.com/callback
+        callbackURL: https://www.cashful.africa/callback
       properties:
         phoneNumber:
           description: The phone number
@@ -7718,7 +8519,7 @@ components:
           type: string
         callbackURL:
           description: Callback URL after sign in
-          example: https://example.com/callback
+          example: https://www.cashful.africa/callback
           type: string
       required:
       - password
@@ -7782,7 +8583,7 @@ components:
     RequestPhonePasswordResetDto:
       example:
         phoneNumber: "+1234567890"
-        callbackURL: https://example.com/reset-password
+        callbackURL: https://www.cashful.africa/reset-password
       properties:
         phoneNumber:
           description: The phone number to send reset to
@@ -7790,7 +8591,7 @@ components:
           type: string
         callbackURL:
           description: Callback URL for password reset
-          example: https://example.com/reset-password
+          example: https://www.cashful.africa/reset-password
           type: string
       required:
       - phoneNumber
@@ -7844,11 +8645,8 @@ components:
       properties:
         users:
           description: List of users
-          example:
-          - id: user_123
-            email: user@example.com
           items:
-            type: object
+            $ref: "#/components/schemas/SessionUserDto"
           type: array
       required:
       - users
@@ -8146,6 +8944,50 @@ components:
       required:
       - success
       type: object
+    PaginationResponseDto:
+      example:
+        total: 150
+        offset: 0
+        limit: 50
+        hasMore: true
+      properties:
+        limit:
+          description: Maximum number of items returned in this response
+          example: 50
+          type: number
+        offset:
+          description: Number of items skipped before this response
+          example: 0
+          type: number
+        total:
+          description: Total number of items available
+          example: 150
+          type: number
+        hasMore:
+          description: Whether there are more items available beyond this response
+          example: true
+          type: boolean
+      required:
+      - hasMore
+      - limit
+      - offset
+      - total
+      type: object
+    ListOrganizationsResponseDto:
+      properties:
+        data:
+          description: List of organizations
+          items:
+            $ref: "#/components/schemas/OrganizationDto"
+          type: array
+        pagination:
+          allOf:
+          - $ref: "#/components/schemas/PaginationResponseDto"
+          description: Pagination metadata
+      required:
+      - data
+      - pagination
+      type: object
     LineItemDto:
       example:
         amount: 6.027456183070403
@@ -8383,7 +9225,6 @@ components:
           - $ref: "#/components/schemas/HostedCheckoutConfigDto"
           description: Configuration for the hosted checkout page
       required:
-      - cancelUrl
       - createdAt
       - currency
       - id
@@ -8391,37 +9232,7 @@ components:
       - metadata
       - sessionUrl
       - status
-      - successUrl
       - updatedAt
-      type: object
-    PaginationResponseDto:
-      example:
-        total: 150
-        offset: 0
-        limit: 50
-        hasMore: true
-      properties:
-        limit:
-          description: Maximum number of items returned in this response
-          example: 50
-          type: number
-        offset:
-          description: Number of items skipped before this response
-          example: 0
-          type: number
-        total:
-          description: Total number of items available
-          example: 150
-          type: number
-        hasMore:
-          description: Whether there are more items available beyond this response
-          example: true
-          type: boolean
-      required:
-      - hasMore
-      - limit
-      - offset
-      - total
       type: object
     ListCheckoutSessionsResponseDto:
       example:
@@ -8631,9 +9442,24 @@ components:
           type: object
         iVeri3dsEndpoint:
           type: string
+        sandboxMode:
+          type: boolean
+        status:
+          enum:
+          - succeeded
+          - failed
+          type: string
+        transactionId:
+          type: string
+        authCode:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        reason:
+          type: string
       required:
-      - iVeri3dsEndpoint
-      - iveriParams
       - paymentIntentId
       - sessionId
       type: object
@@ -8672,7 +9498,6 @@ components:
           example: ZAR
           type: string
         mode:
-          default: payment
           description: The mode of the payment intent
           enum:
           - payment
@@ -8902,6 +9727,10 @@ components:
       type: object
     ConfirmPaymentIntentResponseDto:
       example:
+        reason: reason
+        amount: 0.8008281904610115
+        sandboxMode: true
+        authCode: authCode
         iVeri3dsEndpoint: iVeri3dsEndpoint
         paymentIntent:
           amount: 0.8008281904610115
@@ -8920,7 +9749,10 @@ components:
           id: id
           status: initiation
           updatedAt: 2000-01-23T04:56:07.000+00:00
+        currency: currency
         iveriParams: "{}"
+        transactionId: transactionId
+        status: succeeded
       properties:
         paymentIntent:
           $ref: "#/components/schemas/PaymentIntentResponseDto"
@@ -8928,9 +9760,24 @@ components:
           type: object
         iVeri3dsEndpoint:
           type: string
+        sandboxMode:
+          type: boolean
+        status:
+          enum:
+          - succeeded
+          - failed
+          type: string
+        transactionId:
+          type: string
+        authCode:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        reason:
+          type: string
       required:
-      - iVeri3dsEndpoint
-      - iveriParams
       - paymentIntent
       type: object
     InitiatePaymentDto:
@@ -9030,14 +9877,46 @@ components:
         iveriParams:
           allOf:
           - $ref: "#/components/schemas/IveriParamsDto"
-          description: Parameters to POST to iVeri 3DS endpoint
+          description: Parameters to POST to iVeri 3DS endpoint (only in live mode)
         iVeri3dsEndpoint:
-          description: iVeri 3DS endpoint URL to POST the parameters to
+          description: iVeri 3DS endpoint URL to POST the parameters to (only in live
+            mode)
           example: https://portal.nedsecure.co.za/threedsecure/EnrollmentInitial
           type: string
-      required:
-      - iVeri3dsEndpoint
-      - iveriParams
+        sandboxMode:
+          description: Whether sandbox mode is active
+          example: false
+          type: boolean
+        status:
+          description: Payment status (only in sandbox mode)
+          enum:
+          - succeeded
+          - failed
+          type: string
+        paymentIntentId:
+          description: Payment intent ID
+          example: pi_xyz789
+          type: string
+        transactionId:
+          description: Transaction ID (only in sandbox mode on success)
+          example: sb_txn_1234567890
+          type: string
+        authCode:
+          description: Authorization code (only in sandbox mode on success)
+          example: SB123456
+          type: string
+        amount:
+          description: Payment amount in smallest currency unit
+          example: 10000
+          type: number
+        currency:
+          description: Currency code
+          example: ZAR
+          type: string
+        reason:
+          description: Reason for failure (only in sandbox mode on failure)
+          example: card_declined
+          type: string
       type: object
     IVeriHealthCheckResponseDto:
       properties:
@@ -9045,144 +9924,22 @@ components:
           description: Service health status
           example: ok
           type: string
+        environment:
+          description: Current environment mode
+          enum:
+          - sandbox
+          - live
+          - local
+          example: live
+          type: string
         timestamp:
           description: Current server timestamp in ISO format
           example: 2024-01-15T10:30:00.000Z
           type: string
       required:
+      - environment
       - status
       - timestamp
-      type: object
-    EventResponseDto:
-      example:
-        nextRetryAt: 2000-01-23T04:56:07.000+00:00
-        data:
-          key: value
-        lastAttemptAt: 2000-01-23T04:56:07.000+00:00
-        relatedEntityType: relatedEntityType
-        type: type
-        deliveredAt: 2000-01-23T04:56:07.000+00:00
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        merchantId: merchantId
-        webhookEndpointId: webhookEndpointId
-        relatedEntityId: relatedEntityId
-        id: id
-        status: pending
-        attempts: 0.8008281904610115
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        id:
-          description: Unique identifier for the event
-          type: string
-        merchantId:
-          description: ID of the merchant this event belongs to
-          type: string
-        webhookEndpointId:
-          description: ID of the webhook endpoint this event was sent to
-          type: string
-        type:
-          description: Event type name
-          type: string
-        data:
-          description: Event data payload
-          example:
-            key: value
-          type: object
-        status:
-          description: Current delivery status of the event
-          enum:
-          - pending
-          - delivered
-          - failed
-          type: string
-        attempts:
-          description: Number of delivery attempts
-          type: number
-        relatedEntityId:
-          description: ID of the related entity
-          type: string
-        relatedEntityType:
-          description: Type of the related entity
-          type: string
-        lastAttemptAt:
-          description: Timestamp of the last delivery attempt
-          format: date-time
-          type: string
-        nextRetryAt:
-          description: Timestamp for the next retry attempt
-          format: date-time
-          type: string
-        deliveredAt:
-          description: Timestamp when the event was successfully delivered
-          format: date-time
-          type: string
-        createdAt:
-          description: Timestamp when the event was created
-          format: date-time
-          type: string
-        updatedAt:
-          description: Timestamp when the event was last updated
-          format: date-time
-          type: string
-      required:
-      - attempts
-      - createdAt
-      - data
-      - id
-      - merchantId
-      - status
-      - type
-      - updatedAt
-      - webhookEndpointId
-      type: object
-    ListEventsResponseDto:
-      example:
-        pagination:
-          total: 150
-          offset: 0
-          limit: 50
-          hasMore: true
-        data:
-        - nextRetryAt: 2000-01-23T04:56:07.000+00:00
-          data:
-            key: value
-          lastAttemptAt: 2000-01-23T04:56:07.000+00:00
-          relatedEntityType: relatedEntityType
-          type: type
-          deliveredAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          merchantId: merchantId
-          webhookEndpointId: webhookEndpointId
-          relatedEntityId: relatedEntityId
-          id: id
-          status: pending
-          attempts: 0.8008281904610115
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - nextRetryAt: 2000-01-23T04:56:07.000+00:00
-          data:
-            key: value
-          lastAttemptAt: 2000-01-23T04:56:07.000+00:00
-          relatedEntityType: relatedEntityType
-          type: type
-          deliveredAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          merchantId: merchantId
-          webhookEndpointId: webhookEndpointId
-          relatedEntityId: relatedEntityId
-          id: id
-          status: pending
-          attempts: 0.8008281904610115
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        data:
-          items:
-            $ref: "#/components/schemas/EventResponseDto"
-          type: array
-        pagination:
-          $ref: "#/components/schemas/PaginationResponseDto"
-      required:
-      - data
-      - pagination
       type: object
     MerchantBalanceResponseDto:
       example:
@@ -9323,6 +10080,18 @@ components:
       - data
       - pagination
       type: object
+    ListMerchantBalancesResponseDto:
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/MerchantBalanceResponseDto"
+          type: array
+        pagination:
+          $ref: "#/components/schemas/PaginationResponseDto"
+      required:
+      - data
+      - pagination
+      type: object
     CreateBalanceDto:
       properties:
         merchantId:
@@ -9354,6 +10123,219 @@ components:
           type: string
       required:
       - amount
+      type: object
+    EventTypeResponseDto:
+      example:
+        name: name
+        description: description
+        id: id
+        isActive: true
+      properties:
+        id:
+          description: Unique identifier for the event type
+          type: string
+        name:
+          description: Name of the event type
+          type: string
+        description:
+          description: Description of the event type
+          type: string
+        isActive:
+          description: Whether the event type is active
+          type: boolean
+      required:
+      - id
+      - isActive
+      - name
+      type: object
+    ListEventTypesResponseDto:
+      example:
+        data:
+        - name: name
+          description: description
+          id: id
+          isActive: true
+        - name: name
+          description: description
+          id: id
+          isActive: true
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/EventTypeResponseDto"
+          type: array
+      required:
+      - data
+      type: object
+    CreateEventDto:
+      example:
+        data: "{}"
+        merchantId: merchantId
+        relatedEntityId: relatedEntityId
+        relatedEntityType: relatedEntityType
+        type: type
+      properties:
+        merchantId:
+          description: Merchant ID associated with the event
+          type: string
+        type:
+          description: "Event type identifier (e.g., 'checkout.loaded')"
+          type: string
+        data:
+          description: Event payload data
+          type: object
+        relatedEntityId:
+          description: ID of the related entity
+          type: string
+        relatedEntityType:
+          description: Type of the related entity
+          type: string
+      required:
+      - data
+      - merchantId
+      - type
+      type: object
+    EventResponseDto:
+      example:
+        nextRetryAt: 2000-01-23T04:56:07.000+00:00
+        data:
+          key: value
+        lastAttemptAt: 2000-01-23T04:56:07.000+00:00
+        relatedEntityType: relatedEntityType
+        type: type
+        deliveredAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        merchantId: merchantId
+        webhookEndpointId: webhookEndpointId
+        relatedEntityId: relatedEntityId
+        id: id
+        status: pending
+        attempts: 0.8008281904610115
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Unique identifier for the event
+          type: string
+        merchantId:
+          description: ID of the merchant this event belongs to
+          type: string
+        webhookEndpointId:
+          description: ID of the webhook endpoint this event was sent to
+          type: string
+        type:
+          description: Event type name
+          type: string
+        data:
+          description: Event data payload
+          example:
+            key: value
+          type: object
+        status:
+          description: Current delivery status of the event
+          enum:
+          - pending
+          - delivered
+          - failed
+          type: string
+        attempts:
+          description: Number of delivery attempts
+          type: number
+        relatedEntityId:
+          description: ID of the related entity
+          type: string
+        relatedEntityType:
+          description: Type of the related entity
+          type: string
+        lastAttemptAt:
+          description: Timestamp of the last delivery attempt
+          format: date-time
+          type: string
+        nextRetryAt:
+          description: Timestamp for the next retry attempt
+          format: date-time
+          type: string
+        deliveredAt:
+          description: Timestamp when the event was successfully delivered
+          format: date-time
+          type: string
+        createdAt:
+          description: Timestamp when the event was created
+          format: date-time
+          type: string
+        updatedAt:
+          description: Timestamp when the event was last updated
+          format: date-time
+          type: string
+      required:
+      - attempts
+      - createdAt
+      - data
+      - id
+      - merchantId
+      - status
+      - type
+      - updatedAt
+      - webhookEndpointId
+      type: object
+    ListEventsResponseDto:
+      example:
+        pagination:
+          total: 150
+          offset: 0
+          limit: 50
+          hasMore: true
+        data:
+        - nextRetryAt: 2000-01-23T04:56:07.000+00:00
+          data:
+            key: value
+          lastAttemptAt: 2000-01-23T04:56:07.000+00:00
+          relatedEntityType: relatedEntityType
+          type: type
+          deliveredAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          merchantId: merchantId
+          webhookEndpointId: webhookEndpointId
+          relatedEntityId: relatedEntityId
+          id: id
+          status: pending
+          attempts: 0.8008281904610115
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - nextRetryAt: 2000-01-23T04:56:07.000+00:00
+          data:
+            key: value
+          lastAttemptAt: 2000-01-23T04:56:07.000+00:00
+          relatedEntityType: relatedEntityType
+          type: type
+          deliveredAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          merchantId: merchantId
+          webhookEndpointId: webhookEndpointId
+          relatedEntityId: relatedEntityId
+          id: id
+          status: pending
+          attempts: 0.8008281904610115
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/EventResponseDto"
+          type: array
+        pagination:
+          $ref: "#/components/schemas/PaginationResponseDto"
+      required:
+      - data
+      - pagination
+      type: object
+    CreateEventTypeDto:
+      properties:
+        name:
+          description: Name of the event type
+          type: string
+        description:
+          description: Description of the event type
+          type: string
+      required:
+      - name
       type: object
     CreateCustomerDto:
       example:
@@ -9387,7 +10369,6 @@ components:
           type: object
       required:
       - metadata
-      - phoneNumber
       type: object
     CustomerResponseDto:
       example:
@@ -9732,6 +10713,52 @@ components:
       required:
       - data
       - pagination
+      type: object
+    BulkUpdateCustomersInputDto:
+      example:
+        data:
+          name: Updated
+          metadata:
+            tier: gold
+        ids:
+        - id_1
+        - id_2
+      properties:
+        ids:
+          description: List of IDs to target
+          example:
+          - id_1
+          - id_2
+          items:
+            type: string
+          type: array
+        data:
+          description: Raw Prisma update payload
+          example:
+            name: Updated
+            metadata:
+              tier: gold
+          type: object
+      required:
+      - data
+      - ids
+      type: object
+    BulkIdsDto:
+      example:
+        ids:
+        - id_1
+        - id_2
+      properties:
+        ids:
+          description: List of IDs to target
+          example:
+          - id_1
+          - id_2
+          items:
+            type: string
+          type: array
+      required:
+      - ids
       type: object
     CreatePaymentLinkDto:
       example:
@@ -10330,25 +11357,6 @@ components:
       - data
       - pagination
       type: object
-    RetrieveMultipleProductsDto:
-      example:
-        ids:
-        - product_001
-        - product_002
-        - product_003
-      properties:
-        ids:
-          description: Max 50 IDs of the products to retrieve
-          example:
-          - product_001
-          - product_002
-          - product_003
-          items:
-            type: string
-          type: array
-      required:
-      - ids
-      type: object
     UpdateProductDto:
       example:
         amount: 0.8008281904610115
@@ -10382,6 +11390,35 @@ components:
           type: object
       required:
       - metadata
+      type: object
+    BulkUpdateProductsInputDto:
+      example:
+        data:
+          active: false
+          metadata:
+            category: promo
+        ids:
+        - id_1
+        - id_2
+      properties:
+        ids:
+          description: List of IDs to target
+          example:
+          - id_1
+          - id_2
+          items:
+            type: string
+          type: array
+        data:
+          description: Raw Prisma update payload
+          example:
+            active: false
+            metadata:
+              category: promo
+          type: object
+      required:
+      - data
+      - ids
       type: object
     CreatePayoutDto:
       example:
@@ -11054,6 +12091,37 @@ components:
       - members
       - transactions
       type: object
+    InternalAnalyticsInsightsDto:
+      properties:
+        organizations:
+          description: Total number of organizations on the platform
+          type: number
+        customers:
+          description: Total number of active customers across all organizations
+          type: number
+        savedPaymentMethods:
+          description: Total number of saved payment methods across all customers
+            (non-deleted)
+          type: number
+        transactions:
+          description: Total number of transactions across all organizations
+          type: number
+        totalAvailableBalance:
+          description: Sum of available merchant balances across all organizations
+            (in cents/smallest unit)
+          type: number
+        totalPendingBalance:
+          description: Sum of pending merchant balances across all organizations (in
+            cents/smallest unit)
+          type: number
+      required:
+      - customers
+      - organizations
+      - savedPaymentMethods
+      - totalAvailableBalance
+      - totalPendingBalance
+      - transactions
+      type: object
     CreateOrganizationComplianceDto:
       example:
         companyTradingName: companyTradingName
@@ -11067,7 +12135,6 @@ components:
         companyRegistrationName: companyRegistrationName
         swiftCode: swiftCode
         industry: industry
-        organizationId: organizationId
         subIndustry: subIndustry
         customerSupportEscalationContactNumber: customerSupportEscalationContactNumber
         bank: bank
@@ -11076,7 +12143,6 @@ components:
         identityDocuments: identityDocuments
         estimatedAnnualTurnover: estimatedAnnualTurnover
         acceptedAt: 2000-01-23T04:56:07.000+00:00
-        isCompleted: true
         bankAccountConfirmationLetter: bankAccountConfirmationLetter
         website: website
         companyRegistrationNumber: companyRegistrationNumber
@@ -11088,17 +12154,13 @@ components:
         branchCode: branchCode
         currentStep: initiation
         vatRegistrationNumber: vatRegistrationNumber
-        completionScore: 0.8008281904610115
         accountContactNumber: accountContactNumber
         streetAddress: streetAddress
         termsAccepted: true
         suburb: suburb
         companyContactNumber: companyContactNumber
         apartment: apartment
-        status: pending
       properties:
-        organizationId:
-          type: string
         companyRegistrationName:
           type: string
         companyRegistrationNumber:
@@ -11181,18 +12243,6 @@ components:
           - upload_documents
           - sign_agreement
           type: string
-        status:
-          enum:
-          - pending
-          - verified
-          - rejected
-          type: string
-        isCompleted:
-          type: boolean
-        completionScore:
-          type: number
-      required:
-      - organizationId
       type: object
     OrganizationComplianceResponseDto:
       example:
@@ -11351,6 +12401,113 @@ components:
       - organizationId
       - updatedAt
       type: object
+    ListOrganizationComplianceResponseDto:
+      example:
+        pagination:
+          total: 150
+          offset: 0
+          limit: 50
+          hasMore: true
+        data:
+        - companyTradingName: companyTradingName
+          country: country
+          certificateOfIncorporation: certificateOfIncorporation
+          businessDescription: businessDescription
+          city: city
+          accountName: accountName
+          postalCode: postalCode
+          customerSupportContactNumber: customerSupportContactNumber
+          companyRegistrationName: companyRegistrationName
+          swiftCode: swiftCode
+          industry: industry
+          organizationId: organizationId
+          subIndustry: subIndustry
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          customerSupportEscalationContactNumber: customerSupportEscalationContactNumber
+          bank: bank
+          companyEmail: companyEmail
+          companyMobileMoneySettlementNumber: companyMobileMoneySettlementNumber
+          id: id
+          identityDocuments: identityDocuments
+          estimatedAnnualTurnover: estimatedAnnualTurnover
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          acceptedAt: 2000-01-23T04:56:07.000+00:00
+          isCompleted: true
+          bankAccountConfirmationLetter: bankAccountConfirmationLetter
+          website: website
+          companyRegistrationNumber: companyRegistrationNumber
+          emergencyContactNumber: emergencyContactNumber
+          accountType: accountType
+          proofOfBusinessAddress: proofOfBusinessAddress
+          socialMedia: socialMedia
+          accountNumber: accountNumber
+          branchCode: branchCode
+          currentStep: initiation
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          vatRegistrationNumber: vatRegistrationNumber
+          completionScore: 0.8008281904610115
+          accountContactNumber: accountContactNumber
+          streetAddress: streetAddress
+          termsAccepted: true
+          suburb: suburb
+          companyContactNumber: companyContactNumber
+          apartment: apartment
+          status: pending
+        - companyTradingName: companyTradingName
+          country: country
+          certificateOfIncorporation: certificateOfIncorporation
+          businessDescription: businessDescription
+          city: city
+          accountName: accountName
+          postalCode: postalCode
+          customerSupportContactNumber: customerSupportContactNumber
+          companyRegistrationName: companyRegistrationName
+          swiftCode: swiftCode
+          industry: industry
+          organizationId: organizationId
+          subIndustry: subIndustry
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          customerSupportEscalationContactNumber: customerSupportEscalationContactNumber
+          bank: bank
+          companyEmail: companyEmail
+          companyMobileMoneySettlementNumber: companyMobileMoneySettlementNumber
+          id: id
+          identityDocuments: identityDocuments
+          estimatedAnnualTurnover: estimatedAnnualTurnover
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          acceptedAt: 2000-01-23T04:56:07.000+00:00
+          isCompleted: true
+          bankAccountConfirmationLetter: bankAccountConfirmationLetter
+          website: website
+          companyRegistrationNumber: companyRegistrationNumber
+          emergencyContactNumber: emergencyContactNumber
+          accountType: accountType
+          proofOfBusinessAddress: proofOfBusinessAddress
+          socialMedia: socialMedia
+          accountNumber: accountNumber
+          branchCode: branchCode
+          currentStep: initiation
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          vatRegistrationNumber: vatRegistrationNumber
+          completionScore: 0.8008281904610115
+          accountContactNumber: accountContactNumber
+          streetAddress: streetAddress
+          termsAccepted: true
+          suburb: suburb
+          companyContactNumber: companyContactNumber
+          apartment: apartment
+          status: pending
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/OrganizationComplianceResponseDto"
+          type: array
+        pagination:
+          $ref: "#/components/schemas/PaginationResponseDto"
+      required:
+      - data
+      - pagination
+      type: object
     UpdateOrganizationComplianceDto:
       example:
         companyTradingName: companyTradingName
@@ -11372,7 +12529,6 @@ components:
         identityDocuments: identityDocuments
         estimatedAnnualTurnover: estimatedAnnualTurnover
         acceptedAt: 2000-01-23T04:56:07.000+00:00
-        isCompleted: true
         bankAccountConfirmationLetter: bankAccountConfirmationLetter
         website: website
         companyRegistrationNumber: companyRegistrationNumber
@@ -11384,14 +12540,95 @@ components:
         branchCode: branchCode
         currentStep: initiation
         vatRegistrationNumber: vatRegistrationNumber
-        completionScore: 0.8008281904610115
         accountContactNumber: accountContactNumber
         streetAddress: streetAddress
         termsAccepted: true
         suburb: suburb
         companyContactNumber: companyContactNumber
         apartment: apartment
-        status: pending
+      properties:
+        companyRegistrationName:
+          type: string
+        companyRegistrationNumber:
+          type: string
+        companyTradingName:
+          type: string
+        vatRegistrationNumber:
+          type: string
+        industry:
+          type: string
+        subIndustry:
+          type: string
+        estimatedAnnualTurnover:
+          type: string
+        businessDescription:
+          type: string
+        companyMobileMoneySettlementNumber:
+          type: string
+        companyEmail:
+          type: string
+        companyContactNumber:
+          type: string
+        website:
+          type: string
+        socialMedia:
+          type: string
+        accountContactNumber:
+          type: string
+        customerSupportContactNumber:
+          type: string
+        customerSupportEscalationContactNumber:
+          type: string
+        emergencyContactNumber:
+          type: string
+        streetAddress:
+          type: string
+        apartment:
+          type: string
+        suburb:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        country:
+          type: string
+        bank:
+          type: string
+        accountType:
+          type: string
+        accountName:
+          type: string
+        accountNumber:
+          type: string
+        branchCode:
+          type: string
+        swiftCode:
+          type: string
+        certificateOfIncorporation:
+          type: string
+        identityDocuments:
+          type: string
+        bankAccountConfirmationLetter:
+          type: string
+        proofOfBusinessAddress:
+          type: string
+        termsAccepted:
+          type: boolean
+        acceptedAt:
+          format: date-time
+          type: string
+        currentStep:
+          enum:
+          - initiation
+          - verification
+          - business_details
+          - banking_details
+          - upload_documents
+          - sign_agreement
+          type: string
+      type: object
+    UpdateOrganizationComplianceInternalDto:
       properties:
         companyRegistrationName:
           type: string
@@ -11484,18 +12721,6 @@ components:
         completionScore:
           type: number
       type: object
-    ListOrganizationComplianceResponseDto:
-      properties:
-        data:
-          items:
-            $ref: "#/components/schemas/OrganizationComplianceResponseDto"
-          type: array
-        pagination:
-          $ref: "#/components/schemas/PaginationResponseDto"
-      required:
-      - data
-      - pagination
-      type: object
     SendEmailDto:
       example:
         template: welcome
@@ -11503,6 +12728,7 @@ components:
         - admin@cashful.africa
         bcc:
         - archive@cashful.africa
+        merchantId: merchantId
         subject: Welcome to Cashful
         context:
           name: John Doe
@@ -11552,12 +12778,16 @@ components:
           example:
           - archive@cashful.africa
           type: object
+        merchantId:
+          description: Merchant ID for context and auditing
+          type: string
       required:
       - subject
       - to
       type: object
     SendSmsDto:
       example:
+        merchantId: merchantId
         from: Cashful
         to: "+27123456789"
         message: "Your verification code is: 123456"
@@ -11573,6 +12803,9 @@ components:
         from:
           description: Sender name or number
           example: Cashful
+          type: string
+        merchantId:
+          description: Merchant ID for context and auditing
           type: string
       required:
       - message
@@ -11833,6 +13066,26 @@ components:
       required:
       - data
       - pagination
+      type: object
+    UpdateFileDto:
+      properties:
+        tags:
+          items:
+            type: string
+          type: array
+        status:
+          enum:
+          - pending
+          - uploaded
+          - failed
+          - deleted
+          type: string
+        isPublic:
+          type: boolean
+        relatedEntityId:
+          type: string
+        relatedEntityType:
+          type: string
       type: object
     BaseDto:
       properties:

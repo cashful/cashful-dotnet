@@ -5,10 +5,12 @@ All URIs are relative to *https://api.cashful.africa*
 | Method | HTTP request | Description |
 |--------|--------------|-------------|
 | [**CreateProduct**](ProductsApi.md#createproduct) | **POST** /api/canary/products | Create Product |
+| [**DeleteProduct**](ProductsApi.md#deleteproduct) | **DELETE** /api/canary/products/{id} | Delete Product |
+| [**DeleteProductsBulk**](ProductsApi.md#deleteproductsbulk) | **DELETE** /api/canary/products/bulk | Bulk Delete Products |
 | [**ListProducts**](ProductsApi.md#listproducts) | **GET** /api/canary/products | List Products |
-| [**RetrieveMultipleProducts**](ProductsApi.md#retrievemultipleproducts) | **POST** /api/canary/products/multiple | Retrieve Multiple Products by ID |
 | [**RetrieveProduct**](ProductsApi.md#retrieveproduct) | **GET** /api/canary/products/{id} | Retrieve Product |
 | [**UpdateProduct**](ProductsApi.md#updateproduct) | **PATCH** /api/canary/products/{id} | Update Product |
+| [**UpdateProductsBulk**](ProductsApi.md#updateproductsbulk) | **PATCH** /api/canary/products/bulk | Bulk Update Products |
 
 <a id="createproduct"></a>
 # **CreateProduct**
@@ -111,9 +113,213 @@ catch (ApiException e)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+<a id="deleteproduct"></a>
+# **DeleteProduct**
+> ProductResponseDto DeleteProduct (string id)
+
+Delete Product
+
+Deletes a product by ID.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
+
+namespace Example
+{
+    public class DeleteProductExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://api.cashful.africa";
+            // Configure Bearer token for authorization: bearer
+            config.AccessToken = "YOUR_BEARER_TOKEN";
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new ProductsApi(httpClient, config, httpClientHandler);
+            var id = "id_example";  // string | The unique identifier of the product
+
+            try
+            {
+                // Delete Product
+                ProductResponseDto result = apiInstance.DeleteProduct(id);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling ProductsApi.DeleteProduct: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the DeleteProductWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Delete Product
+    ApiResponse<ProductResponseDto> response = apiInstance.DeleteProductWithHttpInfo(id);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling ProductsApi.DeleteProductWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **id** | **string** | The unique identifier of the product |  |
+
+### Return type
+
+[**ProductResponseDto**](ProductResponseDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Product deleted successfully |  -  |
+| **400** | Bad Request - Invalid input |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="deleteproductsbulk"></a>
+# **DeleteProductsBulk**
+> Object DeleteProductsBulk (BulkIdsDto bulkIdsDto)
+
+Bulk Delete Products
+
+Deletes multiple products by ID.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
+
+namespace Example
+{
+    public class DeleteProductsBulkExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://api.cashful.africa";
+            // Configure Bearer token for authorization: bearer
+            config.AccessToken = "YOUR_BEARER_TOKEN";
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new ProductsApi(httpClient, config, httpClientHandler);
+            var bulkIdsDto = new BulkIdsDto(); // BulkIdsDto | 
+
+            try
+            {
+                // Bulk Delete Products
+                Object result = apiInstance.DeleteProductsBulk(bulkIdsDto);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling ProductsApi.DeleteProductsBulk: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the DeleteProductsBulkWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Bulk Delete Products
+    ApiResponse<Object> response = apiInstance.DeleteProductsBulkWithHttpInfo(bulkIdsDto);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling ProductsApi.DeleteProductsBulkWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **bulkIdsDto** | [**BulkIdsDto**](BulkIdsDto.md) |  |  |
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Products deleted successfully |  -  |
+| **400** | Bad Request - Invalid input |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 <a id="listproducts"></a>
 # **ListProducts**
-> ListProductsResponseDto ListProducts (decimal? limit = null, decimal? offset = null, string? merchantId = null, bool? active = null)
+> ListProductsResponseDto ListProducts (decimal? limit = null, decimal? offset = null, string? filter = null, string? sort = null, string? order = null, string? merchantId = null, bool? active = null)
 
 List Products
 
@@ -143,15 +349,18 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new ProductsApi(httpClient, config, httpClientHandler);
-            var limit = 50;  // decimal? | Maximum number of records to return (optional) 
-            var offset = 0;  // decimal? | Number of records to skip (optional) 
+            var limit = 50;  // decimal? | Maximum number of items to return (optional) 
+            var offset = 0;  // decimal? | Number of items to skip (optional) 
+            var filter = {"ids":["prod_123","prod_456"]};  // string? | JSON string used for dynamic filtering (optional) 
+            var sort = createdAt;  // string? | Field name to sort by (optional) 
+            var order = DESC;  // string? | Sort direction (optional) 
             var merchantId = "merchantId_example";  // string? | The ID of the merchant whose products are being requested. If not provided, the products of the authenticated merchant will be returned. (optional) 
             var active = true;  // bool? | Filter by active status (optional) 
 
             try
             {
                 // List Products
-                ListProductsResponseDto result = apiInstance.ListProducts(limit, offset, merchantId, active);
+                ListProductsResponseDto result = apiInstance.ListProducts(limit, offset, filter, sort, order, merchantId, active);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -172,7 +381,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Products
-    ApiResponse<ListProductsResponseDto> response = apiInstance.ListProductsWithHttpInfo(limit, offset, merchantId, active);
+    ApiResponse<ListProductsResponseDto> response = apiInstance.ListProductsWithHttpInfo(limit, offset, filter, sort, order, merchantId, active);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -189,8 +398,11 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **limit** | **decimal?** | Maximum number of records to return | [optional]  |
-| **offset** | **decimal?** | Number of records to skip | [optional]  |
+| **limit** | **decimal?** | Maximum number of items to return | [optional]  |
+| **offset** | **decimal?** | Number of items to skip | [optional]  |
+| **filter** | **string?** | JSON string used for dynamic filtering | [optional]  |
+| **sort** | **string?** | Field name to sort by | [optional]  |
+| **order** | **string?** | Sort direction | [optional]  |
 | **merchantId** | **string?** | The ID of the merchant whose products are being requested. If not provided, the products of the authenticated merchant will be returned. | [optional]  |
 | **active** | **bool?** | Filter by active status | [optional]  |
 
@@ -205,108 +417,6 @@ catch (ApiException e)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | Successfully retrieved products |  -  |
-| **400** | Bad Request - Invalid input |  -  |
-| **401** | Unauthorized |  -  |
-| **404** | Resource not found |  -  |
-| **500** | Internal server error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="retrievemultipleproducts"></a>
-# **RetrieveMultipleProducts**
-> List&lt;ProductResponseDto&gt; RetrieveMultipleProducts (RetrieveMultipleProductsDto retrieveMultipleProductsDto)
-
-Retrieve Multiple Products by ID
-
-Retrieves multiple products using the provided ID's with a maximum of 50 IDs.
-
-### Example
-```csharp
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net.Http;
-using Cashful.Api;
-using Cashful.Client;
-using Cashful.Model;
-
-namespace Example
-{
-    public class RetrieveMultipleProductsExample
-    {
-        public static void Main()
-        {
-            Configuration config = new Configuration();
-            config.BasePath = "https://api.cashful.africa";
-            // Configure Bearer token for authorization: bearer
-            config.AccessToken = "YOUR_BEARER_TOKEN";
-
-            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
-            HttpClient httpClient = new HttpClient();
-            HttpClientHandler httpClientHandler = new HttpClientHandler();
-            var apiInstance = new ProductsApi(httpClient, config, httpClientHandler);
-            var retrieveMultipleProductsDto = new RetrieveMultipleProductsDto(); // RetrieveMultipleProductsDto | List of product IDs
-
-            try
-            {
-                // Retrieve Multiple Products by ID
-                List<ProductResponseDto> result = apiInstance.RetrieveMultipleProducts(retrieveMultipleProductsDto);
-                Debug.WriteLine(result);
-            }
-            catch (ApiException  e)
-            {
-                Debug.Print("Exception when calling ProductsApi.RetrieveMultipleProducts: " + e.Message);
-                Debug.Print("Status Code: " + e.ErrorCode);
-                Debug.Print(e.StackTrace);
-            }
-        }
-    }
-}
-```
-
-#### Using the RetrieveMultipleProductsWithHttpInfo variant
-This returns an ApiResponse object which contains the response data, status code and headers.
-
-```csharp
-try
-{
-    // Retrieve Multiple Products by ID
-    ApiResponse<List<ProductResponseDto>> response = apiInstance.RetrieveMultipleProductsWithHttpInfo(retrieveMultipleProductsDto);
-    Debug.Write("Status Code: " + response.StatusCode);
-    Debug.Write("Response Headers: " + response.Headers);
-    Debug.Write("Response Body: " + response.Data);
-}
-catch (ApiException e)
-{
-    Debug.Print("Exception when calling ProductsApi.RetrieveMultipleProductsWithHttpInfo: " + e.Message);
-    Debug.Print("Status Code: " + e.ErrorCode);
-    Debug.Print(e.StackTrace);
-}
-```
-
-### Parameters
-
-| Name | Type | Description | Notes |
-|------|------|-------------|-------|
-| **retrieveMultipleProductsDto** | [**RetrieveMultipleProductsDto**](RetrieveMultipleProductsDto.md) | List of product IDs |  |
-
-### Return type
-
-[**List&lt;ProductResponseDto&gt;**](ProductResponseDto.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 
 
@@ -520,6 +630,108 @@ catch (ApiException e)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Product updated successfully |  -  |
+| **400** | Bad Request - Invalid input |  -  |
+| **401** | Unauthorized |  -  |
+| **404** | Resource not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="updateproductsbulk"></a>
+# **UpdateProductsBulk**
+> Object UpdateProductsBulk (BulkUpdateProductsInputDto bulkUpdateProductsInputDto)
+
+Bulk Update Products
+
+Updates multiple products using a shared patch.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using Cashful.Api;
+using Cashful.Client;
+using Cashful.Model;
+
+namespace Example
+{
+    public class UpdateProductsBulkExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://api.cashful.africa";
+            // Configure Bearer token for authorization: bearer
+            config.AccessToken = "YOUR_BEARER_TOKEN";
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new ProductsApi(httpClient, config, httpClientHandler);
+            var bulkUpdateProductsInputDto = new BulkUpdateProductsInputDto(); // BulkUpdateProductsInputDto | 
+
+            try
+            {
+                // Bulk Update Products
+                Object result = apiInstance.UpdateProductsBulk(bulkUpdateProductsInputDto);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling ProductsApi.UpdateProductsBulk: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the UpdateProductsBulkWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Bulk Update Products
+    ApiResponse<Object> response = apiInstance.UpdateProductsBulkWithHttpInfo(bulkUpdateProductsInputDto);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling ProductsApi.UpdateProductsBulkWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **bulkUpdateProductsInputDto** | [**BulkUpdateProductsInputDto**](BulkUpdateProductsInputDto.md) |  |  |
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Products updated successfully |  -  |
 | **400** | Bad Request - Invalid input |  -  |
 | **401** | Unauthorized |  -  |
 | **404** | Resource not found |  -  |

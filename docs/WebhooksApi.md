@@ -212,7 +212,7 @@ catch (ApiException e)
 
 <a id="listwebhookendpoints"></a>
 # **ListWebhookEndpoints**
-> ListWebhookEndpointsResponseDto ListWebhookEndpoints (string? merchantId = null, decimal? limit = null, decimal? offset = null)
+> ListWebhookEndpointsResponseDto ListWebhookEndpoints (string? merchantId = null, decimal? limit = null, decimal? offset = null, string? filter = null, string? sort = null, string? order = null)
 
 List Webhook Endpoints
 
@@ -245,11 +245,14 @@ namespace Example
             var merchantId = "merchantId_example";  // string? | The ID of the merchant whose webhooks are being requested. If omitted, defaults to the authenticated merchant. (optional) 
             var limit = 8.14D;  // decimal? | Maximum number of records to return (optional) 
             var offset = 8.14D;  // decimal? | Number of records to skip (optional) 
+            var filter = "filter_example";  // string? | JSON string used for dynamic filtering (optional) 
+            var sort = "sort_example";  // string? | Field name to sort by (optional) 
+            var order = "order_example";  // string? | Sort direction (ASC or DESC) (optional) 
 
             try
             {
                 // List Webhook Endpoints
-                ListWebhookEndpointsResponseDto result = apiInstance.ListWebhookEndpoints(merchantId, limit, offset);
+                ListWebhookEndpointsResponseDto result = apiInstance.ListWebhookEndpoints(merchantId, limit, offset, filter, sort, order);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -270,7 +273,7 @@ This returns an ApiResponse object which contains the response data, status code
 try
 {
     // List Webhook Endpoints
-    ApiResponse<ListWebhookEndpointsResponseDto> response = apiInstance.ListWebhookEndpointsWithHttpInfo(merchantId, limit, offset);
+    ApiResponse<ListWebhookEndpointsResponseDto> response = apiInstance.ListWebhookEndpointsWithHttpInfo(merchantId, limit, offset, filter, sort, order);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -290,6 +293,9 @@ catch (ApiException e)
 | **merchantId** | **string?** | The ID of the merchant whose webhooks are being requested. If omitted, defaults to the authenticated merchant. | [optional]  |
 | **limit** | **decimal?** | Maximum number of records to return | [optional]  |
 | **offset** | **decimal?** | Number of records to skip | [optional]  |
+| **filter** | **string?** | JSON string used for dynamic filtering | [optional]  |
+| **sort** | **string?** | Field name to sort by | [optional]  |
+| **order** | **string?** | Sort direction (ASC or DESC) | [optional]  |
 
 ### Return type
 

@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **PaymentIntentId** | **string** |  | [optional] 
 **CustomerId** | **string** |  | [optional] 
 **SessionUrl** | **string** |  | 
-**SuccessUrl** | **string** |  | 
-**CancelUrl** | **string** |  | 
+**SuccessUrl** | **string** |  | [optional] 
+**CancelUrl** | **string** |  | [optional] 
 **LineItems** | [**List&lt;LineItemDto&gt;**](LineItemDto.md) |  | [optional] 
 **TotalAmount** | **decimal** |  | [optional] 
 **Currency** | **string** |  | 
